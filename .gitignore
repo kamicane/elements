@@ -1,0 +1,4 @@
+*.html
+nodes.js
+node_modules/*
+.tm_properties
