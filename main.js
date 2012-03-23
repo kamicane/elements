@@ -5,8 +5,6 @@ var prime = require("prime/prime"),
 
 // Node
 
-var instances = {}
-
 var key = "n" + Math.round((Math.random() * 1e5)).toString(36)
 
 var Node = prime({
