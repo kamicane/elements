@@ -1,7 +1,7 @@
 {
   "name": "nodes",
   "description": "prime dom library",
-  "version": "0.0.2-alpha",
+  "version": "0.0.2-alpha1",
   "license": "MIT (http://mootools.net/license.txt)",
   "main": "./main.js",
   "keywords": [
@@ -19,7 +19,7 @@
     "url": "git://github.com/mootools/nodes.git"
   },
   "dependencies": {
-    "prime": "0.0.3-alpha"
+    "prime": "0.0.4-alpha"
   },
   "devDependencies": {},
   "optionalDependencies": {},
