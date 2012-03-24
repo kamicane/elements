@@ -1,7 +1,7 @@
 // Nodes wrapper
 
 var prime = require("prime/prime"),
-    array = require("prime/es5/array")
+    slice = Array.prototype.slice
 
 // Node
 
@@ -46,7 +46,7 @@ var Nodes = prime({
     },
 
     nodes: function(begin, end){
-        return array.slice(this[key], begin, end)
+        return slice.call(this[key], begin, end)
     },
 
     count: function(){
