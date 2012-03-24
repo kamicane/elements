@@ -1,4 +1,4 @@
 *.html
-nodes.js
+test.js
 node_modules/*
 .tm_properties

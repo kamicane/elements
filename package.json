@@ -3,7 +3,7 @@
   "description": "prime dom library",
   "version": "0.0.2-alpha",
   "license": "MIT (http://mootools.net/license.txt)",
-  "main": "./main.js",
+  "main": "./lib/main.js",
   "keywords": [
     "dom",
     "prime",
