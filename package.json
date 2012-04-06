@@ -19,7 +19,7 @@
     "url": "git://github.com/mootools/nodes.git"
   },
   "dependencies": {
-    "prime": "0.0.4-alpha"
+    "prime": "0.0.5-alpha"
   },
   "devDependencies": {},
   "optionalDependencies": {},
