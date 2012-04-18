@@ -1202,6 +1202,22 @@
                 };
             }
         });
+        $.implement({
+            getScrollSize: function() {
+                var el = this[0];
+                return {
+                    x: el.scrollWidth,
+                    y: el.scrollHeight
+                };
+            },
+            getScroll: function() {
+                var el = this[0];
+                return {
+                    x: el.scrollLeft,
+                    y: el.scrollTop
+                };
+            }
+        });
         module.exports = $;
     }
 });
