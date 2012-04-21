@@ -1193,16 +1193,60 @@
     h: function(require, module, exports, global) {
         "use strict";
         var $ = require("8");
+        var broken = {
+            boxModel: function() {
+                return document.compatMode !== "CSS1Compat";
+            }(),
+            offsetParent: function() {
+                var element = document.createElement("div"), child = document.createElement("div");
+                element.style.height = "0";
+                element.appendChild(child);
+                var isBroken = child.offsetParent === element;
+                element = child = null;
+                return isBroken;
+            }()
+        };
+        var isBody = function(element) {
+            return /^(?:body|html)$/i.test(element.tagName) || element === window;
+        };
+        var computedStyle = function(element, property) {
+            var computed;
+            if (element.currentStyle) {
+                computed = element.currentStyle(property);
+            } else {
+                computed = window.getComputedStyle(element, null).getPropertyValue(property);
+            }
+            return computed;
+        };
         $.implement({
             getSize: function() {
-                var el = this[0];
-                return {
-                    x: el.offsetWidth,
-                    y: el.offsetHeight
-                };
+                var el = this[0], size;
+                if (isBody(el)) {
+                    size = {
+                        x: window.innerWidth,
+                        y: window.innerHeight
+                    };
+                } else {
+                    size = {
+                        x: el.offsetWidth,
+                        y: el.offsetHeight
+                    };
+                }
+                return size;
             }
         });
         $.implement({
+            scrollTo: function(x, y) {
+                this.forEach(function(el) {
+                    if (isBody(el)) {
+                        window.scrollTo(x, y);
+                    } else {
+                        el.scrollLeft = x;
+                        el.scrollTop = y;
+                    }
+                });
+                return this;
+            },
             getScrollSize: function() {
                 var el = this[0];
                 return {
@@ -1216,6 +1260,44 @@
                     x: el.scrollLeft,
                     y: el.scrollTop
                 };
+            }
+        });
+        $.implement({
+            getOffsetParent: function() {
+                return this[0].offsetParent;
+            },
+            getOffset: function() {
+                var el = this[0], x = 0, y = 0;
+                while (el && el.offsetLeft && el.offsetTop) {
+                    x += el.offsetLeft - el.scrollLeft;
+                    y += el.offsetTop - el.scrollTop;
+                    el = el.offsetParent;
+                }
+                return {
+                    x: x,
+                    y: y
+                };
+            }
+        });
+        $.implement({
+            getPosition: function() {
+                var el = this[0], offset = this.getOffset(), scroll = this.getScroll();
+                return {
+                    x: offset.x - scroll.x,
+                    y: offset.y - scroll.y
+                };
+            },
+            getCoordinates: function() {
+                var position = this.getPosition(), size = this.getSize();
+                var coords = {
+                    left: position.x,
+                    top: position.y,
+                    width: size.x,
+                    height: size.y
+                };
+                coords.right = coords.left + coords.width;
+                coords.bottom = coords.top + coords.height;
+                return coords;
             }
         });
         module.exports = $;
