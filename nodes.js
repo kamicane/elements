@@ -1194,18 +1194,16 @@
         "use strict";
         var $ = require("8");
         var broken = {
-            scrollHeight: null
+            scrollHeight: false
         };
-        var check = {
-            scrollHeight: function() {
-                var element = document.createElement("div");
-                element.style.height = "100px";
-                document.body.appendChild(element);
-                broken.scrollHeight = element.scrollHeight != 100;
-                document.body.removeChild(element);
-                element = null;
-            }
-        };
+        $.ready(function() {
+            var element = document.createElement("div");
+            element.style.height = "100px";
+            document.body.appendChild(element);
+            broken.scrollHeight = element.scrollHeight != 100;
+            document.body.removeChild(element);
+            element = null;
+        });
         $.implement({
             getSize: function() {
                 var el = this[0];
@@ -1225,7 +1223,6 @@
             },
             getScrollSize: function() {
                 var el = this[0];
-                if (broken.scrollHeight === null) check.scrollHeight();
                 if (broken.scrollHeight) {
                     var offsetHeight = el.offsetHeight, scrollHeight = el.scrollHeight;
                     if (scrollHeight < offsetHeight) return {
