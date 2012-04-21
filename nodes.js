@@ -1204,9 +1204,31 @@
             document.body.removeChild(element);
             element = null;
         });
+        var isBody = function(el) {
+            return el === window || el === window.document || /^(?:body|html)$/i.test(el.tagName);
+        };
+        var documentMethods = {
+            getSize: function() {
+                var el = window.document.body;
+                return {
+                    x: el.clientWidth,
+                    y: el.clientHeight
+                };
+            },
+            scrollTo: function(x, y) {
+                window.scrollTo(x, y);
+            },
+            getScroll: function() {
+                return {
+                    x: window.scrollX,
+                    y: window.scrollY
+                };
+            }
+        };
         $.implement({
             getSize: function() {
                 var el = this[0];
+                if (isBody(el)) return documentMethods.getSize.call(el);
                 return {
                     x: el.offsetWidth,
                     y: el.offsetHeight
@@ -1215,6 +1237,7 @@
         });
         $.implement({
             scrollTo: function(x, y) {
+                if (isBody(this[0])) return documentMethods.scrollTo.call(this, x, y);
                 this.forEach(function(el) {
                     el.scrollLeft = x;
                     el.scrollTop = y;
@@ -1237,6 +1260,7 @@
             },
             getScroll: function() {
                 var el = this[0];
+                if (isBody(el)) return documentMethods.getScroll.call(this);
                 return {
                     x: el.scrollLeft,
                     y: el.scrollTop

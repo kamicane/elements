@@ -1,3 +1,6 @@
+/*
+tests
+*/
 describe('getScrollSize', function(){
 
 	var test1,
@@ -45,7 +48,10 @@ describe('getScrollSize', function(){
 describe('getScroll', function(){
 
 	var test1,
-		test2
+		test2,
+		win,
+		doc,
+		body
 	
 	before(function(){
 		test1 = nodes('#one')
@@ -55,6 +61,10 @@ describe('getScroll', function(){
 		test2 = nodes('#three')
 		test2[0].scrollTop = 50
 		test2[0].scrollLeft = 50		
+
+		win = nodes(window)
+		doc = nodes(document)
+		body = nodes(document.body)
 	})
 
 	it('should calculate scroll', function(){
@@ -70,6 +80,18 @@ describe('getScroll', function(){
 		expect(scroll2).to.only.have.keys('x', 'y')
 		expect(scroll2.x).to.be(50)
 		expect(scroll2.y).to.be(50)		
+	})
+	
+	it('should scroll and calulate scroll for window', function(){
+		win.scrollTo(0, 10)
+		var scroll5 = win.getScroll()
+		expect(scroll5.y).to.be(10)
+	})
+	
+	it ('should scroll and calculate scroll for document / body', function(){
+		doc.scrollTo(0, 50)
+		var scroll6 = doc.getScroll()
+		expect(scroll6.y).to.be(50)
 	})
 
 })
