@@ -3,10 +3,11 @@ tests
 */
 describe('getPosition', function(){
 
-    var viewportSize,
+    var viewportSize,	
     	test1,
     	test2,
-    	test3
+    	test3,
+    	test4
 
     before(function(){
     	viewportSize = {
@@ -17,6 +18,7 @@ describe('getPosition', function(){
         test1 = nodes('#one')
         test2 = nodes('#two')
         test3 = nodes('#three')
+        test4 = nodes('#four')
     })
 	
 	it('should calculate position', function(){
@@ -38,6 +40,18 @@ describe('getPosition', function(){
     	expect(position3).to.have.keys('x', 'y')
     	expect(position3.x).to.be(viewportSize.x - 200)
     	expect(position3.y).to.be(50)
+    	
+    	/* position: fixed */
+    	var position4 = test4.getPosition()
+    	expect(position4).to.have.keys('x', 'y')
+    	expect(position4.x).to.be(220)
+    	expect(position4.y).to.be(20)
+    	window.scrollTo(0, 50)
+    	position4 = test4.getPosition()
+    	expect(position4).to.have.keys('x', 'y')
+    	expect(position4.x).to.be(220)
+    	expect(position4.y).to.be(20)
+    	window.scrollTo(0, 0)   	
 	})
 	
 })
