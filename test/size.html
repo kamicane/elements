@@ -2,6 +2,20 @@
 <head>
     <meta charset="utf-8">
     <title>nodes dimensions tests</title>
+    <link href="mocha/mocha.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="mocha/expect.js" type="text/javascript"></script>
+    <script src="mocha/mocha.js" type="text/javascript"></script>
+
+    <script>
+        mocha.setup('bdd')
+        window.onload = function(){
+            mocha.run()
+        }
+    </script>
+
+    <script type="text/javascript" src="../nodes.js"></script>
+
+    <script src="test.dimensions.size.js" type="text/javascript"></script>
     
     <style>
     	#tests {
@@ -68,12 +82,14 @@
     		border-left-width: 40px;
     		border-right-width: 10px;
     		border-top-width: 27px;
-    		box-sizing: border-box;
     		float: right;
     		height: 200px;
     		margin-right: 30px;
 			margin-top: 30px;
     		width: 200px;
+    		
+    		-moz-box-sizing: border-box;
+    		box-sizing: border-box;
     	}
     		#five p {
     			color: black;
@@ -81,6 +97,9 @@
     </style>
 </head>
 <body>
+	<!-- Output -->
+    <div id="mocha"></div>
+
 	<!-- Test Elements -->
 	<div id="tests">
 		<div id="one">
@@ -107,7 +126,7 @@
 				120px x 120px<br />
 				+ borders<br />
 				<br />
-				170px x 262px
+				270px x 162px 
 			</p>
 		</div>
 		<div id="five">
@@ -116,12 +135,10 @@
 				+ borders<br />
 				+ border-box<br />
 				<br />
-				200px x 200px
+				200px x 200px<br />
+				(or 250px x 242px)
 			</p>
 		</div>
 	</div>
-	
-	<!-- Output -->
-    <div id="mocha"></div>
 </body>
 </html>
