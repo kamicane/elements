@@ -88,7 +88,7 @@ describe('getScroll', function(){
 		expect(scroll5.y).to.be(10)
 	})
 	
-	it ('should scroll and calculate scroll for document / body', function(){
+	it('should scroll and calculate scroll for document / body', function(){
 		win.scrollTo(0, 150)
 		var scroll6 = win.getScroll()
 		expect(scroll6.y).to.be(150)

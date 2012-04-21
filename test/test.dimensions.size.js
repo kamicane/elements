@@ -90,10 +90,10 @@ describe('getSize()', function(){
 		expect(size7).to.have.keys('x', 'y')
 		expect(size7.x).to.be.a('number')
 		expect(size7.y).to.be.a('number')
-	/*	var size8 = body.getSize()
+		var size8 = body.getSize()
 		expect(size8).to.have.keys('x', 'y')
 		expect(size8.x).to.be.a('number')
-		expect(size8.y).to.be.a('number')*/
+		expect(size8.y).to.be.a('number')
 	})
 
 })
