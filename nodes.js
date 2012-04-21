@@ -1193,22 +1193,6 @@
     h: function(require, module, exports, global) {
         "use strict";
         var $ = require("8");
-        var broken = {
-            boxModel: function() {
-                return document.compatMode !== "CSS1Compat";
-            }(),
-            offsetParent: function() {
-                var element = document.createElement("div"), child = document.createElement("div");
-                element.style.height = "0";
-                element.appendChild(child);
-                var isBroken = child.offsetParent === element;
-                element = child = null;
-                return isBroken;
-            }()
-        };
-        var isBody = function(element) {
-            return /^(?:body|html)$/i.test(element.tagName) || element === window;
-        };
         var computedStyle = function(element, property) {
             var computed;
             if (element.currentStyle) {
@@ -1220,30 +1204,18 @@
         };
         $.implement({
             getSize: function() {
-                var el = this[0], size;
-                if (isBody(el)) {
-                    size = {
-                        x: window.innerWidth,
-                        y: window.innerHeight
-                    };
-                } else {
-                    size = {
-                        x: el.offsetWidth,
-                        y: el.offsetHeight
-                    };
-                }
-                return size;
+                var el = this[0];
+                return {
+                    x: el.offsetWidth,
+                    y: el.offsetHeight
+                };
             }
         });
         $.implement({
             scrollTo: function(x, y) {
                 this.forEach(function(el) {
-                    if (isBody(el)) {
-                        window.scrollTo(x, y);
-                    } else {
-                        el.scrollLeft = x;
-                        el.scrollTop = y;
-                    }
+                    el.scrollLeft = x;
+                    el.scrollTop = y;
                 });
                 return this;
             },
@@ -1263,10 +1235,7 @@
             }
         });
         $.implement({
-            getOffsetParent: function() {
-                return this[0].offsetParent;
-            },
-            getOffset: function() {
+            getOffsets: function() {
                 var el = this[0], x = 0, y = 0;
                 while (el && el.offsetLeft && el.offsetTop) {
                     x += el.offsetLeft - el.scrollLeft;
@@ -1281,7 +1250,7 @@
         });
         $.implement({
             getPosition: function() {
-                var el = this[0], offset = this.getOffset(), scroll = this.getScroll();
+                var el = this[0], offset = this.getOffsets(), scroll = this.getScroll();
                 return {
                     x: offset.x - scroll.x,
                     y: offset.y - scroll.y
