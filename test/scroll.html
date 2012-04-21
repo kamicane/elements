@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>nodes scroll tests</title>
+    <link href="mocha/mocha.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="mocha/expect.js" type="text/javascript"></script>
+    <script src="mocha/mocha.js" type="text/javascript"></script>
+
+    <script>
+        mocha.setup('bdd')
+        window.onload = function(){
+            mocha.run()
+        }
+    </script>
+
+    <script type="text/javascript" src="../nodes.js"></script>
+
+    <script src="test.dimensions.scroll.js" type="text/javascript"></script>
+
+    <style>
+    	#tests {
+    		min-height: 1px;
+    	}
+    		#tests p {
+    			color: white;
+    			font: bold 12px/20px Helvetica, Arial, sans-serif;
+    			padding-top: 10px;
+    			text-align: center;
+    		}
+    	#tests:after {
+    		clear: both;
+    		content: "";
+    		display: table;
+    	}
+
+    	#one {
+    		background: red;
+    		float: left;
+    		height: 150px;
+			margin: 50px;
+    		width: 150px;
+    	}
+    		#one .inner {
+    			background: black;
+    			border: 2px dashed white;
+    			height: 146px;
+    			margin-left: 50px;
+    			margin-top: 50px;
+    			width: 146px;
+    		}
+
+    	#two {
+    		background: red;
+    		float: left;
+    		height: 150px;
+			margin: 50px;
+			overflow: auto;
+    		width: 150px;
+    	}
+    		#two .inner {
+    			background: black;
+    			border: 2px dashed white;
+    			height: 146px;
+    			margin-left: 50px;
+    			margin-top: 50px;
+    			width: 146px;
+    		}
+	</style>
+</head>
+<body>
+    <!-- Test Elements -->
+	<div id="tests">
+		<div id="one">
+			<div class="inner"></div>
+		</div>
+		<div id="two">
+			<div class="inner"></div>
+		</div>
+	</div>
+	
+	<!-- Output -->
+    <div id="mocha"></div>
+</body>
+</html>
