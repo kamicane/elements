@@ -1209,7 +1209,7 @@
         };
         var documentMethods = {
             getSize: function() {
-                var el = window.document.body;
+                var el = document.body;
                 return {
                     x: el.clientWidth,
                     y: el.clientHeight
@@ -1220,8 +1220,8 @@
             },
             getScroll: function() {
                 return {
-                    x: window.scrollX,
-                    y: window.scrollY
+                    x: window.pageXOffset || document.documentElement.scrollLeft,
+                    y: window.pageYOffset || document.documentElement.scrollTop
                 };
             }
         };
@@ -1260,7 +1260,7 @@
             },
             getScroll: function() {
                 var el = this[0];
-                if (isBody(el)) return documentMethods.getScroll.call(this);
+                if (isBody(el)) return documentMethods.getScroll.call(el);
                 return {
                     x: el.scrollLeft,
                     y: el.scrollTop

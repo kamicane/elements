@@ -67,15 +67,15 @@ describe('getScroll', function(){
 		body = nodes(document.body)
 	})
 
-	it('should calculate scroll', function(){
-	
-		/* overflow: visible, should not have scrolled */
+	it('should calculate scroll for overflow: visible - should not have scrolled', function(){
 		var scroll1 = test1.getScroll()
 		expect(scroll1).to.only.have.keys('x', 'y')
 		expect(scroll1.x).to.be(0)
 		expect(scroll1.y).to.be(0)
 	
-		/* overflow: auto, should have scrolled */
+	})
+
+	it('should calculate scroll for overflow: auto - should have scrolled', function(){
 		var scroll2 = test2.getScroll()
 		expect(scroll2).to.only.have.keys('x', 'y')
 		expect(scroll2.x).to.be(50)
@@ -89,9 +89,9 @@ describe('getScroll', function(){
 	})
 	
 	it ('should scroll and calculate scroll for document / body', function(){
-		doc.scrollTo(0, 50)
-		var scroll6 = doc.getScroll()
-		expect(scroll6.y).to.be(50)
+		win.scrollTo(0, 150)
+		var scroll6 = win.getScroll()
+		expect(scroll6.y).to.be(150)
 	})
 
 })
