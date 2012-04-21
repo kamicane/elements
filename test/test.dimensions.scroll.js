@@ -12,27 +12,28 @@ describe('getScrollSize', function(){
 		test4 = nodes('#four')
 	})
 
-	it('should calculate scroll size', function(){
-	
-		/* overflow: visible */
+	it('should calculate scroll size for overflow:visible', function(){
 		var scrollSize1 = test1.getScrollSize()
 		expect(scrollSize1).to.only.have.keys('x', 'y')
 		expect(scrollSize1.x).to.be(200)
 		expect(scrollSize1.y).to.be(200)
-		
-		/* overflow: hidden */
+	})
+
+	it('should calculate scroll size for overflow:hidden', function(){
 		var scrollSize2 = test2.getScrollSize()
 		expect(scrollSize2).to.only.have.keys('x', 'y')
 		expect(scrollSize2.x).to.be(200)
 		expect(scrollSize2.y).to.be(200)
-		
-		/* overflow: auto */
+	})
+
+	it('should calculate scroll size for overflow:auto', function(){
 		var scrollSize3 = test3.getScrollSize()
 		expect(scrollSize3).to.only.have.keys('x', 'y')
 		expect(scrollSize3.x).to.be(200)
 		expect(scrollSize3.y).to.be(200)
-		
-		/* no child */
+	})
+
+	it('should calculate scroll size for single element', function(){
 		var scrollSize4 = test4.getScrollSize()
 		expect(scrollSize4).to.only.have.keys('x', 'y')
 		expect(scrollSize4.x).to.be(150)

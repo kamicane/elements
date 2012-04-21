@@ -21,27 +21,28 @@ describe('getPosition', function(){
         test4 = nodes('#four')
     })
 	
-	it('should calculate position', function(){
-	
-		/* margin top/left from top of document */
+	it('should calculate position (margin top/left from top of document)', function(){
 		var position1 = test1.getPosition()
     	expect(position1).to.have.keys('x', 'y')
     	expect(position1.x).to.be(50)
     	expect(position1.y).to.be(50)
-    	
-    	/* absolutely positioned element */
+	})
+	
+	it('should calculate position (absolutely positioned element)', function(){
     	var position2 = test2.getPosition()
     	expect(position2).to.have.keys('x', 'y')
     	expect(position2.x).to.be(412)
     	expect(position2.y).to.be(83)
-    	
-    	/* floated right */
+	})
+	
+	it('should calculate position (element floated right)', function(){
     	var position3 = test3.getPosition()
     	expect(position3).to.have.keys('x', 'y')
     	expect(position3.x).to.be(viewportSize.x - 200)
     	expect(position3.y).to.be(50)
-    	
-    	/* position: fixed */
+	})
+	
+	it('should calculate position (fixed position element)', function(){
     	var position4 = test4.getPosition()
     	expect(position4).to.have.keys('x', 'y')
     	expect(position4.x).to.be(220)

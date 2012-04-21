@@ -1193,14 +1193,18 @@
     h: function(require, module, exports, global) {
         "use strict";
         var $ = require("8");
-        var computedStyle = function(element, property) {
-            var computed;
-            if (element.currentStyle) {
-                computed = element.currentStyle(property);
-            } else {
-                computed = window.getComputedStyle(element, null).getPropertyValue(property);
+        var broken = {
+            scrollHeight: null
+        };
+        var check = {
+            scrollHeight: function() {
+                var element = document.createElement("div");
+                element.style.height = "100px";
+                document.body.appendChild(element);
+                broken.scrollHeight = element.scrollHeight != 100;
+                document.body.removeChild(element);
+                element = null;
             }
-            return computed;
         };
         $.implement({
             getSize: function() {
@@ -1221,6 +1225,14 @@
             },
             getScrollSize: function() {
                 var el = this[0];
+                if (broken.scrollHeight === null) check.scrollHeight();
+                if (broken.scrollHeight) {
+                    var offsetHeight = el.offsetHeight, scrollHeight = el.scrollHeight;
+                    if (scrollHeight < offsetHeight) return {
+                        x: el.scrollWidth,
+                        y: offsetHeight
+                    };
+                }
                 return {
                     x: el.scrollWidth,
                     y: el.scrollHeight
