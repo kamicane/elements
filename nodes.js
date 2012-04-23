@@ -1192,7 +1192,7 @@
     },
     h: function(require, module, exports, global) {
         "use strict";
-        var $ = require("8");
+        var $ = require("5");
         (function(window, document) {
             var broken = {
                 scrollHeight: false
@@ -1239,7 +1239,7 @@
             $.implement({
                 scrollTo: function(x, y) {
                     if (isBody(this[0])) return documentMethods.scrollTo.call(this, x, y);
-                    this.forEach(function(el) {
+                    this.handle(function(el) {
                         el.scrollLeft = x;
                         el.scrollTop = y;
                     });
