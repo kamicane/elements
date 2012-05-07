@@ -5,26 +5,35 @@
 // mostly used for travis.ci
 
 var args = phantom.args;
-if (args.length < 1 || args.length > 2) {
+if (args.length < 1 || args.length > 2){
     console.log("Usage: " + phantom.scriptName + " <URL> <timeout>");
     phantom.exit(1);
 }
 
 var page = require('webpage').create();
 
-page.onConsoleMessage = function(msg) {
+page.onConsoleMessage = function(msg){
     if (msg.slice(0,8) === 'WARNING:') { return; }
     console.log(msg);
 };
 
 page.open(phantom.args[0], function(status){
 
-    if (status !== "success") {
+    if (status !== "success"){
         console.log("Unable to access network");
         phantom.exit();
     } else {
 
+        var timeout = parseInt(args[1] || 60000, 10)
+        var start = Date.now();
+
         var poll = function(){
+
+            if (Date.now() > start + timeout){
+                console.log("Tests timed out")
+                phantom.exit(124)
+                return
+            }
 
             var ready = page.evaluate(function(){
 
