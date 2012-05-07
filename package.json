@@ -21,7 +21,11 @@
   "dependencies": {
     "prime": "0.0.5-alpha"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "1.0",
+    "expect.js": "0.1",
+    "wrapup": "0.9"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"

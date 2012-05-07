@@ -1,4 +1,3 @@
-*.html
 test.js
 node_modules/*
 .tm_properties
