@@ -9,7 +9,10 @@
     <script>
         mocha.setup('bdd')
         window.onload = function(){
-            mocha.run()
+            mocha.run(function(){
+                // required so phantomjs can check if mocha is ready
+                document.body.setAttribute('data-ready', '1')
+            })
         }
     </script>
 

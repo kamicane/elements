@@ -12,3 +12,6 @@ build-compress:
 test-server:
 	@node ./test/server.js
 
+test-phantom:
+	@phantomjs ./test/phantom.js 'http://localhost:8080/attributes.html'
+
