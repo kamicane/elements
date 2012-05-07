@@ -14,4 +14,5 @@ test-server:
 
 test-phantom:
 	@phantomjs ./test/phantom.js 'http://localhost:8080/attributes.html'
+	@phantomjs ./test/phantom.js 'http://localhost:8080/traversal.html'
 
