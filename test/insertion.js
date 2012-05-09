@@ -1,14 +1,12 @@
 "use strict";
-
 var $ = require('../lib/insertion')
 var expect = require('expect.js')
-
-describe('insertion.js',function(){
+describe('insertion.js', function(){
     // prepare the environment
     beforeEach(function(){
         var body = document.getElementsByTagName('body')[0];
         var container = document.getElementById('container');
-        if(!container) {
+        if (!container){
             container = document.createElement('div');
             container.id = 'container';
             container.style.display = 'none';
@@ -16,7 +14,6 @@ describe('insertion.js',function(){
             container.top = 0;
             container.left = 0;
         }
-
         body.appendChild(container);
         container.innerHTML = ['',
             '<ul>',
@@ -43,39 +40,36 @@ describe('insertion.js',function(){
 
         it('implements appendChild', function(){
             var ul = $(document.getElementById('container').firstChild);
-            ul.appendChild($E('li','insertedLI'));
+            ul.appendChild($E('li', 'insertedLI'));
             var found = false;
             var index = 0;
             $(document.getElementById('container').firstChild.childNodes).handle(function(element, i){
-                if(element.id == 'insertedLI') {
+                if (element.id == 'insertedLI'){
                     found = true;
                     index = i;
                 }
             })
-            expect(found).to.be(true);
+            expect(found).to.be.ok();
             expect(index).to.be(3);
         })
 
         it('implements insertBefore', function(){
             var ul = $(document.getElementById('container').firstChild);
-
             var ins = $E('li', 'insertedLI');
             ul.appendChild(ins);
             var found = false;
             var index = 0;
-
             var bef = $E('li', 'beforeLI');
             ul.insertBefore(bef, ins);
-
             var found = false;
             var index = 0;
             $(document.getElementById('container').firstChild.childNodes).handle(function(element, i){
-                if(element.id == 'beforeLI') {
+                if (element.id == 'beforeLI'){
                     found = true;
                     index = i;
                 }
             })
-            expect(found).to.be(true);
+            expect(found).to.be.ok();
             expect(index).to.be(3);
         })
 
@@ -91,58 +85,69 @@ describe('insertion.js',function(){
         it('implements replaceChild', function(){
             var ul = $(document.getElementById('container').firstChild);
             var lis = $(document.getElementById('container').firstChild.childNodes);
-            ul.replaceChild($E('li','replaced'), lis[0]);
+            ul.replaceChild($E('li', 'replaced'), lis[0]);
             lis = $(document.getElementById('container').firstChild.childNodes);
-            expect(lis[0].id == 'replaced').to.be(true);
+            expect(lis[0].id == 'replaced').to.be.ok();
         })
 
-
     })
+
     describe('implements before, after, bottom, top', function(){
+
         describe('before', function(){
+
             it('should insert the current Nodes before the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild);
                 var element = $E('div', 'divFirst');
                 element.before(ul);
-                expect($(document.getElementById('container').firstChild) == element).to.be(true);
+                expect($(document.getElementById('container').firstChild) == element).to.be.ok();
             })
+
         })
+
         describe('after', function(){
+
             it('should insert the current Nodes after the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild);
-
                 var element = $E('li', 'placeholder');
                 element.after(ul[0].firstChild);
-
-                expect(ul[0].childNodes[1].id == 'placeholder').to.be(true);
-
+                expect(ul[0].childNodes[1].id == 'placeholder').to.be.ok();
                 var element2 = $E('li', 'placeholder2');
                 element2.after(document.getElementById('third'));
-                expect(ul[0].childNodes.length == 5).to.be(true);
-                expect(ul[0].childNodes[4].id == 'placeholder2').to.be(true);
-
+                expect(ul[0].childNodes.length == 5).to.be.ok();
+                expect(ul[0].childNodes[4].id == 'placeholder2').to.be.ok();
             })
+
         })
+
         describe('bottom', function(){
+
             it('should insert the current Nodes at the bottom of the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild);
-                $E('li','placeholder').bottom(ul);
-                expect(ul[0].childNodes[3].id == 'placeholder').to.be(true);
+                $E('li', 'placeholder').bottom(ul);
+                expect(ul[0].childNodes[3].id == 'placeholder').to.be.ok();
             })
+
         })
+
         describe('top', function(){
+
             it('should insert the current Nodes at the top of the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild);
-                $E('li','placeholder').top(ul);
-                expect(ul[0].firstChild.id == 'placeholder').to.be(true);
+                $E('li', 'placeholder').top(ul);
+                expect(ul[0].firstChild.id == 'placeholder').to.be.ok();
             })
+
         })
+
     })
+
     describe('implements insert, remove, replace', function(){
+
         it('should alias bottom as insert', function(){
             var ul = $(document.getElementById('container').firstChild);
-            $E('li','placeholder').insert(ul);
-            expect(ul[0].childNodes[3].id == 'placeholder').to.be(true);
+            $E('li', 'placeholder').insert(ul);
+            expect(ul[0].childNodes[3].id == 'placeholder').to.be.ok();
         })
 
         it('should remove the current node', function(){
@@ -150,14 +155,16 @@ describe('insertion.js',function(){
             var element = $E('li', 'placeholder');
             element.after(ul[0].firstChild);
             $(ul[0].firstChild).remove();
-            expect(ul[0].firstChild.id == 'placeholder').to.be(true);
+            expect(ul[0].firstChild.id == 'placeholder').to.be.ok();
         })
 
         it('should swap the current node with the one passed', function(){
             var ul = $(document.getElementById('container').firstChild);
             var element = $E('li', 'placeholder');
             element.replace(ul[0].firstChild);
-            expect(ul[0].firstChild.id == 'placeholder').to.be(true);
+            expect(ul[0].firstChild.id == 'placeholder').to.be.ok();
         })
+
     })
+
 })
