@@ -14,4 +14,8 @@ test-server:
 
 test-phantom:
 	@phantomjs ./test/phantom.js 'http://localhost:8080/attributes.html'
+	@phantomjs ./test/phantom.js 'http://localhost:8080/events.html'
+	@phantomjs ./test/phantom.js 'http://localhost:8080/insertion.html'
+	@phantomjs ./test/phantom.js 'http://localhost:8080/list.html'
+	@phantomjs ./test/phantom.js 'http://localhost:8080/nodes.html'
 

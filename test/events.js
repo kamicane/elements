@@ -1,29 +1,32 @@
 "use strict";
+
 var $ = require('../lib/events')
 var expect = require('expect.js')
+
 describe('events.js', function(){
-    var body = $(document.documentElement);
+
+    var body = $(document.documentElement)
 
     describe('should implement Emit.on/off/emit', function(){
 
         it('should allow event subscription', function(){
-            var flag = false;
+            var flag = false
             body.on('w00fz', function(){
-                flag = true;
+                flag = true
             })
-            body.emit('w00fz');
-            expect(flag).to.be.ok();
+            body.emit('w00fz')
+            expect(flag).to.be.ok()
         })
 
         it('should allow event de-subscription', function(){
-            var flag = false;
+            var flag = false
             var callback = function(){
-                flag = true;
-            };
+                flag = true
+            }
             body.on('w00fz', callback)
             body.off('w00fz', callback)
-            body.emit('w00fz');
-            expect(flag).to.be(false);
+            body.emit('w00fz')
+            expect(flag).to.be(false)
         })
 
     })
