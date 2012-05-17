@@ -66,7 +66,7 @@ describe('attribute.js', function(){
             var lis = document.getElementById('container').getElementsByTagName('li')
             var li = $(lis[0])
             expect(li.hasAttribute('class')).to.be.ok()
-            expect(li.hasAttribute('id')).to.be(false)
+            expect(li.hasAttribute('id')).not.to.be.ok()
         })
 
         it('should fallback in case hasAttribute is not present', function(){
