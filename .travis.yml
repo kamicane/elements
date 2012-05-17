@@ -7,3 +7,5 @@ before_script:
   - sudo node test/server.js &
   - sleep 5
 script: make test-phantom
+notifications:
+  irc: "irc.freenode.org#mootools-dev"
