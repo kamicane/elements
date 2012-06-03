@@ -26,7 +26,9 @@
     "expect.js": "0.1",
     "wrapup": "0.9"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+      "slick": "1.9.1-alpha"
+  },
   "engines": {
     "node": "*"
   }
