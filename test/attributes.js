@@ -51,9 +51,15 @@ describe('attribute.js', function(){
             var lis = $(document.getElementById('container').getElementsByTagName('li'))
             lis.handle(function(element, index){
                 switch (index){
-                    case 0: expect(this.getAttribute('class')).to.be('first'); break
-                    case 1: expect(this.getAttribute('title')).to.be('title'); break
-                    case 2: expect(this.getAttribute('id')).to.be('third'); break
+                    case 0:
+                        expect(this.getAttribute('class')).to.be('first');
+                        break
+                    case 1:
+                        expect(this.getAttribute('title')).to.be('title');
+                        break
+                    case 2:
+                        expect(this.getAttribute('id')).to.be('third');
+                        break
                 }
             })
         })
@@ -87,6 +93,58 @@ describe('attribute.js', function(){
             expect(li.hasAttribute('title')).to.be.ok()
             li.removeAttribute('title')
             expect(li.hasAttribute('title')).to.be(false)
+        })
+
+    })
+    describe('content methods', function(){
+
+        describe('text', function(){
+
+            it('should set element inner text', function(){
+                var lis = document.getElementById('container').getElementsByTagName('li')
+
+                var li = $(lis[1])
+                expect(li[0].innerHTML).to.be('2');
+                expect(li[0].innerHTML).to.be('2');
+                expect(li.text('hello, text')[0].innerHTML).to.be('hello, text');
+            })
+
+            it('should get element inner text', function(){
+                var lis = document.getElementById('container').getElementsByTagName('li')
+
+                var li = $(lis[1])
+                expect(li[0].innerHTML).to.be('2');
+                expect(li.text()).to.be('2');
+                expect(li.text('hello, text').text()).to.be('hello, text');
+            })
+
+            it('should properly escape XML chars', function(){
+                var lis = document.getElementById('container').getElementsByTagName('li')
+
+                var li = $(lis[1])
+                expect(li[0].innerHTML).to.be('2');
+
+                expect(li.text()).to.be('2');
+                expect(li.text('<>')[0].innerHTML).to.be('&lt;&gt;');
+                expect(li.text('<>').text()).to.be('<>');
+            })
+
+        })
+
+        describe('html', function(){
+
+            it('should get element inner html', function(){
+                var lis = document.getElementById('container').getElementsByTagName('li')
+                var li = $(lis[1])
+                expect(li.html()).to.be(li[0].innerHTML);
+            })
+
+            it('should set element inner html', function(){
+                var lis = document.getElementById('container').getElementsByTagName('li')
+                var li = $(lis[1])
+                expect(li.html('<li>hello, world</li>').html()).to.be('<li>hello, world</li>');
+            })
+
         })
 
     })

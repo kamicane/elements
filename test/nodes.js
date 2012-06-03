@@ -107,37 +107,37 @@ describe('nodes.js', function(){
             res = options.handle(everyHasRel)
             expect(res.length).to.not.be(options.length)
         })
+    })
 
-        it('expose a use method, to allow custom selector', function(){
-            var html = $(document.documentElement)
-            $.use({
-                prototype: {
+    it('expose a use method, to allow custom selector', function(){
+        var html = $(document.documentElement)
+        $.use({
+            prototype: {
 
-                },
-                search: function(n, ctx, self){
-                    self[self.length++] = document.documentElement
-                }
-            })
-            expect($('^_^') == html).to.be.ok()
+            },
+            search: function(n, ctx, self){
+                self[self.length++] = document.documentElement
+            }
         })
+        expect($('^_^') == html).to.be.ok()
+    })
 
-        it('expose a use method, to allow custom sorter', function(){
-            var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            $.use({
-                prototype: {},
-                sort: function(self){
-                    //swap self[0] with self[1]
-                    var tmp = self[0]
-                    self[0] = self[1]
-                    self[1] = tmp
-                }
-            })
-            var lis2 = $(document.getElementById('container').getElementsByTagName('li'))
-            expect(lis2[0] == lis[1]).to.be.ok()
-            expect(lis2[1] == lis[0]).to.be.ok()
-            expect(lis2[2] == lis[2]).to.be.ok()
+    it('expose a use method, to allow custom sorter', function(){
+        var lis = $(document.getElementById('container').getElementsByTagName('li'))
+        $.use({
+            prototype: {},
+            sort: function(self){
+                //swap self[0] with self[1]
+                var tmp = self[0]
+                self[0] = self[1]
+                self[1] = tmp
+            }
         })
-
+        var lis2 = $(document.getElementById('container').getElementsByTagName('li'))
+        expect(lis2[0] == lis[1]).to.be.ok()
+        expect(lis2[1] == lis[0]).to.be.ok()
+        expect(lis2[2] == lis[2]).to.be.ok()
     })
 
 })
+
