@@ -1,5 +1,5 @@
 {
-  "name": "nodes",
+  "name": "elements",
   "description": "prime dom library",
   "version": "0.0.6-alpha",
   "license": "MIT (http://mootools.net/license.txt)",
@@ -12,11 +12,11 @@
   "homepage": "http://mootools.net",
   "author": "Valerio Proietti <@kamicane> (http://mad4milk.net)",
   "bugs": {
-    "url": "https://github.com/mootools/nodes/issues"
+    "url": "https://github.com/mootools/elements/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mootools/nodes.git"
+    "url": "git://github.com/mootools/elements.git"
   },
   "dependencies": {
     "prime": "0.0.5-alpha"

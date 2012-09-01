@@ -1,5 +1,5 @@
-Nodes
-=====
+Elements
+========
 
-[![Build Status](https://secure.travis-ci.org/mootools/nodes.png?branch=master)](http://travis-ci.org/mootools/nodes)
+[![Build Status](https://secure.travis-ci.org/mootools/elements.png?branch=master)](http://travis-ci.org/mootools/elements)
 
