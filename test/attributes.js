@@ -97,38 +97,38 @@ describe('attribute.js', function(){
 
             it('handles type', function(){
                 var input = $(document.getElementById('moo'))
-                expect(input.type()).to.be('text')
-                input.type('button')
-                expect(input.type()).to.be('button')
+                expect(input.get( 'type' )).to.be('text')
+                input.set('type', 'button')
+                expect(input.get('type' )).to.be('button')
             })
 
             it('handles value', function(){
                 var input = $(document.getElementById('moo'))
-                expect(input.value()).to.be('mootools')
-                input.value('mootools rocks!')
-                expect(input.value()).to.be('mootools rocks!')
+                expect(input.get('value')).to.be('mootools')
+                input.set('value', 'mootools rocks!')
+                expect(input.get('value')).to.be('mootools rocks!')
             })
 
             it('handles name', function(){
                 var input = $(document.getElementById('moo'))
-                expect(input.name()).to.be('library')
-                input.name('framework')
-                expect(input.name()).to.be('framework')
+                expect(input.get('name')).to.be('library')
+                input.set('name', 'framework')
+                expect(input.get('name')).to.be('framework')
             })
 
             it('handles href', function(){
                 var link = $(document.getElementById('link'))
-                expect(link.href().indexOf('#library') != -1).to.be.ok()
-                link.href('#framework')
-                expect(link.href().indexOf('#framework') != -1).to.be.ok()
+                expect(link.get('href').indexOf('#library') != -1).to.be.ok()
+                link.set('href', '#framework')
+                expect(link.get('href').indexOf('#framework') != -1).to.be.ok()
             })
 
             it('handles title', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li')
                 var li = $(lis[1])
-                expect(li.title()).to.be('title')
-                li.title('mootools li')
-                expect(li.title()).to.be('mootools li')
+                expect(li.get('title')).to.be('title')
+                li.set('title', 'mootools li')
+                expect(li.get('title')).to.be('mootools li')
             })
 
         })
@@ -137,30 +137,30 @@ describe('attribute.js', function(){
 
             it('handles checked', function(){
                 var input = $(document.getElementById('moo'))
-                input.type('checkbox')
-                input.checked(true)
-                expect(input.checked()).to.be.ok()
-                input.checked(false)
-                expect(input.checked()).to.be(false)
+                input.set('type', 'checkbox')
+                input.set('checked', true)
+                expect(input.get('checked')).to.be.ok()
+                input.set('checked', false)
+                expect(input.get('checked')).to.be(false)
             })
 
             it('handles disabled', function(){
                 var input = $(document.getElementById('moo'))
-                input.disabled(true)
-                expect(input.disabled()).to.be.ok()
-                input.disabled(false)
-                expect(input.disabled()).to.be(false)
+                input.set('disabled', true)
+                expect(input.get('disabled')).to.be.ok()
+                input.set('disabled', false)
+                expect(input.get('disabled')).to.be(false)
             })
 
             it('handles selected', function(){
                 var select = document.getElementById('mooselect'),
                     first = $(select.childNodes[0]),
                     second = $(select.childNodes[1])
-                expect(first.selected()).to.be(false)
-                expect(second.selected()).to.be.ok()
-                first.selected(true)
-                expect(first.selected()).to.be.ok()
-                expect(second.selected()).to.be(false)
+                expect(first.get('selected')).to.be(false)
+                expect(second.get('selected')).to.be.ok()
+                first.set('selected', true)
+                expect(first.get('selected')).to.be.ok()
+                expect(second.get('selected')).to.be(false)
             })
 
         })
