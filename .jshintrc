@@ -1,0 +1,12 @@
+{
+	"asi": true,
+	"node": true,
+	"browser": true,
+	"predef": [
+		"describe",
+		"it",
+		"xit",
+		"before",
+		"beforeEach"
+	]
+}
