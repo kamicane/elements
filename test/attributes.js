@@ -186,19 +186,19 @@ describe('attribute.js', function(){
             it('has classnames method that return classes as an ordered array of string', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li'),
                     li = $(lis[0])
-                expect(li.get('classNames')).to.be.an(Array)
-                expect(li.get('classNames').length).to.be(1)
-                expect(li.get('classNames')[0]).to.be('first')
+                expect(li.getClassNames()).to.be.an(Array)
+                expect(li.getClassNames().length).to.be(1)
+                expect(li.getClassNames()[0]).to.be('first')
                 li.set('className', 'once first now second')
-                expect(li.get('classNames').length).to.be(4)
+                expect(li.getClassNames().length).to.be(4)
                 var exp = ['first', 'now', 'once', 'second']
                 for (var i = 0, max = 3; i < max; i++){
-                    expect(li.get('classNames')[i]).to.be(exp[i])
+                    expect(li.getClassNames()[i]).to.be(exp[i])
                 }
             })
 
             it('has a tag method that return the tag name', function(){
-                expect($(document.documentElement).get('tag')).to.be('html')
+                expect($(document.documentElement).getTag()).to.be('html')
             })
 
         })
