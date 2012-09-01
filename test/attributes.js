@@ -169,36 +169,36 @@ describe('attribute.js', function(){
 
             it('set new id', function(){
                 var html = $(document.documentElement)
-                html.id('newid')
-                expect(html.id()).to.be('newid')
-                html.id('html')
-                expect(html.id()).to.be('html')
+                html.set('id', 'newid')
+                expect(html.get('id')).to.be('newid')
+                html.set('id', 'html')
+                expect(html.get('id')).to.be('html')
             })
 
             it('can reset classnames with className', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li'),
                     li = $(lis[0])
-                expect(li.className()).to.be('first')
-                li.className('ex first now second')
-                expect(li.className()).to.be('ex first now second')
+                expect(li.get('className')).to.be('first')
+                li.set('className', 'ex first now second')
+                expect(li.get('className')).to.be('ex first now second')
             })
 
             it('has classnames method that return classes as an ordered array of string', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li'),
                     li = $(lis[0])
-                expect(li.classNames()).to.be.an(Array)
-                expect(li.classNames().length).to.be(1)
-                expect(li.classNames()[0]).to.be('first')
-                li.className('once first now second')
-                expect(li.classNames().length).to.be(4)
+                expect(li.get('classNames')).to.be.an(Array)
+                expect(li.get('classNames').length).to.be(1)
+                expect(li.get('classNames')[0]).to.be('first')
+                li.set('className', 'once first now second')
+                expect(li.get('classNames').length).to.be(4)
                 var exp = ['first', 'now', 'once', 'second']
                 for (var i = 0, max = 3; i < max; i++){
-                    expect(li.classNames()[i]).to.be(exp[i])
+                    expect(li.get('classNames')[i]).to.be(exp[i])
                 }
             })
 
             it('has a tag method that return the tag name', function(){
-                expect($(document.documentElement).tag()).to.be('html')
+                expect($(document.documentElement).get('tag')).to.be('html')
             })
 
         })
@@ -236,8 +236,8 @@ describe('attribute.js', function(){
             it('return a brief description of the tag, including id, class', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li')
                 var li = $(lis[0])
-                li.id('LI')
-                li.className('mootools')
+                li.set('id', 'LI')
+                li.set('className', 'mootools')
                 var desc = li.toString()
                 expect(desc).to.be.a('string')
                 expect(desc).to.be("li#LI.mootools")
