@@ -2,6 +2,7 @@
 	"asi": true,
 	"node": true,
 	"browser": true,
+	"eqnull": true,
 	"predef": [
 		"describe",
 		"it",
