@@ -8,7 +8,13 @@
     </head>
     <body>
 
-        <div id="sidebar"><a href="#get">get</a>
+        <div id="sidebar"><a href="#Elements" class="top">Elements</a>
+<a href="#$">$</a>
+<a href="#handle">handle</a>
+<a href="#remove">remove</a>
+<a href="#zen" class="top">zen</a>
+<a href="#attributes" class="top">attributes</a>
+<a href="#get">get</a>
 <a href="#set">set</a>
 <a href="#getAttribute">getAttribute</a>
 <a href="#setAttribute">setAttribute</a>
@@ -22,8 +28,97 @@
 <a href="#tag">tag</a>
 <a href="#html">html</a>
 <a href="#text">text</a>
+<a href="#domready" class="top">domready</a>
+<a href="#events" class="top">events</a>
+<a href="#insertion" class="top">insertion</a>
+<a href="#list" class="top">list</a>
+<a href="#traversal" class="top">traversal</a>
 </div>
-        <div id="content"><h1>Attributes</h1>
+        <div id="content"><h1><a href="#Elements" name="Elements">Elements</a></h1>
+
+<p>Elements is a DOM library using wrapped elements.</p>
+
+<h2><a href="#$" name="$">$</a></h2>
+
+<p>Returns <code><span class="attribute">elements</code> instances.</p>
+
+<h3>Example</h3>
+
+<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
+
+<span class="comment">// a collection elements, will only contain unique elements</span>
+<span class="keyword">var</span> elements = $(document.getElementsByTagName(<span class="string">'div'</span>))
+elements.addClass(<span class="string">'test'</span>)
+
+<span class="comment">// a single element</span>
+<span class="keyword">var</span> element = $(document.getElementById(<span class="string">'myElement'</span>))
+element.addClass(<span class="string">'test'</span>)
+
+<span class="comment">// if an element does not exist, $ will return null</span>
+<span class="keyword">var</span> element = $(document.getElementById(<span class="string">'not-existing'</span>)) <span class="comment">// → null</span>
+</code></pre></div>
+
+<h2><a href="#handle" name="handle">handle</a></h2>
+
+<p>This method will loop through all elements and the callback will be called with the native DOM element. The returned version of the callback will be returned as an array, like <code>Array.<span class="keyword">prototype</span>.<span class="keyword">map</span></code>.</p>
+
+<h3>Syntax</h3>
+
+<div class="highlight"><pre lang="javascript"><code>elements.handle(callback)
+</code></pre></div>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>callback - (<em>function</em>) callback that will be called with the native element, the index and the returned buffer array. The context is the elements instance which belongs to the element.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>array</em>) an array with the values returned by the callbacks</li>
+</ul>
+
+<h2><a href="#remove" name="remove">remove</a></h2>
+
+<p>Removes an element from the DOM.</p>
+
+<h3>Syntax</h3>
+
+<div class="highlight"><pre lang="javascript"><code>element.remove()
+</code></pre></div>
+
+<h1><a href="#zen" name="zen">zen</a></h1>
+
+<p>Create elements through CSS selectors.</p>
+
+<h3>Examples</h3>
+
+<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> zen = require(<span class="string">'elements/lib/zen'</span>)
+
+<span class="comment">// returns elements instance with one div element</span>
+zen(<span class="string">'div'</span>)
+
+<span class="comment">// returns elements instance with two a elements</span>
+zen(<span class="string">'a + a'</span>)
+
+<span class="comment">// returns an elements instance with an a in a div</span>
+zen(<span class="string">'div a'</span>)
+
+<span class="comment">// with an id, classes and attributes</span>
+zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
+</code></pre></div>
+
+<h3>Notes</h3>
+
+<ul>
+<li>zen also requires the Slick CSS parser.</li>
+</ul>
+
+<h1><a href="#attributes" name="attributes">attributes</a></h1>
+
+<div class="highlight"><pre lang="javascript"><code>$ = require(<span class="string">'elements/lib/attributes'</span>)
+</code></pre></div>
 
 <h2><a href="#get" name="get">get</a></h2>
 
@@ -326,7 +421,29 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 <div class="highlight"><pre lang="javascript"><code>myElement.text(<span class="string">"I'm just contemplating the ifs."</span>)
 <span class="comment">// or</span>
 <span class="keyword">var</span> text = myElement.text()
-</code></pre></div></div>
+</code></pre></div>
+
+<h1><a href="#domready" name="domready">domready</a></h1>
+
+<p>Contains the DOMReady event, which executes when the DOM is loaded.</p>
+
+<p>To ensure that DOM elements exist when the code attempts to access them is executed, they need to be placed within the 'domready' event.</p>
+
+<h3>Example</h3>
+
+<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> domready = require(<span class="string">'elements/lib/domready'</span>)
+domready(<span class="keyword">function</span>(){
+    alert(<span class="string">'The DOM is ready!'</span>)
+})
+</code></pre></div>
+
+<h1><a href="#events" name="events">events</a></h1>
+
+<h1><a href="#insertion" name="insertion">insertion</a></h1>
+
+<h1><a href="#list" name="list">list</a></h1>
+
+<h1><a href="#traversal" name="traversal">traversal</a></h1></div>
 
     </body>
 </html>

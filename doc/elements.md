@@ -1,5 +1,90 @@
-Attributes
+Elements
+========
+
+Elements is a DOM library using wrapped elements.
+
+## $
+
+Returns `elements` instances.
+
+### Example
+
+```js
+var $ = require('elements')
+
+// a collection elements, will only contain unique elements
+var elements = $(document.getElementsByTagName('div'))
+elements.addClass('test')
+
+// a single element
+var element = $(document.getElementById('myElement'))
+element.addClass('test')
+
+// if an element does not exist, $ will return null
+var element = $(document.getElementById('not-existing')) // → null
+```
+
+## handle
+
+This method will loop through all elements and the callback will be called with the native DOM element. The returned version of the callback will be returned as an array, like `Array.prototype.map`.
+
+### Syntax
+
+```js
+elements.handle(callback)
+```
+
+### Arguments
+
+1. callback - (*function*) callback that will be called with the native element, the index and the returned buffer array. The context is the elements instance which belongs to the element.
+
+### Returns
+
+- (*array*) an array with the values returned by the callbacks
+
+## remove
+
+Removes an element from the DOM.
+
+### Syntax
+
+```js
+element.remove()
+```
+
+zen
+===
+
+Create elements through CSS selectors.
+
+### Examples
+
+```js
+var zen = require('elements/lib/zen')
+
+// returns elements instance with one div element
+zen('div')
+
+// returns elements instance with two a elements
+zen('a + a')
+
+// returns an elements instance with an a in a div
+zen('div a')
+
+// with an id, classes and attributes
+zen('div a#link.menu.big[href="test.html"]')
+```
+
+### Notes
+
+- zen also requires the Slick CSS parser.
+
+attributes
 ==========
+
+```js
+$ = require('elements/lib/attributes')
+```
 
 ## get
 
@@ -292,3 +377,35 @@ myElement.text("I'm just contemplating the ifs.")
 // or
 var text = myElement.text()
 ```
+
+domready
+========
+
+Contains the DOMReady event, which executes when the DOM is loaded.
+
+To ensure that DOM elements exist when the code attempts to access them is executed, they need to be placed within the 'domready' event.
+
+### Example
+
+```js
+var domready = require('elements/lib/domready')
+domready(function(){
+	alert('The DOM is ready!')
+})
+```
+
+events
+======
+
+
+
+insertion
+=========
+
+list
+====
+
+traversal
+=========
+
+

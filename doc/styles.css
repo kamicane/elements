@@ -25,6 +25,7 @@ p a:hover {
 
 #sidebar {
     background: #272822;
+    border-right: 5px solid #272822;
     position: fixed;
     top: 0;
     left: 0;
@@ -44,23 +45,56 @@ p a:hover {
     color: #A6E22E;
 }
 
+#sidebar a.top {
+    background: #A6E22E;
+    color: #272822;
+    margin-top: 10px;
+    font-weight: bold;
+    padding: 8px;
+}
+
+#sidebar::-webkit-scrollbar {
+    width: 10px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.3);
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+
 #content {
     margin-left: 230px;
 }
 
+#content h1,
 #content h2 {
     position: relative;
 }
 
+#content h1 a,
 #content h2 a {
     color: #272822;
-    border-bottom: 5px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 5px solid rgba(0, 0, 0, 0.5);
     display: block;
     text-decoration: none;
 }
 
-#content a:hover:before {
+#content h2 a {
+    border-bottom: 5px solid rgba(0, 0, 0, 0.3);
+}
+
+#content h1 a:hover:before,
+#content h2 a:hover:before {
     content: '¶ ';
     position: absolute;
+    left: -18px;
+}
+
+#content h2 a:hover:before {
     left: -14px;
 }
+

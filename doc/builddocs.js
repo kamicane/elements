@@ -33,15 +33,15 @@ fs.readdir(__dirname, function(err, files){
         html = layout.replace('{content}', html)
 
         var sidebar = ''
-        html = html.replace(/<h2>([^<]*)<\/h2>/g, function(original, method){
-            sidebar += '<a href="#' + method + '">' + method + '</a>\n'
-            return '<h2><a href="#' + method + '" name="' + method + '">' + method + '</a></h2>'
+        html = html.replace(/<h(\d)>([^<]*)<\/h(\d)>/g, function(original, heading, method){
+            if (heading != 1 && heading != 2) return original
+            sidebar += '<a href="#' + method + '"' + (heading == 1 ? ' class="top"' : '') + '>' + method + '</a>\n'
+            return '<h' + heading + '><a href="#' + method + '" name="' + method + '">' + method + '</a></h' + heading + '>'
         })
 
         html = html.replace('{sidebar}', sidebar)
 
         fs.writeFileSync(__dirname + '/' + file.slice(0, -3) + '.html', html)
-
 
     })
 
