@@ -190,14 +190,14 @@ describe('attribute.js', function(){
             it('has classnames method that return classes as an ordered array of string', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li'),
                     li = $(lis[0])
-                expect(li.getClassNames()).to.be.an(Array)
-                expect(li.getClassNames().length).to.be(1)
-                expect(li.getClassNames()[0]).to.be('first')
+                expect(li.classNames()).to.be.an(Array)
+                expect(li.classNames().length).to.be(1)
+                expect(li.classNames()[0]).to.be('first')
                 li.set('className', 'once first now second')
-                expect(li.getClassNames().length).to.be(4)
+                expect(li.classNames().length).to.be(4)
                 var exp = ['first', 'now', 'once', 'second']
                 for (var i = 0, max = 3; i < max; i++){
-                    expect(li.getClassNames()[i]).to.be(exp[i])
+                    expect(li.classNames()[i]).to.be(exp[i])
                 }
             })
 
