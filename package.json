@@ -24,7 +24,9 @@
   "devDependencies": {
     "mocha": "1.0",
     "expect.js": "0.1",
-    "wrapup": "0.9"
+    "wrapup": "0.9",
+    "github-flavored-markdown": "1.0",
+    "highlight.js": "7"
   },
   "optionalDependencies": {
       "slick": "1.9.1-alpha"
