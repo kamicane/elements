@@ -202,7 +202,7 @@ describe('attribute.js', function(){
             })
 
             it('has a tag method that return the tag name', function(){
-                expect($(document.documentElement).getTag()).to.be('html')
+                expect($(document.documentElement).tag()).to.be('html')
             })
 
         })
@@ -251,18 +251,18 @@ describe('attribute.js', function(){
 
     })
 
-    describe('setHTML', function(){
+    describe('html', function(){
 
         it("should set the html of an Element", function(){
             var html = '<a href="http://mootools.net/">link</a>'
             var parent = document.createElement('div')
-            $(parent).setHTML(html)
+            $(parent).html(html)
             expect(parent.innerHTML.toLowerCase()).to.equal(html)
         })
 
         it("should return a select Element that retains it's selected options", function(){
             var div = document.createElement('div')
-            $(div).setHTML([
+            $(div).html([
                 '<select multiple="multiple" name="select">',
                 '<option value="" name="none">--</option>',
                 '<option value="volvo" name="volvo">Volvo</option>',
@@ -281,7 +281,7 @@ describe('attribute.js', function(){
         it("should set the html of a select Element", function(){
             var html = '<option>option 1</option><option selected="selected">option 2</option>'
             var select = document.createElement('select')
-            $(select).setHTML(html)
+            $(select).html(html)
             expect(select.getElementsByTagName('*').length).to.equal(2)
             expect(select.options.length).to.equal(2);
             expect(select.selectedIndex).to.equal(1);
@@ -290,7 +290,7 @@ describe('attribute.js', function(){
         it("should set the html of a table Element", function(){
             var html = '<tbody><tr><td>cell 1</td><td>cell 2</td></tr><tr><td class="cell">cell 1</td><td>cell 2</td></tr></tbody>'
             var table = document.createElement('table')
-            $(table).setHTML(html)
+            $(table).html(html)
             expect(table.childNodes.length).to.equal(1)
             expect(table.firstChild.firstChild.getElementsByTagName('*').length).to.equal(2)
             expect(table.firstChild.lastChild.firstChild.className).to.equal('cell')
@@ -301,7 +301,7 @@ describe('attribute.js', function(){
             var tbody = document.createElement('tbody')
             var table = document.createElement('table')
             table.appendChild(tbody)
-            $(tbody).setHTML(html)
+            $(tbody).html(html)
             expect(tbody.childNodes.length).to.equal(2)
             expect(tbody.lastChild.firstChild.className).to.equal('cell')
         })
@@ -313,7 +313,7 @@ describe('attribute.js', function(){
             var tr = document.createElement('tr')
             table.appendChild(tbody)
             tbody.appendChild(tr)
-            $(tr).setHTML(html)
+            $(tr).html(html)
             expect(tr.getElementsByTagName('*').length).to.equal(2)
             expect(tr.firstChild.className).to.equal('cell')
         })
@@ -325,7 +325,7 @@ describe('attribute.js', function(){
             var tr = document.createElement('tr')
             expect(tr.parentNode).to.equal(null)
             // In IE using appendChild like in set('html') sets the parentNode to a documentFragment
-            $(tr).setHTML(html)
+            $(tr).html(html)
             table.appendChild(tbody)
             tbody.appendChild(tr)
             expect(tr.innerHTML.toLowerCase().replace(/>\s+</, '><')).to.equal(html)
@@ -336,43 +336,39 @@ describe('attribute.js', function(){
         it('should create childNodes for html5 tags', function(){
             var html = '<nav>Muu</nav><p>Tuuls</p><section>!</section>'
             var div = document.createElement('div')
-            $(div).setHTML(html)
+            $(div).html(html)
             expect(div.childNodes.length).to.equal(3)
         })
 
         it('should set a number (so no string) as html', function(){
             var div = document.createElement('div')
-            $(div).setHTML(20)
+            $(div).html(20)
             expect(div.innerHTML).to.equal('20')
         })
-
-    })
-
-    describe('getHTML', function(){
 
         it('should get the HTML of an element', function(){
             var html = '<a href="http://mootools.net/">link</a>'
             var div = document.createElement('div')
             div.innerHTML = html
-            expect($(div).getHTML()).to.equal(html)
+            expect($(div).html()).to.equal(html)
         })
 
     })
 
-    describe('setText / getText', function(){
+    describe('text', function(){
 
         it("should set the text of an element", function(){
             var div = document.createElement('div')
-            $(div).setText('some text content')
-            expect($(div).getText()).to.equal('some text content')
+            $(div).text('some text content')
+            expect($(div).text()).to.equal('some text content')
             expect(div.innerHTML).to.equal('some text content')
         })
 
         it('should return the original text with `text-transform: uppercase`', function(){
             var div = document.createElement('div')
-            $(div).setHTML('<div style="text-transform: uppercase">text</div>')
+            $(div).html('<div style="text-transform: uppercase">text</div>')
             document.body.appendChild(div)
-            expect($(div.firstChild).getText()).to.equal('text');
+            expect($(div.firstChild).text()).to.equal('text');
             $(div).destroy()
         })
     })
