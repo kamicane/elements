@@ -19,3 +19,5 @@ test-phantom:
 	@phantomjs ./test/phantom.js 'http://localhost:8080/list.html'
 	@phantomjs ./test/phantom.js 'http://localhost:8080/nodes.html'
 
+docs:
+	@node ./doc/builddocs.js
