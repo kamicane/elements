@@ -1,5 +1,5 @@
 "use strict";
-var $ = require('../lib/domready')
+var ready = require('../lib/domready')
 var expect = require('expect.js')
 describe('domready.js', function(){
     // prepare the environment
@@ -34,7 +34,7 @@ describe('domready.js', function(){
 
         it('should trigger on and after dom ready (in our case it instant trigger since dom is already loaded)', function(){
             var flag = false;
-            $.ready(function(){
+            ready(function(){
                 flag = true;
             });
             expect(flag).to.be.ok();
