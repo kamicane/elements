@@ -165,6 +165,10 @@ describe('attribute.js', function(){
 
         })
 
+    })
+
+    describe('class attribute methods', function(){
+
         describe('handle className, classNames, id, tag', function(){
 
             it('set new id', function(){
@@ -231,20 +235,146 @@ describe('attribute.js', function(){
 
         })
 
-        describe('expose a toString method', function(){
+    })
 
-            it('return a brief description of the tag, including id, class', function(){
-                var lis = document.getElementById('container').getElementsByTagName('li')
-                var li = $(lis[0])
-                li.set('id', 'LI')
-                li.set('className', 'mootools')
-                var desc = li.toString()
-                expect(desc).to.be.a('string')
-                expect(desc).to.be("li#LI.mootools")
-            })
+    describe('expose a toString method', function(){
+
+        it('return a brief description of the tag, including id, class', function(){
+            var lis = document.getElementById('container').getElementsByTagName('li')
+            var li = $(lis[0])
+            li.set('id', 'LI')
+            li.set('className', 'mootools')
+            var desc = li.toString()
+            expect(desc).to.be.a('string')
+            expect(desc).to.be("li#LI.mootools")
+        })
+
+    })
+
+    describe('setHTML', function(){
+
+        it("should set the html of an Element", function(){
+            var html = '<a href="http://mootools.net/">link</a>'
+            var parent = document.createElement('div')
+            $(parent).setHTML(html)
+            expect(parent.innerHTML.toLowerCase()).to.equal(html)
+        })
+
+        it("should return a select Element that retains it's selected options", function(){
+            var div = document.createElement('div')
+            $(div).setHTML([
+                '<select multiple="multiple" name="select">',
+                '<option value="" name="none">--</option>',
+                '<option value="volvo" name="volvo">Volvo</option>',
+                '<option value="saab" name="saab" selected="selected">Saab</option>',
+                '<option value="opel" name="opel" selected="selected">Opel</option>',
+                '<option value="bmw" name="bmw">BMW</option>',
+                '</select>'
+            ].join(''))
+            var select = div.firstChild
+            expect(select.multiple).to.be.ok()
+            expect(select.name).to.be('select')
+            expect(select.options.length).to.be(5)
 
         })
 
+        it("should set the html of a select Element", function(){
+            var html = '<option>option 1</option><option selected="selected">option 2</option>'
+            var select = document.createElement('select')
+            $(select).setHTML(html)
+            expect(select.getElementsByTagName('*').length).to.equal(2)
+            expect(select.options.length).to.equal(2);
+            expect(select.selectedIndex).to.equal(1);
+        })
+
+        it("should set the html of a table Element", function(){
+            var html = '<tbody><tr><td>cell 1</td><td>cell 2</td></tr><tr><td class="cell">cell 1</td><td>cell 2</td></tr></tbody>'
+            var table = document.createElement('table')
+            $(table).setHTML(html)
+            expect(table.childNodes.length).to.equal(1)
+            expect(table.firstChild.firstChild.getElementsByTagName('*').length).to.equal(2)
+            expect(table.firstChild.lastChild.firstChild.className).to.equal('cell')
+        })
+
+        it("should set the html of a tbody Element", function(){
+            var html = '<tr><td>cell 1</td><td>cell 2</td></tr><tr><td class="cell">cell 1</td><td>cell 2</td></tr>'
+            var tbody = document.createElement('tbody')
+            var table = document.createElement('table')
+            table.appendChild(tbody)
+            $(tbody).setHTML(html)
+            expect(tbody.childNodes.length).to.equal(2)
+            expect(tbody.lastChild.firstChild.className).to.equal('cell')
+        })
+
+        it("should set the html of a tr Element", function(){
+            var html = '<td class="cell">cell 1</td><td>cell 2</td>'
+            var table = document.createElement('table')
+            var tbody = document.createElement('tbody')
+            var tr = document.createElement('tr')
+            table.appendChild(tbody)
+            tbody.appendChild(tr)
+            $(tr).setHTML(html)
+            expect(tr.getElementsByTagName('*').length).to.equal(2)
+            expect(tr.firstChild.className).to.equal('cell')
+        })
+
+        it("should set the html of a tr Element, even when it has no parentNode", function(){
+            var html = '<td class="cell c">cell 1</td><td>cell 2</td>'
+            var table = document.createElement('table')
+            var tbody = document.createElement('tbody')
+            var tr = document.createElement('tr')
+            expect(tr.parentNode).to.equal(null)
+            // In IE using appendChild like in set('html') sets the parentNode to a documentFragment
+            $(tr).setHTML(html)
+            table.appendChild(tbody)
+            tbody.appendChild(tr)
+            expect(tr.innerHTML.toLowerCase().replace(/>\s+</, '><')).to.equal(html)
+            expect(tr.childNodes.length).to.equal(2)
+            expect(tr.firstChild.className).to.equal('cell c')
+        })
+
+        it('should create childNodes for html5 tags', function(){
+            var html = '<nav>Muu</nav><p>Tuuls</p><section>!</section>'
+            var div = document.createElement('div')
+            $(div).setHTML(html)
+            expect(div.childNodes.length).to.equal(3)
+        })
+
+        it('should set a number (so no string) as html', function(){
+            var div = document.createElement('div')
+            $(div).setHTML(20)
+            expect(div.innerHTML).to.equal('20')
+        })
+
+    })
+
+    describe('getHTML', function(){
+
+        it('should get the HTML of an element', function(){
+            var html = '<a href="http://mootools.net/">link</a>'
+            var div = document.createElement('div')
+            div.innerHTML = html
+            expect($(div).getHTML()).to.equal(html)
+        })
+
+    })
+
+    describe('setText / getText', function(){
+
+        it("should set the text of an element", function(){
+            var div = document.createElement('div')
+            $(div).setText('some text content')
+            expect($(div).getText()).to.equal('some text content')
+            expect(div.innerHTML).to.equal('some text content')
+        })
+
+        it('should return the original text with `text-transform: uppercase`', function(){
+            var div = document.createElement('div')
+            $(div).setHTML('<div style="text-transform: uppercase">text</div>')
+            document.body.appendChild(div)
+            expect($(div.firstChild).getText()).to.equal('text');
+            $(div).destroy()
+        })
     })
 
 })
