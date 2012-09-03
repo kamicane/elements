@@ -510,6 +510,13 @@ element.emit(<span class="string">'click'</span>, <span class="number">4</span>,
 
 <p>Insertion will insert, inject or replace elements at certain places.</p>
 
+<h3>Example</h3>
+
+<pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements/lib/insertion'</span>)
+
+<span class="keyword">var</span> vince = $(document.getElementById(<span class="string">'vince'</span>))
+$(document.createElement(<span class="string">'div'</span>)).insert(vince)</code></pre>
+
 <h2><a href="#appendChild" name="appendChild">appendChild</a></h2>
 
 <p>Wrapper method of the native <code>appendChild</code> method. It will append another

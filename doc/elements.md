@@ -502,6 +502,15 @@ insertion
 
 Insertion will insert, inject or replace elements at certain places.
 
+### Example
+
+```js
+var $ = require('elements/lib/insertion')
+
+var vince = $(document.getElementById('vince'))
+$(document.createElement('div')).insert(vince)
+```
+
 ## appendChild
 
 Wrapper method of the native `appendChild` method. It will append another
