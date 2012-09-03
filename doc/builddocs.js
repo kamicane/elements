@@ -1,10 +1,18 @@
 "use strict"
 
 var fs = require('fs')
-var markdown = require('github-flavored-markdown')
+var rs = require('robotskirt')
 var hljs = require('highlight.js')
 
 var layout = fs.readFileSync(__dirname + '/layout.html').toString()
+
+function unescape(str){
+    return str
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"')
+}
 
 fs.readdir(__dirname, function(err, files){
     if (err) throw err
@@ -13,23 +21,16 @@ fs.readdir(__dirname, function(err, files){
         if (file.slice(-3) != '.md') return
 
         var md = fs.readFileSync(__dirname + '/' + file).toString()
-        var html = markdown.parse(md)
+        var html = rs.toHtmlSync(md)
 
         html = html
-            .replace(/\n/g, '\uffff')
-            .replace(/<code([^>]*)>(.*?)<\/code>/gm, function(original, attrs, source){
-                source = source.replace(/\uffff/g, "\n")
-                source = hljs.highlightAuto(source).value
-                return '<code' + attrs + '>' + source + '</code>'
-            })
-            .replace(/<pre lang="(\w+)">(.*?)<\/pre>/gm, function(original, lang, source){
+            .replace(/<code class="(\w+)">([\s|\S]*?)<\/code>/gm, function(original, lang, source){
                 if (lang == 'js') lang = 'javascript'
                 else if (lang == 'html') lang = 'xml'
-                source = source.replace(/\uffff/g, "\n")
-                source = hljs.highlight(lang, source)
-                return '<pre lang="' + lang + '"><code>' + source.value + '</code></pre>'
+                source = hljs.highlight(lang, unescape(source)).value.trim()
+                return '<code class="' + lang + '">' + source + '</code>'
             })
-            .replace(/\uffff/g, "\n")
+
         html = layout.replace('{content}', html)
 
         var sidebar = ''
