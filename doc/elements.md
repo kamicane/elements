@@ -669,17 +669,99 @@ parent.replaceChild(child, ref)
 
 ## before
 
+Inserts an element before another element.
+
+### Example
+
+#### JS
+
+```js
+myFirstElement.before(mySecondElement)
+```
+
+#### Resulting HTML
+
+```html
+<div id="myFirstElement"></div>
+<div id="mySecondElement"></div>
+```
+
 ## after
+
+Inserts an element after another element.
+
+### Example
+
+#### JS
+
+```js
+myFirstElement.after(mySecondElement)
+```
+
+#### Resulting HTML
+
+```html
+<div id="mySecondElement"></div>
+<div id="myFirstElement"></div>
+```
 
 ## bottom
 
+Injects an element at the bottom of another element.
+
+### Example
+
+#### JS
+
+```js
+myFirstElement.bottom(mySecondElement)
+```
+
+#### Resulting HTML
+
+```html
+<div id="mySecondElement">
+	<div id="myFirstElement"></div>
+</div>
+```
+
 ## top
+
+Injects an element at the top of another element.
+
+### Example
+
+#### JS
+
+```js
+myThirdElement.top(mySecondElement)
+```
+
+#### Resulting HTML
+
+```html
+<div id="mySecondElement">
+	<div id="myThirdElement"></div>
+	<div id="myFirstElement"></div>
+</div>
+```
 
 ## insert
 
 `insert` is an alias of [bottom](#bottom)
 
 ## replace
+
+Replace another element with this element.
+
+### Example
+
+#### JS
+
+```js
+myNewElement.replaces(myOldElement)
+// myOldElement is gone, and myNewElement is in its place.
+```
 
 list
 ====

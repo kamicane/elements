@@ -669,17 +669,81 @@ parent.replaceChild(child, ref)</code></pre>
 
 <h2><a href="#before" name="before">before</a></h2>
 
+<p>Inserts an element before another element.</p>
+
+<h3>Example</h3>
+
+<h4>JS</h4>
+
+<pre><code class="javascript">myFirstElement.before(mySecondElement)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myFirstElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mySecondElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
 <h2><a href="#after" name="after">after</a></h2>
+
+<p>Inserts an element after another element.</p>
+
+<h3>Example</h3>
+
+<h4>JS</h4>
+
+<pre><code class="javascript">myFirstElement.after(mySecondElement)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mySecondElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myFirstElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h2><a href="#bottom" name="bottom">bottom</a></h2>
 
+<p>Injects an element at the bottom of another element.</p>
+
+<h3>Example</h3>
+
+<h4>JS</h4>
+
+<pre><code class="javascript">myFirstElement.bottom(mySecondElement)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mySecondElement"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myFirstElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
 <h2><a href="#top" name="top">top</a></h2>
+
+<p>Injects an element at the top of another element.</p>
+
+<h3>Example</h3>
+
+<h4>JS</h4>
+
+<pre><code class="javascript">myThirdElement.top(mySecondElement)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mySecondElement"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myThirdElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myFirstElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h2><a href="#insert" name="insert">insert</a></h2>
 
 <p><code>insert</code> is an alias of <a href="#bottom">bottom</a></p>
 
 <h2><a href="#replace" name="replace">replace</a></h2>
+
+<p>Replace another element with this element.</p>
+
+<h3>Example</h3>
+
+<h4>JS</h4>
+
+<pre><code class="javascript">myNewElement.replaces(myOldElement)
+<span class="comment">// myOldElement is gone, and myNewElement is in its place.</span></code></pre>
 
 <h1><a href="#list" name="list">list</a></h1>
 
