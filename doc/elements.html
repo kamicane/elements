@@ -12,6 +12,7 @@
 <a href="#$">$</a>
 <a href="#handle">handle</a>
 <a href="#remove">remove</a>
+<a href="#$.use">$.use</a>
 <a href="#zen" class="top">zen</a>
 <a href="#attributes" class="top">attributes</a>
 <a href="#get">get</a>
@@ -50,6 +51,40 @@
         <div id="content"><h1><a href="#Elements" name="Elements">Elements</a></h1>
 
 <p>Elements is a DOM library using wrapped elements.</p>
+
+<h3>Downloading elements</h3>
+
+<p>Big Fat Download Button</p>
+
+<h3>Installation</h3>
+
+<p>elements can be obtained through <em>npm</em> with the following command:</p>
+
+<pre><code>npm install elements
+</code></pre>
+
+<h3>Building elements</h3>
+
+<p>In many examples below you can see <code>require()</code> calls, just like <code>require()</code>
+works in nodejs. If you have downloaded the full version you do not have to
+worry about it, all methods will be there already by default. However if you
+choose to build elements manually, just with the components you need, you can
+use <a href="https://github.com/kamicane/wrapup">wrapup</a> to create your own build.</p>
+
+<h4>Your main.js</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
+<span class="keyword">var</span> ready = require(<span class="string">'elements/lib/domready'</span>)
+<span class="keyword">var</span> zen = require(<span class="string">'elements/lib/zen'</span>)
+ready(<span class="keyword">function</span>(){
+    <span class="keyword">var</span> text = <span class="string">"When all else fails, read the manual"</span>
+    <span class="keyword">var</span> element = zen(<span class="string">'div.class'</span>).text(text).insert(document.body)
+})</code></pre>
+
+<h4>Build Command</h4>
+
+<pre><code>wrup -r ./main.js
+</code></pre>
 
 <h2><a href="#$" name="$">$</a></h2>
 
@@ -101,6 +136,28 @@ instance which belongs to the element.</li>
 <h3>Syntax</h3>
 
 <pre><code class="javascript">element.remove()</code></pre>
+
+<h2><a href="#$.use" name="$.use">$.use</a></h2>
+
+<p>Most modules in elements don't require a specific selector engine. With
+<code>$.use()</code> a selector engine can be used.</p>
+
+<h3>Examples</h3>
+
+<pre><code class="javascript"><span class="comment">// simply require slick. install slick with: npm install slick</span>
+<span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
+$.use(require(<span class="string">'slick'</span>))
+
+<span class="comment">// or use some other engine:</span>
+$.use({
+    search: <span class="keyword">function</span>(selector, context){
+        <span class="keyword">return</span> context.querySelectorAll(selector)
+    }
+})</code></pre>
+
+<p>now <code>$</code> accepts any selector as well:</p>
+
+<pre><code class="javascript">$(<span class="string">'a'</span>) <span class="comment">// returns elements instance with al 'a' elements on the page</span></code></pre>
 
 <h1><a href="#zen" name="zen">zen</a></h1>
 

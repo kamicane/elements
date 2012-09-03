@@ -3,6 +3,40 @@ Elements
 
 Elements is a DOM library using wrapped elements.
 
+### Downloading elements
+
+Big Fat Download Button
+
+### Installation
+
+elements can be obtained through *npm* with the following command:
+
+	npm install elements
+
+### Building elements
+
+In many examples below you can see `require()` calls, just like `require()`
+works in nodejs. If you have downloaded the full version you do not have to
+worry about it, all methods will be there already by default. However if you
+choose to build elements manually, just with the components you need, you can
+use [wrapup](https://github.com/kamicane/wrapup) to create your own build.
+
+#### Your main.js
+
+```js
+var $ = require('elements')
+var ready = require('elements/lib/domready')
+var zen = require('elements/lib/zen')
+ready(function(){
+	var text = "When all else fails, read the manual"
+	var element = zen('div.class').text(text).insert(document.body)
+})
+```
+
+#### Build Command
+
+	wrup -r ./main.js
+
 ## $
 
 Returns `elements` instances.
@@ -54,6 +88,32 @@ Removes an element from the DOM.
 
 ```js
 element.remove()
+```
+
+## $.use
+
+Most modules in elements don't require a specific selector engine. With
+`$.use()` a selector engine can be used.
+
+### Examples
+
+```js
+// simply require slick. install slick with: npm install slick
+var $ = require('elements')
+$.use(require('slick'))
+
+// or use some other engine:
+$.use({
+	search: function(selector, context){
+		return context.querySelectorAll(selector)
+	}
+})
+```
+
+now `$` accepts any selector as well:
+
+```js
+$('a') // returns elements instance with al 'a' elements on the page
 ```
 
 zen
