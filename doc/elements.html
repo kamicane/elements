@@ -317,6 +317,15 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <pre><code class="javascript">$(document.getElementById(<span class="string">'myElement'</span>)).hasClass(<span class="string">'testClass'</span>); <span class="comment">// returns true</span></code></pre>
 
+<h3>Note</h3>
+
+<ul>
+<li>If you need to set HTML to tables, or your HTML contains HTML5 tags, this
+method might not work correctly in each browser. If you really need the
+cross-browser fixes, use something like
+<a href="http://code.google.com/p/html5shiv/">html5shiv</a>.</li>
+</ul>
+
 <h2><a href="#addClass" name="addClass">addClass</a></h2>
 
 <p>Adds the passed in class to the Element, if the Element doesnt already have it.</p>

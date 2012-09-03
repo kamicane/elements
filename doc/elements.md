@@ -290,6 +290,13 @@ var result = myElement.hasClass(className)
 $(document.getElementById('myElement')).hasClass('testClass'); // returns true
 ```
 
+### Note
+
+- If you need to set HTML to tables, or your HTML contains HTML5 tags, this
+method might not work correctly in each browser. If you really need the
+cross-browser fixes, use something like
+[html5shiv](http://code.google.com/p/html5shiv/).
+
 ## addClass
 
 Adds the passed in class to the Element, if the Element doesnt already have it.
