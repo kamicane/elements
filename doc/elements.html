@@ -30,6 +30,9 @@
 <a href="#text">text</a>
 <a href="#domready" class="top">domready</a>
 <a href="#events" class="top">events</a>
+<a href="#on">on</a>
+<a href="#off">off</a>
+<a href="#emit">emit</a>
 <a href="#insertion" class="top">insertion</a>
 <a href="#list" class="top">list</a>
 <a href="#traversal" class="top">traversal</a>
@@ -438,6 +441,101 @@ domready(<span class="keyword">function</span>(){
 </code></pre></div>
 
 <h1><a href="#events" name="events">events</a></h1>
+
+<p>Events lets you attach event listeners to DOM elements on the page. Those event listeners will be executed once the user clicks something or something else happens.</p>
+
+<h3>See Also:</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/DOM/DOM_event_reference">MDN DOM Event Reference</a></li>
+</ul>
+
+<h2><a href="#on" name="on">on</a></h2>
+
+<p>Attaches an event listener to a DOM element.</p>
+
+<h3>Syntax</h3>
+
+<div class="highlight"><pre lang="javascript"><code>myElement.on(type, fn)
+</code></pre></div>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>type - (<em>string</em>) The event name to monitor ('click', 'load', etc) without the prefix 'on'.</li>
+<li>fn   - (<em>function</em>) The function to execute.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code><span class="attribute">elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<div class="highlight"><pre lang="javascript"><code>myElement.on(<span class="string">'click'</span>, <span class="keyword">function</span>(event){
+    alert(<span class="string">'clicked'</span>)
+})
+</code></pre></div>
+
+<h2><a href="#off" name="off">off</a></h2>
+
+<p>Works as <a href="#on">on</a>, but instead removes the specified event listener.</p>
+
+<h3>Syntax</h3>
+
+<div class="highlight"><pre lang="javascript"><code>myElement.off(type, fn)
+</code></pre></div>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>type - (<em>string</em>) The event name.</li>
+<li>fn   - (<em>function</em>) The function to remove.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code><span class="attribute">elements</code> instance</li>
+</ul>
+
+<p>Examples</p>
+
+<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> destroy = <span class="keyword">function</span>(){
+    alert(<span class="string">'Boom: '</span> + <span class="keyword">this</span>.id)
+} <span class="comment">// this refers to the Element.</span>
+myElement.on(<span class="string">'click'</span>, destroy)
+
+<span class="comment">//later...</span>
+myElement.off(<span class="string">'click'</span>, destroy)
+</code></pre></div>
+
+<h2><a href="#emit" name="emit">emit</a></h2>
+
+<p>Executes all events attached for the specified type on an element.</p>
+
+<h3>Syntax</h3>
+
+<div class="highlight"><pre lang="javascript"><code>myElement.empty(type, args...)
+</code></pre></div>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>type - (<em>string</em>) The event name.</li>
+<li>args... - (<em>mixed</em>) Zero or multiple extra arguments that will be passed to the event listeners</li>
+</ol>
+
+<h3>Examples</h3>
+
+<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> add = <span class="keyword">function</span>(a, b){
+    alert(a + b)
+}
+element.on(<span class="string">'click'</span>, add)
+element.emit(<span class="string">'click'</span>, <span class="number">4</span>, <span class="number">2</span>) <span class="comment">// alerts 6</span>
+</code></pre></div>
 
 <h1><a href="#insertion" name="insertion">insertion</a></h1>
 

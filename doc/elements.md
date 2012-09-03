@@ -397,7 +397,94 @@ domready(function(){
 events
 ======
 
+Events lets you attach event listeners to DOM elements on the page. Those event listeners will be executed once the user clicks something or something else happens.
 
+### See Also:
+
+- [MDN DOM Event Reference](https://developer.mozilla.org/en/DOM/DOM_event_reference)
+
+## on
+
+Attaches an event listener to a DOM element.
+
+### Syntax
+
+```js
+myElement.on(type, fn)
+```
+
+### Arguments
+
+1. type - (*string*) The event name to monitor ('click', 'load', etc) without the prefix 'on'.
+2. fn   - (*function*) The function to execute.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+```js
+myElement.on('click', function(event){
+	alert('clicked')
+})
+```
+
+## off
+
+Works as [on](#on), but instead removes the specified event listener.
+
+### Syntax
+
+```js
+myElement.off(type, fn)
+```
+
+### Arguments
+
+1. type - (*string*) The event name.
+2. fn   - (*function*) The function to remove.
+
+### Returns
+
+- this `elements` instance
+
+Examples
+
+```js
+var destroy = function(){
+	alert('Boom: ' + this.id)
+} // this refers to the Element.
+myElement.on('click', destroy)
+
+//later...
+myElement.off('click', destroy)
+```
+
+## emit
+
+Executes all events attached for the specified type on an element.
+
+### Syntax
+
+```js
+myElement.empty(type, args...)
+```
+
+### Arguments
+
+1. type - (*string*) The event name.
+2. args... - (*mixed*) Zero or multiple extra arguments that will be passed to the event listeners
+
+### Examples
+
+```js
+var add = function(a, b){
+	alert(a + b)
+}
+element.on('click', add)
+element.emit('click', 4, 2) // alerts 6
+```
 
 insertion
 =========
