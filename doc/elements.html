@@ -72,7 +72,9 @@ element.addClass(<span class="string">'test'</span>)
 
 <h2><a href="#handle" name="handle">handle</a></h2>
 
-<p>This method will loop through all elements and the callback will be called with the native DOM element. The returned version of the callback will be returned as an array, like <code>Array.prototype.map</code>.</p>
+<p>This method will loop through all elements and the callback will be called with
+the native DOM element. The returned version of the callback will be returned
+as an array, like <code>Array.prototype.map</code>.</p>
 
 <h3>Syntax</h3>
 
@@ -81,7 +83,9 @@ element.addClass(<span class="string">'test'</span>)
 <h3>Arguments</h3>
 
 <ol>
-<li>callback - (<em>function</em>) callback that will be called with the native element, the index and the returned buffer array. The context is the elements instance which belongs to the element.</li>
+<li>callback - (<em>function</em>) callback that will be called with the native
+element, the index and the returned buffer array. The context is the elements
+instance which belongs to the element.</li>
 </ol>
 
 <h3>Returns</h3>
@@ -362,7 +366,8 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 <h3>Arguments</h3>
 
 <ol>
-<li>html - (<em>string</em>) if the <code>html</code> argument is set, it will set the html, otherwise it will return the current html.</li>
+<li>html - (<em>string</em>) if the <code>html</code> argument is set, it will set the html,
+otherwise it will return the current html.</li>
 </ol>
 
 <h3>Examples</h3>
@@ -382,7 +387,8 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 <h3>Arguments</h3>
 
 <ol>
-<li>text - (<em>string</em>) if the <code>text</code> argument is set, it will set the text, otherwise it will return the current text.</li>
+<li>text - (<em>string</em>) if the <code>text</code> argument is set, it will set the text,
+otherwise it will return the current text.</li>
 </ol>
 
 <h3>Examples</h3>
@@ -395,7 +401,8 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <p>Contains the DOMReady event, which executes when the DOM is loaded.</p>
 
-<p>To ensure that DOM elements exist when the code attempts to access them is executed, they need to be placed within the 'domready' event.</p>
+<p>To ensure that DOM elements exist when the code attempts to access them is
+executed, they need to be placed within the 'domready' event.</p>
 
 <h3>Example</h3>
 
@@ -406,7 +413,9 @@ domready(<span class="keyword">function</span>(){
 
 <h1><a href="#events" name="events">events</a></h1>
 
-<p>Events lets you attach event listeners to DOM elements on the page. Those event listeners will be executed once the user clicks something or something else happens.</p>
+<p>Events lets you attach event listeners to DOM elements on the page. Those
+event listeners will be executed once the user clicks something or something
+else happens.</p>
 
 <h3>See Also:</h3>
 
@@ -425,7 +434,8 @@ domready(<span class="keyword">function</span>(){
 <h3>Arguments</h3>
 
 <ol>
-<li>type - (<em>string</em>) The event name to monitor ('click', 'load', etc) without the prefix 'on'.</li>
+<li>type - (<em>string</em>) The event name to monitor ('click', 'load', etc) without
+the prefix 'on'.</li>
 <li>fn   - (<em>function</em>) The function to execute.</li>
 </ol>
 
@@ -484,7 +494,8 @@ myElement.off(<span class="string">'click'</span>, destroy)</code></pre>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
-<li>args... - (<em>mixed</em>) Zero or multiple extra arguments that will be passed to the event listeners</li>
+<li>args... - (<em>mixed</em>) Zero or multiple extra arguments that will be passed to
+the event listeners</li>
 </ol>
 
 <h3>Examples</h3>
@@ -497,9 +508,12 @@ element.emit(<span class="string">'click'</span>, <span class="number">4</span>,
 
 <h1><a href="#insertion" name="insertion">insertion</a></h1>
 
+<p>Insertion will insert, inject or replace elements at certain places.</p>
+
 <h2><a href="#appendChild" name="appendChild">appendChild</a></h2>
 
-<p>Wrapper method of the native <code>appendChild</code> method. It will append another element as child element.</p>
+<p>Wrapper method of the native <code>appendChild</code> method. It will append another
+element as child element.</p>
 
 <h3>Arguments</h3>
 
@@ -522,7 +536,9 @@ element.emit(<span class="string">'click'</span>, <span class="number">4</span>,
 
 <h4>JS</h4>
 
-<pre><code class="javascript">$(document.getElementById(<span class="string">'parent'</span>)).appendChild($(document.getElementById(<span class="string">'child'</span>)))</code></pre>
+<pre><code class="javascript"><span class="keyword">var</span> parent = $(document.getElementById(<span class="string">'parent'</span>))
+<span class="keyword">var</span> child = $(document.getElementById(<span class="string">'child'</span>))
+parent.appendChild(child)</code></pre>
 
 <h4>Resulting HTML</h4>
 
@@ -536,13 +552,15 @@ element.emit(<span class="string">'click'</span>, <span class="number">4</span>,
 
 <h2><a href="#insertBefore" name="insertBefore">insertBefore</a></h2>
 
-<p>Wrapper method of the native <code>insertBefore</code> method. It will insert an element before another element.</p>
+<p>Wrapper method of the native <code>insertBefore</code> method. It will insert an element
+before another element.</p>
 
 <h3>Arguments</h3>
 
 <ol>
 <li>child - (<em>elements</em>) another elements instance.</li>
-<li>ref - (<em>elements</em>) the reference element. <code>child</code> will be inserted before <code>ref</code>.</li>
+<li>ref - (<em>elements</em>) the reference element. <code>child</code> will be inserted before
+<code>ref</code>.</li>
 </ol>
 
 <h3>Returns</h3>
@@ -583,7 +601,8 @@ parent.insertBefore(child, ref)</code></pre>
 <pre><code class="javascript">parent.removeChild(child)</code></pre>
 
 <ol>
-<li>child - (<em>elements</em>) another elements instance, which is a child of the parent element.</li>
+<li>child - (<em>elements</em>) another elements instance, which is a child of the
+parent element.</li>
 </ol>
 
 <h3>Returns</h3>
@@ -618,7 +637,8 @@ parent.removeChild(child)</code></pre>
 
 <ol>
 <li>child - (<em>elements</em>) another elements instance.</li>
-<li>ref - (<em>elements</em>) the reference element. <code>ref</code> will be replaced with <code>child</code>.</li>
+<li>ref - (<em>elements</em>) the reference element. <code>ref</code> will be replaced with
+<code>child</code>.</li>
 </ol>
 
 <h3>Returns</h3>

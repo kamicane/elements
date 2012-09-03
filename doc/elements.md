@@ -26,7 +26,9 @@ var element = $(document.getElementById('not-existing')) // → null
 
 ## handle
 
-This method will loop through all elements and the callback will be called with the native DOM element. The returned version of the callback will be returned as an array, like `Array.prototype.map`.
+This method will loop through all elements and the callback will be called with
+the native DOM element. The returned version of the callback will be returned
+as an array, like `Array.prototype.map`.
 
 ### Syntax
 
@@ -36,7 +38,9 @@ elements.handle(callback)
 
 ### Arguments
 
-1. callback - (*function*) callback that will be called with the native element, the index and the returned buffer array. The context is the elements instance which belongs to the element.
+1. callback - (*function*) callback that will be called with the native
+element, the index and the returned buffer array. The context is the elements
+instance which belongs to the element.
 
 ### Returns
 
@@ -346,7 +350,8 @@ myElement.html([html])
 
 ### Arguments
 
-1. html - (*string*) if the `html` argument is set, it will set the html, otherwise it will return the current html.
+1. html - (*string*) if the `html` argument is set, it will set the html,
+otherwise it will return the current html.
 
 ### Examples
 
@@ -368,7 +373,8 @@ myElement.text([text])
 
 ### Arguments
 
-1. text - (*string*) if the `text` argument is set, it will set the text, otherwise it will return the current text.
+1. text - (*string*) if the `text` argument is set, it will set the text,
+otherwise it will return the current text.
 
 ### Examples
 
@@ -383,7 +389,8 @@ domready
 
 Contains the DOMReady event, which executes when the DOM is loaded.
 
-To ensure that DOM elements exist when the code attempts to access them is executed, they need to be placed within the 'domready' event.
+To ensure that DOM elements exist when the code attempts to access them is
+executed, they need to be placed within the 'domready' event.
 
 ### Example
 
@@ -397,7 +404,9 @@ domready(function(){
 events
 ======
 
-Events lets you attach event listeners to DOM elements on the page. Those event listeners will be executed once the user clicks something or something else happens.
+Events lets you attach event listeners to DOM elements on the page. Those
+event listeners will be executed once the user clicks something or something
+else happens.
 
 ### See Also:
 
@@ -415,7 +424,8 @@ myElement.on(type, fn)
 
 ### Arguments
 
-1. type - (*string*) The event name to monitor ('click', 'load', etc) without the prefix 'on'.
+1. type - (*string*) The event name to monitor ('click', 'load', etc) without
+the prefix 'on'.
 2. fn   - (*function*) The function to execute.
 
 ### Returns
@@ -474,7 +484,8 @@ myElement.empty(type, args...)
 ### Arguments
 
 1. type - (*string*) The event name.
-2. args... - (*mixed*) Zero or multiple extra arguments that will be passed to the event listeners
+2. args... - (*mixed*) Zero or multiple extra arguments that will be passed to
+the event listeners
 
 ### Examples
 
@@ -489,9 +500,12 @@ element.emit('click', 4, 2) // alerts 6
 insertion
 =========
 
+Insertion will insert, inject or replace elements at certain places.
+
 ## appendChild
 
-Wrapper method of the native `appendChild` method. It will append another element as child element.
+Wrapper method of the native `appendChild` method. It will append another
+element as child element.
 
 ### Arguments
 
@@ -513,7 +527,9 @@ Wrapper method of the native `appendChild` method. It will append another elemen
 #### JS
 
 ```js
-$(document.getElementById('parent')).appendChild($(document.getElementById('child')))
+var parent = $(document.getElementById('parent'))
+var child = $(document.getElementById('child'))
+parent.appendChild(child)
 ```
 
 #### Resulting HTML
@@ -528,12 +544,14 @@ $(document.getElementById('parent')).appendChild($(document.getElementById('chil
 
 ## insertBefore
 
-Wrapper method of the native `insertBefore` method. It will insert an element before another element.
+Wrapper method of the native `insertBefore` method. It will insert an element
+before another element.
 
 ### Arguments
 
 1. child - (*elements*) another elements instance.
-1. ref - (*elements*) the reference element. `child` will be inserted before `ref`.
+1. ref - (*elements*) the reference element. `child` will be inserted before
+`ref`.
 
 ### Returns
 
@@ -578,7 +596,8 @@ Wrapper method of the native `removeChild` method.
 parent.removeChild(child)
 ```
 
-1. child - (*elements*) another elements instance, which is a child of the parent element.
+1. child - (*elements*) another elements instance, which is a child of the
+parent element.
 
 ### Returns
 
@@ -615,7 +634,8 @@ Wrapper method of the native `replaceChild` method.
 ### Syntax
 
 1. child - (*elements*) another elements instance.
-1. ref - (*elements*) the reference element. `ref` will be replaced with `child`.
+1. ref - (*elements*) the reference element. `ref` will be replaced with
+`child`.
 
 ### Returns
 
