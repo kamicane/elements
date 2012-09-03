@@ -34,6 +34,16 @@
 <a href="#off">off</a>
 <a href="#emit">emit</a>
 <a href="#insertion" class="top">insertion</a>
+<a href="#appendChild">appendChild</a>
+<a href="#insertBefore">insertBefore</a>
+<a href="#removeChild">removeChild</a>
+<a href="#replaceChild">replaceChild</a>
+<a href="#before">before</a>
+<a href="#after">after</a>
+<a href="#bottom">bottom</a>
+<a href="#top">top</a>
+<a href="#insert">insert</a>
+<a href="#replace">replace</a>
 <a href="#list" class="top">list</a>
 <a href="#traversal" class="top">traversal</a>
 </div>
@@ -43,11 +53,11 @@
 
 <h2><a href="#$" name="$">$</a></h2>
 
-<p>Returns <code><span class="attribute">elements</code> instances.</p>
+<p>Returns <code>elements</code> instances.</p>
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
+<pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
 
 <span class="comment">// a collection elements, will only contain unique elements</span>
 <span class="keyword">var</span> elements = $(document.getElementsByTagName(<span class="string">'div'</span>))
@@ -58,17 +68,15 @@ elements.addClass(<span class="string">'test'</span>)
 element.addClass(<span class="string">'test'</span>)
 
 <span class="comment">// if an element does not exist, $ will return null</span>
-<span class="keyword">var</span> element = $(document.getElementById(<span class="string">'not-existing'</span>)) <span class="comment">// → null</span>
-</code></pre></div>
+<span class="keyword">var</span> element = $(document.getElementById(<span class="string">'not-existing'</span>)) <span class="comment">// → null</span></code></pre>
 
 <h2><a href="#handle" name="handle">handle</a></h2>
 
-<p>This method will loop through all elements and the callback will be called with the native DOM element. The returned version of the callback will be returned as an array, like <code>Array.<span class="keyword">prototype</span>.<span class="keyword">map</span></code>.</p>
+<p>This method will loop through all elements and the callback will be called with the native DOM element. The returned version of the callback will be returned as an array, like <code>Array.prototype.map</code>.</p>
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>elements.handle(callback)
-</code></pre></div>
+<pre><code class="javascript">elements.handle(callback)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -88,8 +96,7 @@ element.addClass(<span class="string">'test'</span>)
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>element.remove()
-</code></pre></div>
+<pre><code class="javascript">element.remove()</code></pre>
 
 <h1><a href="#zen" name="zen">zen</a></h1>
 
@@ -97,7 +104,7 @@ element.addClass(<span class="string">'test'</span>)
 
 <h3>Examples</h3>
 
-<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> zen = require(<span class="string">'elements/lib/zen'</span>)
+<pre><code class="javascript"><span class="keyword">var</span> zen = require(<span class="string">'elements/lib/zen'</span>)
 
 <span class="comment">// returns elements instance with one div element</span>
 zen(<span class="string">'div'</span>)
@@ -109,8 +116,7 @@ zen(<span class="string">'a + a'</span>)
 zen(<span class="string">'div a'</span>)
 
 <span class="comment">// with an id, classes and attributes</span>
-zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
-</code></pre></div>
+zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)</code></pre>
 
 <h3>Notes</h3>
 
@@ -120,8 +126,7 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
 
 <h1><a href="#attributes" name="attributes">attributes</a></h1>
 
-<div class="highlight"><pre lang="javascript"><code>$ = require(<span class="string">'elements/lib/attributes'</span>)
-</code></pre></div>
+<pre><code class="javascript">$ = require(<span class="string">'elements/lib/attributes'</span>)</code></pre>
 
 <h2><a href="#get" name="get">get</a></h2>
 
@@ -129,8 +134,7 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>element.get(name)
-</code></pre></div>
+<pre><code class="javascript">element.get(name)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -140,11 +144,9 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="xml"><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/test"</span> <span class="attribute">title</span>=<span class="value">"elements"</span>></span>test<span class="tag">&lt;/<span class="title">a</span>></span>
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/test"</span> <span class="attribute">title</span>=<span class="value">"elements"</span>></span>test<span class="tag">&lt;/<span class="title">a</span>></span></code></pre>
 
-<div class="highlight"><pre lang="javascript"><code>element.get(<span class="string">'title'</span>) <span class="comment">// elements</span>
-</code></pre></div>
+<pre><code class="javascript">element.get(<span class="string">'title'</span>) <span class="comment">// elements</span></code></pre>
 
 <h3>Returns</h3>
 
@@ -158,8 +160,7 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>element.set(name, value)
-</code></pre></div>
+<pre><code class="javascript">element.set(name, value)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -176,27 +177,24 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)
 
 <h3>Examples</h3>
 
-<div class="highlight"><pre lang="javascript"><code>element.set(<span class="string">'href'</span>, <span class="string">'index.html'</span>)
-element.set(<span class="string">'checked'</span>, <span class="literal">true</span>)
-</code></pre></div>
+<pre><code class="javascript">element.set(<span class="string">'href'</span>, <span class="string">'index.html'</span>)
+element.set(<span class="string">'checked'</span>, <span class="literal">true</span>)</code></pre>
 
 <h2><a href="#getAttribute" name="getAttribute">getAttribute</a></h2>
 
-<p>Calls the native <code><span class="attribute">getAttribute</code> on the first element.</p>
+<p>Calls the native <code>getAttribute</code> on the first element.</p>
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code>element.getAttribute(<span class="string">'id'</span>)
-</code></pre></div>
+<pre><code class="javascript">element.getAttribute(<span class="string">'id'</span>)</code></pre>
 
 <h2><a href="#setAttribute" name="setAttribute">setAttribute</a></h2>
 
-<p>Calls the native <code><span class="attribute">setAttribute</code> on all elements.</p>
+<p>Calls the native <code>setAttribute</code> on all elements.</p>
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code>elements.setAttribut(<span class="string">'src'</span>, <span class="string">'mario.png'</span>)
-</code></pre></div>
+<pre><code class="javascript">elements.setAttribut(<span class="string">'src'</span>, <span class="string">'mario.png'</span>)</code></pre>
 
 <h2><a href="#hasAttribute" name="hasAttribute">hasAttribute</a></h2>
 
@@ -204,8 +202,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code>element.hasAttribute(<span class="string">'title'</span>)
-</code></pre></div>
+<pre><code class="javascript">element.hasAttribute(<span class="string">'title'</span>)</code></pre>
 
 <h2><a href="#removeAttribute" name="removeAttribute">removeAttribute</a></h2>
 
@@ -213,8 +210,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code>elements.removeAttribute(<span class="string">'title'</span>)
-</code></pre></div>
+<pre><code class="javascript">elements.removeAttribute(<span class="string">'title'</span>)</code></pre>
 
 <h2><a href="#classNames" name="classNames">classNames</a></h2>
 
@@ -222,8 +218,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>elements.classNames()
-</code></pre></div>
+<pre><code class="javascript">elements.classNames()</code></pre>
 
 <h3>Returns</h3>
 
@@ -237,8 +232,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> result = myElement.hasClass(className)
-</code></pre></div>
+<pre><code class="javascript"><span class="keyword">var</span> result = myElement.hasClass(className)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -256,15 +250,11 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h4>HTML</h4>
 
-<div class="highlight"><pre lang="xml"><code>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
-
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h4>JS</h4>
 
-<div class="highlight"><pre lang="javascript"><code>$(document.getElementById(<span class="string">'myElement'</span>)).hasClass(<span class="string">'testClass'</span>); <span class="comment">// returns true</span>
-</code></pre></div>
+<pre><code class="javascript">$(document.getElementById(<span class="string">'myElement'</span>)).hasClass(<span class="string">'testClass'</span>); <span class="comment">// returns true</span></code></pre>
 
 <h2><a href="#addClass" name="addClass">addClass</a></h2>
 
@@ -272,8 +262,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.addClass(className)
-</code></pre></div>
+<pre><code class="javascript">myElement.addClass(className)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -291,22 +280,15 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h4>HTML</h4>
 
-<div class="highlight"><pre lang="xml"><code>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
-
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h4>JavaScript</h4>
 
-<div class="highlight"><pre lang="javascript"><code>$(document.getElementById(<span class="string">'myElement'</span>)).addClass(<span class="string">'newClass'</span>)
-</code></pre></div>
+<pre><code class="javascript">$(document.getElementById(<span class="string">'myElement'</span>)).addClass(<span class="string">'newClass'</span>)</code></pre>
 
 <h4>Resulting HTML</h4>
 
-<div class="highlight"><pre lang="xml"><code>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"newClass testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
-
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"newClass testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h2><a href="#removeClass" name="removeClass">removeClass</a></h2>
 
@@ -314,8 +296,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.removeClass(className)
-</code></pre></div>
+<pre><code class="javascript">myElement.removeClass(className)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -333,22 +314,15 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h4>HTML</h4>
 
-<div class="highlight"><pre lang="xml"><code>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass newClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
-
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass newClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h4>JavaScript</h4>
 
-<div class="highlight"><pre lang="javascript"><code>$(document.getElementById(<span class="string">'myElement'</span>)).removeClass(<span class="string">'newClass'</span>)
-</code></pre></div>
+<pre><code class="javascript">$(document.getElementById(<span class="string">'myElement'</span>)).removeClass(<span class="string">'newClass'</span>)</code></pre>
 
 <h4>Resulting HTML</h4>
 
-<div class="highlight"><pre lang="xml"><code>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
-
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h2><a href="#toString" name="toString">toString</a></h2>
 
@@ -358,19 +332,15 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h4>HTML</h4>
 
-<div class="highlight"><pre lang="xml"><code>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"otherClass testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
-
-</code></pre></div>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myElement"</span> <span class="attribute">class</span>=<span class="value">"otherClass testClass"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h4>JS</h4>
 
-<div class="highlight"><pre lang="javascript"><code>$(document.getElementById(<span class="string">'myElement'</span>)).toString()
-</code></pre></div>
+<pre><code class="javascript">$(document.getElementById(<span class="string">'myElement'</span>)).toString()</code></pre>
 
 <h4>Result</h4>
 
-<pre><code><span class="keyword">div</span><span class="preprocessor">#myElement.otherClass.testClass</span>
+<pre><code>div#myElement.otherClass.testClass
 </code></pre>
 
 <h2><a href="#tag" name="tag">tag</a></h2>
@@ -379,8 +349,7 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.tag() <span class="comment">// result: div</span>
-</code></pre></div>
+<pre><code class="javascript">myElement.tag() <span class="comment">// result: div</span></code></pre>
 
 <h2><a href="#html" name="html">html</a></h2>
 
@@ -388,21 +357,19 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.html([html])
-</code></pre></div>
+<pre><code class="javascript">myElement.html([html])</code></pre>
 
 <h3>Arguments</h3>
 
 <ol>
-<li>html - (<em>string</em>) if the <code><span class="attribute">html</code> argument is set, it will set the html, otherwise it will return the current html.</li>
+<li>html - (<em>string</em>) if the <code>html</code> argument is set, it will set the html, otherwise it will return the current html.</li>
 </ol>
 
 <h3>Examples</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.html(<span class="string">'&lt;p>new html&lt;/p>'</span>)
+<pre><code class="javascript">myElement.html(<span class="string">'&lt;p>new html&lt;/p>'</span>)
 <span class="comment">// or</span>
-<span class="keyword">var</span> html = myElement.html() <span class="comment">// returns: &lt;p>new html&lt;/p></span>
-</code></pre></div>
+<span class="keyword">var</span> html = myElement.html() <span class="comment">// returns: &lt;p>new html&lt;/p></span></code></pre>
 
 <h2><a href="#text" name="text">text</a></h2>
 
@@ -410,21 +377,19 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.text([text])
-</code></pre></div>
+<pre><code class="javascript">myElement.text([text])</code></pre>
 
 <h3>Arguments</h3>
 
 <ol>
-<li>text - (<em>string</em>) if the <code><span class="attribute">text</code> argument is set, it will set the text, otherwise it will return the current text.</li>
+<li>text - (<em>string</em>) if the <code>text</code> argument is set, it will set the text, otherwise it will return the current text.</li>
 </ol>
 
 <h3>Examples</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.text(<span class="string">"I'm just contemplating the ifs."</span>)
+<pre><code class="javascript">myElement.text(<span class="string">"I'm just contemplating the ifs."</span>)
 <span class="comment">// or</span>
-<span class="keyword">var</span> text = myElement.text()
-</code></pre></div>
+<span class="keyword">var</span> text = myElement.text()</code></pre>
 
 <h1><a href="#domready" name="domready">domready</a></h1>
 
@@ -434,11 +399,10 @@ element.set(<span class="string">'checked'</span>, <span class="literal">true</s
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> domready = require(<span class="string">'elements/lib/domready'</span>)
+<pre><code class="javascript"><span class="keyword">var</span> domready = require(<span class="string">'elements/lib/domready'</span>)
 domready(<span class="keyword">function</span>(){
     alert(<span class="string">'The DOM is ready!'</span>)
-})
-</code></pre></div>
+})</code></pre>
 
 <h1><a href="#events" name="events">events</a></h1>
 
@@ -456,8 +420,7 @@ domready(<span class="keyword">function</span>(){
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.on(type, fn)
-</code></pre></div>
+<pre><code class="javascript">myElement.on(type, fn)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -469,15 +432,14 @@ domready(<span class="keyword">function</span>(){
 <h3>Returns</h3>
 
 <ul>
-<li>this <code><span class="attribute">elements</code> instance</li>
+<li>this <code>elements</code> instance</li>
 </ul>
 
 <h3>Example</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.on(<span class="string">'click'</span>, <span class="keyword">function</span>(event){
+<pre><code class="javascript">myElement.on(<span class="string">'click'</span>, <span class="keyword">function</span>(event){
     alert(<span class="string">'clicked'</span>)
-})
-</code></pre></div>
+})</code></pre>
 
 <h2><a href="#off" name="off">off</a></h2>
 
@@ -485,8 +447,7 @@ domready(<span class="keyword">function</span>(){
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.off(type, fn)
-</code></pre></div>
+<pre><code class="javascript">myElement.off(type, fn)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -498,19 +459,18 @@ domready(<span class="keyword">function</span>(){
 <h3>Returns</h3>
 
 <ul>
-<li>this <code><span class="attribute">elements</code> instance</li>
+<li>this <code>elements</code> instance</li>
 </ul>
 
 <p>Examples</p>
 
-<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> destroy = <span class="keyword">function</span>(){
+<pre><code class="javascript"><span class="keyword">var</span> destroy = <span class="keyword">function</span>(){
     alert(<span class="string">'Boom: '</span> + <span class="keyword">this</span>.id)
 } <span class="comment">// this refers to the Element.</span>
 myElement.on(<span class="string">'click'</span>, destroy)
 
 <span class="comment">//later...</span>
-myElement.off(<span class="string">'click'</span>, destroy)
-</code></pre></div>
+myElement.off(<span class="string">'click'</span>, destroy)</code></pre>
 
 <h2><a href="#emit" name="emit">emit</a></h2>
 
@@ -518,8 +478,7 @@ myElement.off(<span class="string">'click'</span>, destroy)
 
 <h3>Syntax</h3>
 
-<div class="highlight"><pre lang="javascript"><code>myElement.empty(type, args...)
-</code></pre></div>
+<pre><code class="javascript">myElement.empty(type, args...)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -530,18 +489,182 @@ myElement.off(<span class="string">'click'</span>, destroy)
 
 <h3>Examples</h3>
 
-<div class="highlight"><pre lang="javascript"><code><span class="keyword">var</span> add = <span class="keyword">function</span>(a, b){
+<pre><code class="javascript"><span class="keyword">var</span> add = <span class="keyword">function</span>(a, b){
     alert(a + b)
 }
 element.on(<span class="string">'click'</span>, add)
-element.emit(<span class="string">'click'</span>, <span class="number">4</span>, <span class="number">2</span>) <span class="comment">// alerts 6</span>
-</code></pre></div>
+element.emit(<span class="string">'click'</span>, <span class="number">4</span>, <span class="number">2</span>) <span class="comment">// alerts 6</span></code></pre>
 
 <h1><a href="#insertion" name="insertion">insertion</a></h1>
 
+<h2><a href="#appendChild" name="appendChild">appendChild</a></h2>
+
+<p>Wrapper method of the native <code>appendChild</code> method. It will append another element as child element.</p>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>child - (<em>elements</em>) another elements instance.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code>elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"child"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript">$(document.getElementById(<span class="string">'parent'</span>)).appendChild($(document.getElementById(<span class="string">'child'</span>)))</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"child"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h3>See also</h3>
+
+<ul>
+<li><a href="">MDN appendChild</a></li>
+</ul>
+
+<h2><a href="#insertBefore" name="insertBefore">insertBefore</a></h2>
+
+<p>Wrapper method of the native <code>insertBefore</code> method. It will insert an element before another element.</p>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>child - (<em>elements</em>) another elements instance.</li>
+<li>ref - (<em>elements</em>) the reference element. <code>child</code> will be inserted before <code>ref</code>.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code>elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"first"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"second"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> parent = $(document.getElementById(<span class="string">'parent'</span>))
+<span class="keyword">var</span> child = $(document.getElementById(<span class="string">'first'</span>))
+<span class="keyword">var</span> ref = $(document.getElementById(<span class="string">'second'</span>))
+parent.insertBefore(child, ref)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"first"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"second"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h2><a href="#removeChild" name="removeChild">removeChild</a></h2>
+
+<p>Wrapper method of the native <code>removeChild</code> method.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript">parent.removeChild(child)</code></pre>
+
+<ol>
+<li>child - (<em>elements</em>) another elements instance, which is a child of the parent element.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code>elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"child"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> parent = $(document.getElementById(<span class="string">'parent'</span>))
+<span class="keyword">var</span> child = $(document.getElementById(<span class="string">'child'</span>))
+parent.removeChild(child)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h2><a href="#replaceChild" name="replaceChild">replaceChild</a></h2>
+
+<p>Wrapper method of the native <code>replaceChild</code> method.</p>
+
+<h3>Syntax</h3>
+
+<ol>
+<li>child - (<em>elements</em>) another elements instance.</li>
+<li>ref - (<em>elements</em>) the reference element. <code>ref</code> will be replaced with <code>child</code>.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code>elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"child"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"ref"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> parent = $(document.getElementById(<span class="string">'parent'</span>))
+<span class="keyword">var</span> child = $(document.getElementById(<span class="string">'child'</span>))
+<span class="keyword">var</span> ref = $(document.getElementById(<span class="string">'ref'</span>))
+parent.replaceChild(child, ref)</code></pre>
+
+<h4>Resulting HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>></span><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"child"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span><span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h2><a href="#before" name="before">before</a></h2>
+
+<h2><a href="#after" name="after">after</a></h2>
+
+<h2><a href="#bottom" name="bottom">bottom</a></h2>
+
+<h2><a href="#top" name="top">top</a></h2>
+
+<h2><a href="#insert" name="insert">insert</a></h2>
+
+<p><code>insert</code> is an alias of <a href="#bottom">bottom</a></p>
+
+<h2><a href="#replace" name="replace">replace</a></h2>
+
 <h1><a href="#list" name="list">list</a></h1>
 
-<h1><a href="#traversal" name="traversal">traversal</a></h1></div>
+<h1><a href="#traversal" name="traversal">traversal</a></h1>
+</div>
 
     </body>
 </html>

@@ -489,6 +489,178 @@ element.emit('click', 4, 2) // alerts 6
 insertion
 =========
 
+## appendChild
+
+Wrapper method of the native `appendChild` method. It will append another element as child element.
+
+### Arguments
+
+1. child - (*elements*) another elements instance.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+#### HTML
+
+```html
+<div id="child"></div>
+<div id="parent"></div>
+```
+
+#### JS
+
+```js
+$(document.getElementById('parent')).appendChild($(document.getElementById('child')))
+```
+
+#### Resulting HTML
+
+```html
+<div id="parent"><div id="child"></div></div>
+```
+
+### See also
+
+- [MDN appendChild]()
+
+## insertBefore
+
+Wrapper method of the native `insertBefore` method. It will insert an element before another element.
+
+### Arguments
+
+1. child - (*elements*) another elements instance.
+1. ref - (*elements*) the reference element. `child` will be inserted before `ref`.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+#### HTML
+
+```html
+<div id="first"></div>
+<div id="parent">
+	<div id="second"></div>
+</div>
+```
+
+#### JS
+
+```js
+var parent = $(document.getElementById('parent'))
+var child = $(document.getElementById('first'))
+var ref = $(document.getElementById('second'))
+parent.insertBefore(child, ref)
+```
+
+#### Resulting HTML
+
+```html
+<div id="parent">
+	<div id="first"></div>
+	<div id="second"></div>
+</div>
+```
+
+## removeChild
+
+Wrapper method of the native `removeChild` method.
+
+### Syntax
+
+```js
+parent.removeChild(child)
+```
+
+1. child - (*elements*) another elements instance, which is a child of the parent element.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+#### HTML
+
+```html
+<div id="parent">
+	<div id="child"></div>
+</div>
+```
+
+#### JS
+
+```js
+var parent = $(document.getElementById('parent'))
+var child = $(document.getElementById('child'))
+parent.removeChild(child)
+```
+
+#### Resulting HTML
+
+```html
+<div id="parent"></div>
+```
+
+## replaceChild
+
+Wrapper method of the native `replaceChild` method.
+
+### Syntax
+
+1. child - (*elements*) another elements instance.
+1. ref - (*elements*) the reference element. `ref` will be replaced with `child`.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+#### HTML
+
+```html
+<div id="child"></div>
+<div id="parent">
+	<div id="ref"></div>
+</div>
+```
+
+#### JS
+
+```js
+var parent = $(document.getElementById('parent'))
+var child = $(document.getElementById('child'))
+var ref = $(document.getElementById('ref'))
+parent.replaceChild(child, ref)
+```
+
+#### Resulting HTML
+
+```html
+<div id="parent"><div id="child"></div></div>
+```
+
+## before
+
+## after
+
+## bottom
+
+## top
+
+## insert
+
+`insert` is an alias of [bottom](#bottom)
+
+## replace
+
 list
 ====
 
