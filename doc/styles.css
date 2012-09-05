@@ -105,3 +105,17 @@ pre code::-webkit-scrollbar-thumb {
 #content h2 a:hover:before {
     left: -14px;
 }
+
+
+@media all and (max-width: 400px) {
+
+    #sidebar {
+        display: none;
+    }
+
+    #content {
+        margin-left: 0;
+    }
+
+}
+
