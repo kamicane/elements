@@ -842,7 +842,205 @@ myNewElement.replaces(myOldElement)
 list
 ====
 
+List provides elements for iterating over the collection of elements of the
+elements instance.
+
+```js
+var $ = require('elements/lib/list')
+```
+
+## forEach
+
+Calls a function for each element in the array.
+
+### Syntax
+
+```js
+elements.forEach(fn[, bind])
+```
+
+### Arguments
+
+1. fn - (*function*) Function to execute for each element. `fn` is called like
+`fn(element, index)` where `element` is the native element, and `index` is the
+index of the element in the elements collection
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### Example
+
+var elements = $(document.getElementsByTagName('a'))
+elements.forEach(function(element, index){
+	return $(element).text('element: ' + index)
+})
+
+### See also
+
+- [handle()](#handle)
+- [MDN Array forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
+
+## map
+
+Creates a new array with the results of calling a provided function on every
+element in the elements collection
+
+### Syntax
+
+```js
+var mapped = elements.map(fn[, bind])
+```
+
+### Arguments
+
+1. fn - (*function*) Function that produces an element of the new Array from an
+element of the current one. `fn` is called like `fn(element, index)` where
+`element` is the native element, and `index` is the index of the element in the
+elements collection
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### Returns
+
+- (*array*) The new mapped array.
+
+### Example
+
+```js
+var elements = $(document.getElementsByTagName('a'))
+var result = elements.map(function(element, index){
+	return $(element).attribute('href')
+}) // array with all href values of each element
+```
+
+### See also
+
+- [handle()](#handle)
+- [MDN Array Map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
+
+## filter
+
+Creates a new array with all of the elements of the collection for which the
+provided filtering function returns true.
+
+### Syntax
+
+```js
+var filtered = elements.filter(fn[, bind])
+```
+
+### Arguments
+
+1. fn - (*function*) The function to test each element of the collection. `fn`
+is called like `fn(element, index)` where `element` is the native element, and
+`index` is the index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### Returns
+
+- (*array*) an array with only the filtered elements
+
+### Example
+
+```js
+var elements = $(document.getElementsByTagName('*'))
+var filtered = elements.filter(function(element, index){
+	return element.childNodes.length > 4
+}) // array with elements that have more than 4 direct children
+```
+
+### See also
+
+- [MDN Array Filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
+
+## every
+
+Returns true if every element in the array satisfies the provided testing
+function.
+
+### Syntax
+
+```js
+var allPassed = elements.every(fn[, bind])
+```
+
+### Arguments
+
+1. fn - (*function*) The function to test each element of the collection. `fn`
+is called like `fn(element, index)` where `element` is the native element, and
+`index` is the index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### Returns
+
+- (*boolean*) - If every element in the collection satisfies the provided
+testing function, returns true. Otherwise, returns false.
+
+### Example
+
+```js
+var elements = $(document.getElementsByTagName('div'))
+var allEnoughChildren = elements.every(function(element, index){
+	return element.childNodes.length > 4
+}) // true if each div has more than 4 child elements
+```
+
+### See also
+
+- [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
+
+## some
+
+Returns true if at least one element in the array satisfies the provided
+testing function.
+
+### Syntax
+
+```js
+var somePassed = elements.some(fn[, bind])
+```
+
+### Arguments
+
+1. fn - (*function*) The function to test each element of the collection. `fn`
+is called like `fn(element, index)` where `element` is the native element, and
+`index` is the index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### Returns
+
+- (*boolean*) - If some element in the collection satisfies the provided
+testing function, returns true. Otherwise, returns false.
+
+### Example
+
+```js
+var elements = $(document.getElementsByTagName('div'))
+var someEnoughChildren = elements.some(function(element, index){
+	return element.childNodes.length > 4
+}) // true if some div has more than 4 child elements
+```
+
+### See also
+
+- [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
+
 traversal
 =========
 
+## search
 
+## find
+
+## matches
+
+## nextSiblings
+
+## nextSibling
+
+## previousSiblings
+
+## previousSibling
+
+## children
+
+## parent
+
+## parents
