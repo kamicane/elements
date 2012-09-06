@@ -43,7 +43,7 @@ describe('elements.js', function(){
         expect(isInstance).to.be.ok()
     })
 
-    it('should return the very instance of elements if a elements instance is passed', function(){
+    it('should return the very instance of elements if an elements instance is passed', function(){
         var html = $(document.documentElement)
         var isTheSame = $(html) === html
         expect(isTheSame).to.be.ok()
