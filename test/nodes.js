@@ -49,6 +49,13 @@ describe('nodes.js', function(){
         expect(isTheSame).to.be.ok()
     })
 
+    it('should return the same instance for the same element', function(){
+        var li = document.createElement('li')
+        var a = $(li)
+        var b = $(li)
+        expect(a === b).to.be.ok()
+    })
+
     it('should correctly handle Array', function(){
         expect($([])).to.be(null)
         var res = $([document.documentElement])
@@ -136,6 +143,31 @@ describe('nodes.js', function(){
             expect(lis2[0] == lis[1]).to.be.ok()
             expect(lis2[1] == lis[0]).to.be.ok()
             expect(lis2[2] == lis[2]).to.be.ok()
+        })
+
+    })
+
+    describe('remove', function(){
+
+        it('should remove the current node', function(){
+            var ul = document.getElementById('container').firstChild
+            var childNodes = ul.childNodes.length
+            var li = document.createElement('li')
+            ul.appendChild(li)
+            expect(ul.childNodes.length).to.be(childNodes + 1)
+            var el = $(li);
+            var r = el.remove()
+            expect(ul.childNodes.length).to.be(childNodes)
+            expect(el === r).to.be.ok()
+        })
+
+        it('should remove the current node including elements instance', function(){
+            var li = document.createElement('li')
+            var a = $(li)
+            var r = a.remove(true)
+            var b = $(li)
+            expect(a === b).not.to.be.ok()
+            expect(r[0] === li).to.be.ok()
         })
 
     })
