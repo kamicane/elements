@@ -103,7 +103,7 @@ describe('insertion.js', function(){
 
         describe('before', function(){
 
-            it('should insert the current Nodes before the one passed', function(){
+            it('should insert the current elements before the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild)
                 var element = $E('div', 'divFirst')
                 element.before(ul)
@@ -114,7 +114,7 @@ describe('insertion.js', function(){
 
         describe('after', function(){
 
-            it('should insert the current Nodes after the one passed', function(){
+            it('should insert the current elements after the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild)
                 var element = $E('li', 'placeholder')
                 element.after(ul[0].firstChild)
@@ -132,7 +132,7 @@ describe('insertion.js', function(){
 
         describe('bottom', function(){
 
-            it('should insert the current Nodes at the bottom of the one passed', function(){
+            it('should insert the current elements at the bottom of the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild)
                 $E('li', 'placeholder').bottom(ul)
                 expect(ul[0].childNodes[3].id).to.be('placeholder')
@@ -142,7 +142,7 @@ describe('insertion.js', function(){
 
         describe('top', function(){
 
-            it('should insert the current Nodes at the top of the one passed', function(){
+            it('should insert the current elements at the top of the one passed', function(){
                 var ul = $(document.getElementById('container').firstChild)
                 $E('li', 'placeholder').top(ul)
                 expect(ul[0].firstChild.id).to.be('placeholder')
