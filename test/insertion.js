@@ -160,14 +160,6 @@ describe('insertion.js', function(){
             expect(ul[0].childNodes[3].id).to.be('placeholder')
         })
 
-        it('should remove the current node', function(){
-            var ul = $(document.getElementById('container').firstChild)
-            var element = $E('li', 'placeholder')
-            element.after(ul[0].firstChild)
-            $(ul[0].firstChild).remove()
-            expect(ul[0].firstChild.id).to.be('placeholder')
-        })
-
         it('should swap the current node with the one passed', function(){
             var ul = $(document.getElementById('container').firstChild)
             var element = $E('li', 'placeholder')
