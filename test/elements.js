@@ -1,9 +1,9 @@
 "use strict";
 
-var $ = require('../lib/nodes')
+var $ = require('../lib/elements')
 var expect = require('expect.js')
 
-describe('nodes.js', function(){
+describe('elements.js', function(){
 
     // prepare the environment
     beforeEach(function(){
@@ -37,13 +37,13 @@ describe('nodes.js', function(){
         expect($(null)).to.be(null)
     })
 
-    it('should return an instance of Nodes that is an instance of $', function(){
-        //Nodes is not accessible but it inherits from $, so we test that
+    it('should return an instance of elements that is an instance of $', function(){
+        //elements is not accessible but it inherits from $, so we test that
         var isInstance = $(document.documentElement) instanceof $
         expect(isInstance).to.be.ok()
     })
 
-    it('should return the very instance of Nodes if a Nodes instance is passed', function(){
+    it('should return the very instance of elements if an elements instance is passed', function(){
         var html = $(document.documentElement)
         var isTheSame = $(html) === html
         expect(isTheSame).to.be.ok()
