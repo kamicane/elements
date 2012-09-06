@@ -150,59 +150,51 @@ attributes
 $ = require('elements/lib/attributes')
 ```
 
-## get
+## attribute
 
-Get an attribute or property from the first element.
+Get or set an attribute or property.
 
 ### Syntax
 
 ```js
-element.get(name)
+element.attribute(name[, value])
 ```
 
 ### Arguments
 
 1. name (*string*) the name of the attribute or property
+2. value (*string*, optional) if the value argument is set, this method will
+act like a setter and will set the value to all elements in the collection.
+If this attribute is omitted, it will act as a getter on the first element in
+the collection.
 
 ### Example
+
+#### HTML
 
 ```html
 <a href="/test" title="elements">test</a>
 ```
 
+#### JS
+
 ```js
-element.get('title') // elements
+// as getter
+element.attribute('title') // elements
+// as setter
+element.attribute("text", "Here's Johnny!")
+element.attribute("title", "The Shining")
 ```
 
 ### Returns
+
+If only the name argument is passed:
 
 - the value of the attribute
 
-## set
-
-Set an attribute to an element.
-
-### Syntax
-
-```js
-element.set(name, value)
-```
-
-### Arguments
-
-1. name - (*string*) the name of the attribute or property
-2. value - (*mixed*) the value the element attribute should be set to.
-
-### Returns
+If the name and value arguments are passed:
 
 - the elements instance
-
-### Examples
-
-```js
-element.set('href', 'index.html')
-element.set('checked', true)
-```
 
 ## getAttribute
 
@@ -563,6 +555,13 @@ var add = function(a, b){
 element.on('click', add)
 element.emit('click', 4, 2) // alerts 6
 ```
+
+delegation
+==========
+
+## delegate
+
+## undelegate
 
 insertion
 =========
@@ -1025,22 +1024,270 @@ var someEnoughChildren = elements.some(function(element, index){
 traversal
 =========
 
+Traversal adds multiple methods for finding other elements.
+
+### Example
+
+```js
+var $ = require('elements/lib/traversal')
+```
+
+### Note
+
+- Using the traversal package will require the slick package.
+
+### See also
+
+- [CSS Selectors](http://www.w3.org/TR/css3-selectors/)
+
 ## search
+
+Search elements with by an selector, with the current elements as context.
+
+### Syntax
+
+```js
+elements.search(expression)
+```
+
+### Arguments
+
+1. expression - (*string*) a CSS selector
+
+### Return
+
+- elements instance with the new elements
+
+### Example
+
+```js
+// slick is included by traversal, we can pass selectors to $()
+// select all p elements
+var elements = $("p")
+// select all a elements in the previously found p elements
+elements.search("a")
+```
+
+### See also
+
+- [find()](#find)
 
 ## find
 
+Find one element for each element in the elements collection.
+
+### Syntax
+
+```js
+elements.find(expression)
+```
+
+### Arguments
+
+1. expression - (*string*) a CSS selector
+
+### Returns
+
+- elements instance with the new elements
+
+### Example
+
+#### HTML
+
+```html
+<ul>
+	<li>Rome</li>
+	<li>Delft</li>
+	<li>Graz</li>
+</ul>
+<ul>
+	<li>Stockholm</li>
+	<li>London</li>
+</ul>
+```
+
+#### JS
+
+```js
+// slick is included by traversal, we can pass selectors to $()
+// select both ul elements
+var elements = $("ul")
+// select the first element for each list
+var cities = elements.find("li")
+// cities now contains "Rome" and "Stockholm"
+```
+
+### See also
+
+- [search()](#search)
+
 ## matches
+
+Test if this element matches the passed CSS Selector.
+
+### Syntax
+
+```js
+element.matches(selector)
+```
+
+### Arguments
+
+1. match - (*string*) a CSS selector to test this element against
+
+### Returns
+
+- (*boolean*) If the element matched, returns true. Otherwise, returns false.
+
+### Example
+
+#### HTML
+
+```html
+<div>
+	<a class="moo" href="http://mootools.net">MooTools</a>
+	<a class="goo" href="http://google.com">
+</div>
+```
+
+#### JS
+
+```js
+var moo = $('a.moo')
+moo.matches('a[href*="mootools"]') // true
+var goo = $('a.goo')
+goo.matches('a[href*="mootools"]') // false
+```
 
 ## nextSiblings
 
+Returns all next siblings of each element in the collection.
+
+### Syntax
+
+```js
+var nextSiblings = element.nextSiblings([expression])
+```
+
+### Arguments
+
+1. (*string*, optional) - A CSS Selector to filter the next siblings
+
+### Returns
+
+- elements collection with all next siblings that match the CSS expression, if
+any given.
+
+### Examples
+
+#### HTML
+
+```html
+<section>
+	<em></em>
+	<p></p>
+	<div></div>
+	<p></p>
+	<em></em>
+	<p></p>
+	<strong></strong>
+</section>
+<section>
+	<a></a>
+	<div></div>
+	<strong></strong>
+	<p></p>
+	<em></em>
+</section>
+```
+
+#### JS
+
+```js
+var div = $('div') // finds the two div elements
+div.nextSiblings() // returns [p, em, p, strong, strong, p, em]
+div.nextSiblings('p') // returns [p, p, p]
+```
+
 ## nextSibling
+
+Exactly like [nextSiblings](#nextSiblings), except it only returns the first
+next sibling that matches the expression, if any given.
+
+### Example
+
+With the same HTML as [nextSiblings](#nextSiblings):
+
+```js
+var div = $('div') // finds the two div elements
+div.nextSibling() // returns [p, strong]
+div.nextSibling('p') // returns [p, p]
+```
 
 ## previousSiblings
 
+Exactly like [nextSiblings](#nextSiblings), except it will return previous
+siblings instead of next siblings.
+
 ## previousSibling
 
+### Example
+
+With the same HTML as [nextSiblings](#nextSiblings):
+
+```js
+var div = $('div') // finds the two div elements
+div.previousSiblings() // returns [em, p, a]
+div.previousSiblings('p') // returns [p]
+```
 ## children
 
+Like [nextSiblings](#nextSiblings), but returns the direct child elements,
+if they match the passed CSS expression, if any given.
+
+### Example
+
+with the same html as [nextsiblings](#nextsiblings):
+
+```js
+var div = $('div') // finds the two div elements
+div.nextSibling() // returns [p, strong]
+div.nextSibling('p') // returns [p, p]
+```
 ## parent
 
+Get the parent node that matches the expression, if any given, for each
+element. Syntax is the same as [nextSiblings](#nextSiblings).
+
+### Example
+
+#### HTML
+
+```html
+<div>
+	<p>
+		<strong></strong>
+	</p>
+</div>
+```
+
+```js
+var strong = $('strong') // finds the strong element
+strong.getParent() // the p element
+strong.getParent('div') // the div element
+```
+
 ## parents
+
+Like [parent()](#parent), but selects all parent elements, that matches the
+expression, if any given.
+
+### Example
+
+with the same html as [getParent](#getParent):
+
+```js
+var strong = $('strong') // finds the strong element
+strong.getParents() // returns [p, div]
+strong.getParents('div') // only [div]
+```

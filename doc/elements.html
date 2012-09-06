@@ -15,8 +15,7 @@
 <a href="#$.use">$.use</a>
 <a href="#zen" class="top">zen</a>
 <a href="#attributes" class="top">attributes</a>
-<a href="#get">get</a>
-<a href="#set">set</a>
+<a href="#attribute">attribute</a>
 <a href="#getAttribute">getAttribute</a>
 <a href="#setAttribute">setAttribute</a>
 <a href="#hasAttribute">hasAttribute</a>
@@ -34,6 +33,9 @@
 <a href="#on">on</a>
 <a href="#off">off</a>
 <a href="#emit">emit</a>
+<a href="#delegation" class="top">delegation</a>
+<a href="#delegate">delegate</a>
+<a href="#undelegate">undelegate</a>
 <a href="#insertion" class="top">insertion</a>
 <a href="#appendChild">appendChild</a>
 <a href="#insertBefore">insertBefore</a>
@@ -204,57 +206,51 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)</code><
 
 <pre><code class="javascript">$ = require(<span class="string">'elements/lib/attributes'</span>)</code></pre>
 
-<h2><a href="#get" name="get">get</a></h2>
+<h2><a href="#attribute" name="attribute">attribute</a></h2>
 
-<p>Get an attribute or property from the first element.</p>
+<p>Get or set an attribute or property.</p>
 
 <h3>Syntax</h3>
 
-<pre><code class="javascript">element.get(name)</code></pre>
+<pre><code class="javascript">element.attribute(name[, value])</code></pre>
 
 <h3>Arguments</h3>
 
 <ol>
 <li>name (<em>string</em>) the name of the attribute or property</li>
+<li>value (<em>string</em>, optional) if the value argument is set, this method will
+act like a setter and will set the value to all elements in the collection.
+If this attribute is omitted, it will act as a getter on the first element in
+the collection.</li>
 </ol>
 
 <h3>Example</h3>
 
+<h4>HTML</h4>
+
 <pre><code class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/test"</span> <span class="attribute">title</span>=<span class="value">"elements"</span>></span>test<span class="tag">&lt;/<span class="title">a</span>></span></code></pre>
 
-<pre><code class="javascript">element.get(<span class="string">'title'</span>) <span class="comment">// elements</span></code></pre>
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="comment">// as getter</span>
+element.attribute(<span class="string">'title'</span>) <span class="comment">// elements</span>
+<span class="comment">// as setter</span>
+element.attribute(<span class="string">"text"</span>, <span class="string">"Here's Johnny!"</span>)
+element.attribute(<span class="string">"title"</span>, <span class="string">"The Shining"</span>)</code></pre>
 
 <h3>Returns</h3>
+
+<p>If only the name argument is passed:</p>
 
 <ul>
 <li>the value of the attribute</li>
 </ul>
 
-<h2><a href="#set" name="set">set</a></h2>
-
-<p>Set an attribute to an element.</p>
-
-<h3>Syntax</h3>
-
-<pre><code class="javascript">element.set(name, value)</code></pre>
-
-<h3>Arguments</h3>
-
-<ol>
-<li>name - (<em>string</em>) the name of the attribute or property</li>
-<li>value - (<em>mixed</em>) the value the element attribute should be set to.</li>
-</ol>
-
-<h3>Returns</h3>
+<p>If the name and value arguments are passed:</p>
 
 <ul>
 <li>the elements instance</li>
 </ul>
-
-<h3>Examples</h3>
-
-<pre><code class="javascript">element.set(<span class="string">'href'</span>, <span class="string">'index.html'</span>)
-element.set(<span class="string">'checked'</span>, <span class="literal">true</span>)</code></pre>
 
 <h2><a href="#getAttribute" name="getAttribute">getAttribute</a></h2>
 
@@ -586,6 +582,12 @@ the event listeners</li>
 }
 element.on(<span class="string">'click'</span>, add)
 element.emit(<span class="string">'click'</span>, <span class="number">4</span>, <span class="number">2</span>) <span class="comment">// alerts 6</span></code></pre>
+
+<h1><a href="#delegation" name="delegation">delegation</a></h1>
+
+<h2><a href="#delegate" name="delegate">delegate</a></h2>
+
+<h2><a href="#undelegate" name="undelegate">undelegate</a></h2>
 
 <h1><a href="#insertion" name="insertion">insertion</a></h1>
 
@@ -1025,25 +1027,263 @@ testing function, returns true. Otherwise, returns false.</li>
 
 <h1><a href="#traversal" name="traversal">traversal</a></h1>
 
+<p>Traversal adds multiple methods for finding other elements.</p>
+
+<h3>Example</h3>
+
+<pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements/lib/traversal'</span>)</code></pre>
+
+<h3>Note</h3>
+
+<ul>
+<li>Using the traversal package will require the slick package.</li>
+</ul>
+
+<h3>See also</h3>
+
+<ul>
+<li><a href="http://www.w3.org/TR/css3-selectors/">CSS Selectors</a></li>
+</ul>
+
 <h2><a href="#search" name="search">search</a></h2>
+
+<p>Search elements with by an selector, with the current elements as context.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript">elements.search(expression)</code></pre>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>expression - (<em>string</em>) a CSS selector</li>
+</ol>
+
+<h3>Return</h3>
+
+<ul>
+<li>elements instance with the new elements</li>
+</ul>
+
+<h3>Example</h3>
+
+<pre><code class="javascript"><span class="comment">// slick is included by traversal, we can pass selectors to $()</span>
+<span class="comment">// select all p elements</span>
+<span class="keyword">var</span> elements = $(<span class="string">"p"</span>)
+<span class="comment">// select all a elements in the previously found p elements</span>
+elements.search(<span class="string">"a"</span>)</code></pre>
+
+<h3>See also</h3>
+
+<ul>
+<li><a href="#find">find()</a></li>
+</ul>
 
 <h2><a href="#find" name="find">find</a></h2>
 
+<p>Find one element for each element in the elements collection.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript">elements.find(expression)</code></pre>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>expression - (<em>string</em>) a CSS selector</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>elements instance with the new elements</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">ul</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span>Rome<span class="tag">&lt;/<span class="title">li</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span>Delft<span class="tag">&lt;/<span class="title">li</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span>Graz<span class="tag">&lt;/<span class="title">li</span>></span>
+<span class="tag">&lt;/<span class="title">ul</span>></span>
+<span class="tag">&lt;<span class="title">ul</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span>Stockholm<span class="tag">&lt;/<span class="title">li</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span>London<span class="tag">&lt;/<span class="title">li</span>></span>
+<span class="tag">&lt;/<span class="title">ul</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="comment">// slick is included by traversal, we can pass selectors to $()</span>
+<span class="comment">// select both ul elements</span>
+<span class="keyword">var</span> elements = $(<span class="string">"ul"</span>)
+<span class="comment">// select the first element for each list</span>
+<span class="keyword">var</span> cities = elements.find(<span class="string">"li"</span>)
+<span class="comment">// cities now contains "Rome" and "Stockholm"</span></code></pre>
+
+<h3>See also</h3>
+
+<ul>
+<li><a href="#search">search()</a></li>
+</ul>
+
 <h2><a href="#matches" name="matches">matches</a></h2>
+
+<p>Test if this element matches the passed CSS Selector.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript">element.matches(selector)</code></pre>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>match - (<em>string</em>) a CSS selector to test this element against</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>boolean</em>) If the element matched, returns true. Otherwise, returns false.</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"moo"</span> <span class="attribute">href</span>=<span class="value">"http://mootools.net"</span>></span>MooTools<span class="tag">&lt;/<span class="title">a</span>></span>
+    <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"goo"</span> <span class="attribute">href</span>=<span class="value">"http://google.com"</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> moo = $(<span class="string">'a.moo'</span>)
+moo.matches(<span class="string">'a[href*="mootools"]'</span>) <span class="comment">// true</span>
+<span class="keyword">var</span> goo = $(<span class="string">'a.goo'</span>)
+goo.matches(<span class="string">'a[href*="mootools"]'</span>) <span class="comment">// false</span></code></pre>
 
 <h2><a href="#nextSiblings" name="nextSiblings">nextSiblings</a></h2>
 
+<p>Returns all next siblings of each element in the collection.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript"><span class="keyword">var</span> nextSiblings = element.nextSiblings([expression])</code></pre>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>(<em>string</em>, optional) - A CSS Selector to filter the next siblings</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>elements collection with all next siblings that match the CSS expression, if
+any given.</li>
+</ul>
+
+<h3>Examples</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">section</span>></span>
+    <span class="tag">&lt;<span class="title">em</span>></span><span class="tag">&lt;/<span class="title">em</span>></span>
+    <span class="tag">&lt;<span class="title">p</span>></span><span class="tag">&lt;/<span class="title">p</span>></span>
+    <span class="tag">&lt;<span class="title">div</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">p</span>></span><span class="tag">&lt;/<span class="title">p</span>></span>
+    <span class="tag">&lt;<span class="title">em</span>></span><span class="tag">&lt;/<span class="title">em</span>></span>
+    <span class="tag">&lt;<span class="title">p</span>></span><span class="tag">&lt;/<span class="title">p</span>></span>
+    <span class="tag">&lt;<span class="title">strong</span>></span><span class="tag">&lt;/<span class="title">strong</span>></span>
+<span class="tag">&lt;/<span class="title">section</span>></span>
+<span class="tag">&lt;<span class="title">section</span>></span>
+    <span class="tag">&lt;<span class="title">a</span>></span><span class="tag">&lt;/<span class="title">a</span>></span>
+    <span class="tag">&lt;<span class="title">div</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">strong</span>></span><span class="tag">&lt;/<span class="title">strong</span>></span>
+    <span class="tag">&lt;<span class="title">p</span>></span><span class="tag">&lt;/<span class="title">p</span>></span>
+    <span class="tag">&lt;<span class="title">em</span>></span><span class="tag">&lt;/<span class="title">em</span>></span>
+<span class="tag">&lt;/<span class="title">section</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> div = $(<span class="string">'div'</span>) <span class="comment">// finds the two div elements</span>
+div.nextSiblings() <span class="comment">// returns [p, em, p, strong, strong, p, em]</span>
+div.nextSiblings(<span class="string">'p'</span>) <span class="comment">// returns [p, p, p]</span></code></pre>
+
 <h2><a href="#nextSibling" name="nextSibling">nextSibling</a></h2>
+
+<p>Exactly like <a href="#nextSiblings">nextSiblings</a>, except it only returns the first
+next sibling that matches the expression, if any given.</p>
+
+<h3>Example</h3>
+
+<p>With the same HTML as <a href="#nextSiblings">nextSiblings</a>:</p>
+
+<pre><code class="javascript"><span class="keyword">var</span> div = $(<span class="string">'div'</span>) <span class="comment">// finds the two div elements</span>
+div.nextSibling() <span class="comment">// returns [p, strong]</span>
+div.nextSibling(<span class="string">'p'</span>) <span class="comment">// returns [p, p]</span></code></pre>
 
 <h2><a href="#previousSiblings" name="previousSiblings">previousSiblings</a></h2>
 
+<p>Exactly like <a href="#nextSiblings">nextSiblings</a>, except it will return previous
+siblings instead of next siblings.</p>
+
 <h2><a href="#previousSibling" name="previousSibling">previousSibling</a></h2>
+
+<h3>Example</h3>
+
+<p>With the same HTML as <a href="#nextSiblings">nextSiblings</a>:</p>
+
+<pre><code class="javascript"><span class="keyword">var</span> div = $(<span class="string">'div'</span>) <span class="comment">// finds the two div elements</span>
+div.previousSiblings() <span class="comment">// returns [em, p, a]</span>
+div.previousSiblings(<span class="string">'p'</span>) <span class="comment">// returns [p]</span></code></pre>
 
 <h2><a href="#children" name="children">children</a></h2>
 
+<p>Like <a href="#nextSiblings">nextSiblings</a>, but returns the direct child elements,
+if they match the passed CSS expression, if any given.</p>
+
+<h3>Example</h3>
+
+<p>with the same html as <a href="#nextsiblings">nextsiblings</a>:</p>
+
+<pre><code class="javascript"><span class="keyword">var</span> div = $(<span class="string">'div'</span>) <span class="comment">// finds the two div elements</span>
+div.nextSibling() <span class="comment">// returns [p, strong]</span>
+div.nextSibling(<span class="string">'p'</span>) <span class="comment">// returns [p, p]</span></code></pre>
+
 <h2><a href="#parent" name="parent">parent</a></h2>
 
+<p>Get the parent node that matches the expression, if any given, for each
+element. Syntax is the same as <a href="#nextSiblings">nextSiblings</a>.</p>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">p</span>></span>
+        <span class="tag">&lt;<span class="title">strong</span>></span><span class="tag">&lt;/<span class="title">strong</span>></span>
+    <span class="tag">&lt;/<span class="title">p</span>></span>
+<span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
+
+<pre><code class="javascript"><span class="keyword">var</span> strong = $(<span class="string">'strong'</span>) <span class="comment">// finds the strong element</span>
+strong.getParent() <span class="comment">// the p element</span>
+strong.getParent(<span class="string">'div'</span>) <span class="comment">// the div element</span></code></pre>
+
 <h2><a href="#parents" name="parents">parents</a></h2>
+
+<p>Like <a href="#parent">parent()</a>, but selects all parent elements, that matches the
+expression, if any given.</p>
+
+<h3>Example</h3>
+
+<p>with the same html as <a href="#getParent">getParent</a>:</p>
+
+<pre><code class="javascript"><span class="keyword">var</span> strong = $(<span class="string">'strong'</span>) <span class="comment">// finds the strong element</span>
+strong.getParents() <span class="comment">// returns [p, div]</span>
+strong.getParents(<span class="string">'div'</span>) <span class="comment">// only [div]</span></code></pre>
 </div>
 
     </body>
