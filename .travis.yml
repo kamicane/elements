@@ -6,6 +6,11 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sudo node test/server.js &
   - sleep 5
-script: make test-phantom
+  - git clone git://github.com/n1k0/casperjs.git
+  - cd casperjs
+  - git checkout 1.0.0-RC1
+  - cd ..
+  - export PATH=$PATH:$PWD/casperjs/bin/
+script: make test-casper
 notifications:
   irc: "irc.freenode.org#mootools-dev"

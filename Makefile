@@ -12,12 +12,15 @@ build-compress:
 test-server:
 	@node ./test/server.js
 
-test-phantom:
-	@phantomjs ./test/phantom.js 'http://localhost:8080/attributes.html'
-	@phantomjs ./test/phantom.js 'http://localhost:8080/events.html'
-	@phantomjs ./test/phantom.js 'http://localhost:8080/insertion.html'
-	@phantomjs ./test/phantom.js 'http://localhost:8080/list.html'
-	@phantomjs ./test/phantom.js 'http://localhost:8080/elements.html'
+test-casper:
+	@casperjs ./test/casper.js 'http://localhost:8080/attributes.html'
+	@casperjs ./test/casper.js 'http://localhost:8080/delegation.html'
+	@casperjs ./test/delegationCasper.js
+	@casperjs ./test/casper.js 'http://localhost:8080/domready.html'
+	@casperjs ./test/casper.js 'http://localhost:8080/elements.html'
+	@casperjs ./test/casper.js 'http://localhost:8080/events.html'
+	@casperjs ./test/casper.js 'http://localhost:8080/insertion.html'
+	@casperjs ./test/casper.js 'http://localhost:8080/list.html'
 
 docs:
 	@node ./doc/builddocs.js
