@@ -530,6 +530,12 @@ myElement.on('click', destroy)
 myElement.off('click', destroy)
 ```
 
+### Note
+
+- To remove a listener, it is important to pass the same function to the `fn`
+parameter. In the example the reference to the function is stored in the
+`destroy` variable.
+
 ## emit
 
 Executes all events attached for the specified type on an element.
@@ -537,7 +543,7 @@ Executes all events attached for the specified type on an element.
 ### Syntax
 
 ```js
-myElement.empty(type, args...)
+myElement.emit(type, args...)
 ```
 
 ### Arguments
@@ -559,9 +565,87 @@ element.emit('click', 4, 2) // alerts 6
 delegation
 ==========
 
+Delegation is a common practice where an event listener is attached to a parent
+element to monitor its children rather than attach events to every single child
+element. It's more efficient for dynamic content or highly interactive pages
+with a lot of DOM elements.
+
 ## delegate
 
+Add a new delegation event listener to an element.
+
+### Syntax
+
+```js
+myElement.delegate(type, selector, fn)
+```
+
+### Arguments
+
+1. type - (*string*) The event name.
+2. selector - (*string*) A CSS Selector the element the event is fired on
+should match (see [matches](#matches))
+3. fn   - (*function*) The function to remove.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+#### HTML
+
+```html
+<ul>
+	<li><a href="#">one</a></li>
+	<li><a href="#">two</a></li>
+	<li><a href="#">three</a></li>
+</ul>
+```
+
+#### JS
+
+```js
+var $ = require('elements/lib/delegation')
+
+$('ul').delegate('click', 'a', function(event, a){
+	alert(a.text())
+})
+```
+
 ## undelegate
+
+Removes a delegation event listener from an element. Opposite operation of
+[delegate](#delegate).
+
+### Syntax
+
+```js
+myElement.undelegate(type, selector, fn)
+```
+
+### Arguments
+
+1. type - (*string*) The event name.
+2. selector - (*string*) A CSS Selector the element the event is fired on
+should match (see [matches](#matches))
+3. fn   - (*function*) The function to remove.
+
+### Returns
+
+- this `elements` instance
+
+### Example
+
+```js
+var click = function(event, a){
+	alert(a.text())
+}
+// add the delegation listener
+$('ul').delegate('click', 'a', click)
+// later remove the delegation listener again
+$('ul').undelegate('click', 'a', click)
+```
 
 insertion
 =========

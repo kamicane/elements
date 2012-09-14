@@ -559,13 +559,21 @@ myElement.on(<span class="string">'click'</span>, destroy)
 <span class="comment">//later...</span>
 myElement.off(<span class="string">'click'</span>, destroy)</code></pre>
 
+<h3>Note</h3>
+
+<ul>
+<li>To remove a listener, it is important to pass the same function to the <code>fn</code>
+parameter. In the example the reference to the function is stored in the
+<code>destroy</code> variable.</li>
+</ul>
+
 <h2><a href="#emit" name="emit">emit</a></h2>
 
 <p>Executes all events attached for the specified type on an element.</p>
 
 <h3>Syntax</h3>
 
-<pre><code class="javascript">myElement.empty(type, args...)</code></pre>
+<pre><code class="javascript">myElement.emit(type, args...)</code></pre>
 
 <h3>Arguments</h3>
 
@@ -585,9 +593,85 @@ element.emit(<span class="string">'click'</span>, <span class="number">4</span>,
 
 <h1><a href="#delegation" name="delegation">delegation</a></h1>
 
+<p>Delegation is a common practice where an event listener is attached to a parent
+element to monitor its children rather than attach events to every single child
+element. It's more efficient for dynamic content or highly interactive pages
+with a lot of DOM elements.</p>
+
 <h2><a href="#delegate" name="delegate">delegate</a></h2>
 
+<p>Add a new delegation event listener to an element.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript">myElement.delegate(type, selector, fn)</code></pre>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>type - (<em>string</em>) The event name.</li>
+<li>selector - (<em>string</em>) A CSS Selector the element the event is fired on
+should match (see <a href="#matches">matches</a>)</li>
+<li>fn   - (<em>function</em>) The function to remove.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code>elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<h4>HTML</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">ul</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>></span>one<span class="tag">&lt;/<span class="title">a</span>></span><span class="tag">&lt;/<span class="title">li</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>></span>two<span class="tag">&lt;/<span class="title">a</span>></span><span class="tag">&lt;/<span class="title">li</span>></span>
+    <span class="tag">&lt;<span class="title">li</span>></span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span>></span>three<span class="tag">&lt;/<span class="title">a</span>></span><span class="tag">&lt;/<span class="title">li</span>></span>
+<span class="tag">&lt;/<span class="title">ul</span>></span></code></pre>
+
+<h4>JS</h4>
+
+<pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements/lib/delegation'</span>)
+
+$(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>, <span class="string">'a'</span>, <span class="keyword">function</span>(event, a){
+    alert(a.text())
+})</code></pre>
+
 <h2><a href="#undelegate" name="undelegate">undelegate</a></h2>
+
+<p>Removes a delegation event listener from an element. Opposite operation of
+<a href="#delegate">delegate</a>.</p>
+
+<h3>Syntax</h3>
+
+<pre><code class="javascript">myElement.undelegate(type, selector, fn)</code></pre>
+
+<h3>Arguments</h3>
+
+<ol>
+<li>type - (<em>string</em>) The event name.</li>
+<li>selector - (<em>string</em>) A CSS Selector the element the event is fired on
+should match (see <a href="#matches">matches</a>)</li>
+<li>fn   - (<em>function</em>) The function to remove.</li>
+</ol>
+
+<h3>Returns</h3>
+
+<ul>
+<li>this <code>elements</code> instance</li>
+</ul>
+
+<h3>Example</h3>
+
+<pre><code class="javascript"><span class="keyword">var</span> click = <span class="keyword">function</span>(event, a){
+    alert(a.text())
+}
+<span class="comment">// add the delegation listener</span>
+$(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>, <span class="string">'a'</span>, click)
+<span class="comment">// later remove the delegation listener again</span>
+$(<span class="string">'ul'</span>).undelegate(<span class="string">'click'</span>, <span class="string">'a'</span>, click)</code></pre>
 
 <h1><a href="#insertion" name="insertion">insertion</a></h1>
 
