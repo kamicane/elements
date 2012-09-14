@@ -14,6 +14,7 @@ describe('delegation', function(){
         $('#container').delegate('click', 'a', function(event, a){
             event.preventDefault()
             a[0].innerHTML = a[0].className
+            a[0].setAttribute('data-id', this[0].id)
         })
         $(document).delegate('click', 'li', handler)
     })

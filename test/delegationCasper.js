@@ -31,6 +31,10 @@ casper.then(function(){
     }, "first", "it should have clicked a.first and executed the handler which changed the innerHTML to equal the className")
 
     this.test.assertEvalEquals(function(){
+        return document.querySelector('a.first').getAttribute('data-id')
+    }, "container", "this should be the container element object")
+
+    this.test.assertEvalEquals(function(){
         return document.querySelector('a.second').innerHTML
     }, "second", "it should have clicked a.second and executed the handler which changed the innerHTML to equal the className")
 
