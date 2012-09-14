@@ -70,7 +70,7 @@ as an array, like `Array.prototype.map`.
 elements.handle(callback)
 ```
 
-### Arguments
+### Parameters
 
 1. callback - (*function*) callback that will be called with the native
 element, the index and the returned buffer array. The context is the elements
@@ -160,10 +160,10 @@ Get or set an attribute or property.
 element.attribute(name[, value])
 ```
 
-### Arguments
+### Parameters
 
 1. name (*string*) the name of the attribute or property
-2. value (*string*, optional) if the value argument is set, this method will
+2. value (*string*, optional) if the value parameter is set, this method will
 act like a setter and will set the value to all elements in the collection.
 If this attribute is omitted, it will act as a getter on the first element in
 the collection.
@@ -188,11 +188,11 @@ element.attribute("title", "The Shining")
 
 ### Returns
 
-If only the name argument is passed:
+If only the name parameter is passed:
 
 - the value of the attribute
 
-If the name and value arguments are passed:
+If the name and value parameters are passed:
 
 - the elements instance
 
@@ -260,7 +260,7 @@ Tests the Element to see if it has the passed in className.
 var result = myElement.hasClass(className)
 ```
 
-### Arguments
+### Parameters
 
 1. className - (*string*) The class name to test.
 
@@ -299,7 +299,7 @@ Adds the passed in class to the Element, if the Element doesnt already have it.
 myElement.addClass(className)
 ```
 
-### Arguments
+### Parameters
 
 1. className - (*string*) The class name to add.
 
@@ -337,7 +337,7 @@ Works like [addClass](#addClass), but removes the class from the Element.
 myElement.removeClass(className)
 ```
 
-### Arguments
+### Parameters
 
 1. className - (*string*) The class name to remove.
 
@@ -407,9 +407,9 @@ Set or get HTML to on element.
 myElement.html([html])
 ```
 
-### Arguments
+### Parameters
 
-1. html - (*string*) if the `html` argument is set, it will set the html,
+1. html - (*string*) if the `html` parameter is set, it will set the html,
 otherwise it will return the current html.
 
 ### Examples
@@ -430,9 +430,9 @@ Set or get text to on element.
 myElement.text([text])
 ```
 
-### Arguments
+### Parameters
 
-1. text - (*string*) if the `text` argument is set, it will set the text,
+1. text - (*string*) if the `text` parameter is set, it will set the text,
 otherwise it will return the current text.
 
 ### Examples
@@ -481,7 +481,7 @@ Attaches an event listener to a DOM element.
 myElement.on(type, fn)
 ```
 
-### Arguments
+### Parameters
 
 1. type - (*string*) The event name to monitor ('click', 'load', etc) without
 the prefix 'on'.
@@ -509,7 +509,7 @@ Works as [on](#on), but instead removes the specified event listener.
 myElement.off(type, fn)
 ```
 
-### Arguments
+### Parameters
 
 1. type - (*string*) The event name.
 2. fn   - (*function*) The function to remove.
@@ -546,10 +546,10 @@ Executes all events attached for the specified type on an element.
 myElement.emit(type, args...)
 ```
 
-### Arguments
+### Parameters
 
 1. type - (*string*) The event name.
-2. args... - (*mixed*) Zero or multiple extra arguments that will be passed to
+2. args... - (*mixed*) Zero or multiple extra parameters that will be passed to
 the event listeners
 
 ### Examples
@@ -580,7 +580,7 @@ Add a new delegation event listener to an element.
 myElement.delegate(type, selector, fn)
 ```
 
-### Arguments
+### Parameters
 
 1. type - (*string*) The event name.
 2. selector - (*string*) A CSS Selector the element the event is fired on
@@ -624,7 +624,7 @@ Removes a delegation event listener from an element. Opposite operation of
 myElement.undelegate(type, selector, fn)
 ```
 
-### Arguments
+### Parameters
 
 1. type - (*string*) The event name.
 2. selector - (*string*) A CSS Selector the element the event is fired on
@@ -666,7 +666,7 @@ $(document.createElement('div')).insert(vince)
 Wrapper method of the native `appendChild` method. It will append another
 element as child element.
 
-### Arguments
+### Parameters
 
 1. child - (*elements*) another elements instance.
 
@@ -706,7 +706,7 @@ parent.appendChild(child)
 Wrapper method of the native `insertBefore` method. It will insert an element
 before another element.
 
-### Arguments
+### Parameters
 
 1. child - (*elements*) another elements instance.
 1. ref - (*elements*) the reference element. `child` will be inserted before
@@ -942,7 +942,7 @@ Calls a function for each element in the array.
 elements.forEach(fn[, bind])
 ```
 
-### Arguments
+### Parameters
 
 1. fn - (*function*) Function to execute for each element. `fn` is called like
 `fn(element, index)` where `element` is the native element, and `index` is the
@@ -972,7 +972,7 @@ element in the elements collection
 var mapped = elements.map(fn[, bind])
 ```
 
-### Arguments
+### Parameters
 
 1. fn - (*function*) Function that produces an element of the new Array from an
 element of the current one. `fn` is called like `fn(element, index)` where
@@ -1009,7 +1009,7 @@ provided filtering function returns true.
 var filtered = elements.filter(fn[, bind])
 ```
 
-### Arguments
+### Parameters
 
 1. fn - (*function*) The function to test each element of the collection. `fn`
 is called like `fn(element, index)` where `element` is the native element, and
@@ -1044,7 +1044,7 @@ function.
 var allPassed = elements.every(fn[, bind])
 ```
 
-### Arguments
+### Parameters
 
 1. fn - (*function*) The function to test each element of the collection. `fn`
 is called like `fn(element, index)` where `element` is the native element, and
@@ -1080,7 +1080,7 @@ testing function.
 var somePassed = elements.some(fn[, bind])
 ```
 
-### Arguments
+### Parameters
 
 1. fn - (*function*) The function to test each element of the collection. `fn`
 is called like `fn(element, index)` where `element` is the native element, and
@@ -1134,7 +1134,7 @@ Search elements with by an selector, with the current elements as context.
 elements.search(expression)
 ```
 
-### Arguments
+### Parameters
 
 1. expression - (*string*) a CSS selector
 
@@ -1166,7 +1166,7 @@ Find one element for each element in the elements collection.
 elements.find(expression)
 ```
 
-### Arguments
+### Parameters
 
 1. expression - (*string*) a CSS selector
 
@@ -1215,7 +1215,7 @@ Test if this element matches the passed CSS Selector.
 element.matches(selector)
 ```
 
-### Arguments
+### Parameters
 
 1. match - (*string*) a CSS selector to test this element against
 
@@ -1253,7 +1253,7 @@ Returns all next siblings of each element in the collection.
 var nextSiblings = element.nextSiblings([expression])
 ```
 
-### Arguments
+### Parameters
 
 1. (*string*, optional) - A CSS Selector to filter the next siblings
 

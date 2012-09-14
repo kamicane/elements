@@ -132,7 +132,7 @@ as an array, like <code>Array.prototype.map</code>.</p>
 
 <pre><code class="javascript">elements.handle(callback)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>callback - (<em>function</em>) callback that will be called with the native
@@ -214,11 +214,11 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)</code><
 
 <pre><code class="javascript">element.attribute(name[, value])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>name (<em>string</em>) the name of the attribute or property</li>
-<li>value (<em>string</em>, optional) if the value argument is set, this method will
+<li>value (<em>string</em>, optional) if the value parameter is set, this method will
 act like a setter and will set the value to all elements in the collection.
 If this attribute is omitted, it will act as a getter on the first element in
 the collection.</li>
@@ -240,13 +240,13 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 
 <h3>Returns</h3>
 
-<p>If only the name argument is passed:</p>
+<p>If only the name parameter is passed:</p>
 
 <ul>
 <li>the value of the attribute</li>
 </ul>
 
-<p>If the name and value arguments are passed:</p>
+<p>If the name and value parameters are passed:</p>
 
 <ul>
 <li>the elements instance</li>
@@ -306,7 +306,7 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 
 <pre><code class="javascript"><span class="keyword">var</span> result = myElement.hasClass(className)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>className - (<em>string</em>) The class name to test.</li>
@@ -345,7 +345,7 @@ cross-browser fixes, use something like
 
 <pre><code class="javascript">myElement.addClass(className)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>className - (<em>string</em>) The class name to add.</li>
@@ -379,7 +379,7 @@ cross-browser fixes, use something like
 
 <pre><code class="javascript">myElement.removeClass(className)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>className - (<em>string</em>) The class name to remove.</li>
@@ -440,10 +440,10 @@ cross-browser fixes, use something like
 
 <pre><code class="javascript">myElement.html([html])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
-<li>html - (<em>string</em>) if the <code>html</code> argument is set, it will set the html,
+<li>html - (<em>string</em>) if the <code>html</code> parameter is set, it will set the html,
 otherwise it will return the current html.</li>
 </ol>
 
@@ -461,10 +461,10 @@ otherwise it will return the current html.</li>
 
 <pre><code class="javascript">myElement.text([text])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
-<li>text - (<em>string</em>) if the <code>text</code> argument is set, it will set the text,
+<li>text - (<em>string</em>) if the <code>text</code> parameter is set, it will set the text,
 otherwise it will return the current text.</li>
 </ol>
 
@@ -508,7 +508,7 @@ else happens.</p>
 
 <pre><code class="javascript">myElement.on(type, fn)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>type - (<em>string</em>) The event name to monitor ('click', 'load', etc) without
@@ -536,7 +536,7 @@ the prefix 'on'.</li>
 
 <pre><code class="javascript">myElement.off(type, fn)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
@@ -575,11 +575,11 @@ parameter. In the example the reference to the function is stored in the
 
 <pre><code class="javascript">myElement.emit(type, args...)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
-<li>args... - (<em>mixed</em>) Zero or multiple extra arguments that will be passed to
+<li>args... - (<em>mixed</em>) Zero or multiple extra parameters that will be passed to
 the event listeners</li>
 </ol>
 
@@ -606,7 +606,7 @@ with a lot of DOM elements.</p>
 
 <pre><code class="javascript">myElement.delegate(type, selector, fn)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
@@ -648,7 +648,7 @@ $(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>
 
 <pre><code class="javascript">myElement.undelegate(type, selector, fn)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
@@ -689,7 +689,7 @@ $(document.createElement(<span class="string">'div'</span>)).insert(vince)</code
 <p>Wrapper method of the native <code>appendChild</code> method. It will append another
 element as child element.</p>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>child - (<em>elements</em>) another elements instance.</li>
@@ -729,7 +729,7 @@ parent.appendChild(child)</code></pre>
 <p>Wrapper method of the native <code>insertBefore</code> method. It will insert an element
 before another element.</p>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>child - (<em>elements</em>) another elements instance.</li>
@@ -934,7 +934,7 @@ elements instance.</p>
 
 <pre><code class="javascript">elements.forEach(fn[, bind])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>fn - (<em>function</em>) Function to execute for each element. <code>fn</code> is called like
@@ -966,7 +966,7 @@ element in the elements collection</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> mapped = elements.map(fn[, bind])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>fn - (<em>function</em>) Function that produces an element of the new Array from an
@@ -1005,7 +1005,7 @@ provided filtering function returns true.</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> filtered = elements.filter(fn[, bind])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>fn - (<em>function</em>) The function to test each element of the collection. <code>fn</code>
@@ -1042,7 +1042,7 @@ function.</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> allPassed = elements.every(fn[, bind])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>fn - (<em>function</em>) The function to test each element of the collection. <code>fn</code>
@@ -1080,7 +1080,7 @@ testing function.</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> somePassed = elements.some(fn[, bind])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>fn - (<em>function</em>) The function to test each element of the collection. <code>fn</code>
@@ -1137,7 +1137,7 @@ testing function, returns true. Otherwise, returns false.</li>
 
 <pre><code class="javascript">elements.search(expression)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>expression - (<em>string</em>) a CSS selector</li>
@@ -1171,7 +1171,7 @@ elements.search(<span class="string">"a"</span>)</code></pre>
 
 <pre><code class="javascript">elements.find(expression)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>expression - (<em>string</em>) a CSS selector</li>
@@ -1220,7 +1220,7 @@ elements.search(<span class="string">"a"</span>)</code></pre>
 
 <pre><code class="javascript">element.matches(selector)</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>match - (<em>string</em>) a CSS selector to test this element against</li>
@@ -1256,7 +1256,7 @@ goo.matches(<span class="string">'a[href*="mootools"]'</span>) <span class="comm
 
 <pre><code class="javascript"><span class="keyword">var</span> nextSiblings = element.nextSiblings([expression])</code></pre>
 
-<h3>Arguments</h3>
+<h3>Parameters</h3>
 
 <ol>
 <li>(<em>string</em>, optional) - A CSS Selector to filter the next siblings</li>
