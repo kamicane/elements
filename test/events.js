@@ -31,4 +31,17 @@ describe('events.js', function(){
 
     })
 
+    describe("on('click')", function(){
+
+        it('should attach an event listener', function(){
+
+            var container = $(document.getElementById('container'))
+            container.on('click', function(event){
+                container[0].innerHTML = (this == container) ? 'equal' : 'wop'
+            })
+
+        })
+
+    })
+
 })

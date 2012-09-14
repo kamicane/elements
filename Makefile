@@ -19,6 +19,7 @@ test-casper:
 	@casperjs ./test/casper.js 'http://localhost:8080/domready.html'
 	@casperjs ./test/casper.js 'http://localhost:8080/elements.html'
 	@casperjs ./test/casper.js 'http://localhost:8080/events.html'
+	@casperjs ./test/eventsCasper.js
 	@casperjs ./test/casper.js 'http://localhost:8080/insertion.html'
 	@casperjs ./test/casper.js 'http://localhost:8080/list.html'
 
