@@ -161,7 +161,7 @@ attributes
 ==========
 
 ```js
-$ = require('elements/lib/attributes')
+var $ = require('elements/lib/attributes')
 ```
 
 ## attribute
