@@ -83,7 +83,7 @@
 <h3>Building elements</h3>
 
 <p>In many examples below you can see <code>require()</code> calls, just like <code>require()</code>
-works in nodejs. If you have downloaded the full version you do not have to
+works in nodejs. If you have downloaded the full version, you don't have to
 worry about it, all methods will be there already by default. However if you
 choose to build elements manually, just with the components you need, you can
 use <a href="https://github.com/kamicane/wrapup">wrapup</a> to create your own build.</p>
@@ -146,6 +146,18 @@ instance which belongs to the element.</li>
 <li>(<em>array</em>) an array with the values returned by the callbacks</li>
 </ul>
 
+<h3>Example</h3>
+
+<pre><code class="javascript"><span class="keyword">var</span> checks = checkboxes.handle(<span class="keyword">function</span>(checkbox){
+    <span class="comment">// checkbox is the native element</span>
+    <span class="keyword">var</span> checked = checkbox.checked
+    checkbox.checked = !checked
+    <span class="comment">// this is the wrapped element object</span>
+    <span class="keyword">this</span>.attribute(<span class="string">'data-checked'</span>, !checked)
+    <span class="comment">// return the result</span>
+    <span class="keyword">return</span> checked
+}) <span class="comment">// an array with the returned value for each element</span></code></pre>
+
 <h2><a href="#remove" name="remove">remove</a></h2>
 
 <p>Removes an element from the DOM.</p>
@@ -172,7 +184,7 @@ $.use({
     }
 })</code></pre>
 
-<p>now <code>$</code> accepts any selector as well:</p>
+<p>Now <code>$</code> accepts any selector as well:</p>
 
 <pre><code class="javascript">$(<span class="string">'a'</span>) <span class="comment">// returns elements instance with al 'a' elements on the page</span></code></pre>
 
@@ -339,7 +351,7 @@ cross-browser fixes, use something like
 
 <h2><a href="#addClass" name="addClass">addClass</a></h2>
 
-<p>Adds the passed in class to the Element, if the Element doesnt already have it.</p>
+<p>Adds the passed in class to the Element, if the Element doesn't already have it.</p>
 
 <h3>Syntax</h3>
 
@@ -1331,7 +1343,7 @@ if they match the passed CSS expression, if any given.</p>
 
 <h3>Example</h3>
 
-<p>with the same html as <a href="#nextsiblings">nextsiblings</a>:</p>
+<p>With the same html as <a href="#nextsiblings">nextsiblings</a>:</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> div = $(<span class="string">'div'</span>) <span class="comment">// finds the two div elements</span>
 div.nextSibling() <span class="comment">// returns [p, strong]</span>
@@ -1353,8 +1365,8 @@ element. Syntax is the same as <a href="#nextSiblings">nextSiblings</a>.</p>
 <span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <pre><code class="javascript"><span class="keyword">var</span> strong = $(<span class="string">'strong'</span>) <span class="comment">// finds the strong element</span>
-strong.getParent() <span class="comment">// the p element</span>
-strong.getParent(<span class="string">'div'</span>) <span class="comment">// the div element</span></code></pre>
+strong.parent() <span class="comment">// the p element</span>
+strong.parent(<span class="string">'div'</span>) <span class="comment">// the div element</span></code></pre>
 
 <h2><a href="#parents" name="parents">parents</a></h2>
 
@@ -1363,11 +1375,11 @@ expression, if any given.</p>
 
 <h3>Example</h3>
 
-<p>with the same html as <a href="#getParent">getParent</a>:</p>
+<p>With the same html as <a href="#parent">parent</a>:</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> strong = $(<span class="string">'strong'</span>) <span class="comment">// finds the strong element</span>
-strong.getParents() <span class="comment">// returns [p, div]</span>
-strong.getParents(<span class="string">'div'</span>) <span class="comment">// only [div]</span></code></pre>
+strong.parents() <span class="comment">// returns [p, div]</span>
+strong.parents(<span class="string">'div'</span>) <span class="comment">// only [div]</span></code></pre>
 </div>
 
     </body>

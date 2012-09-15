@@ -16,7 +16,7 @@ elements can be obtained through *npm* with the following command:
 ### Building elements
 
 In many examples below you can see `require()` calls, just like `require()`
-works in nodejs. If you have downloaded the full version you do not have to
+works in nodejs. If you have downloaded the full version, you don't have to
 worry about it, all methods will be there already by default. However if you
 choose to build elements manually, just with the components you need, you can
 use [wrapup](https://github.com/kamicane/wrapup) to create your own build.
@@ -80,6 +80,20 @@ instance which belongs to the element.
 
 - (*array*) an array with the values returned by the callbacks
 
+### Example
+
+```js
+var checks = checkboxes.handle(function(checkbox){
+	// checkbox is the native element
+	var checked = checkbox.checked
+	checkbox.checked = !checked
+	// this is the wrapped element object
+	this.attribute('data-checked', !checked)
+	// return the result
+	return checked
+}) // an array with the returned value for each element
+```
+
 ## remove
 
 Removes an element from the DOM.
@@ -110,7 +124,7 @@ $.use({
 })
 ```
 
-now `$` accepts any selector as well:
+Now `$` accepts any selector as well:
 
 ```js
 $('a') // returns elements instance with al 'a' elements on the page
@@ -291,7 +305,7 @@ cross-browser fixes, use something like
 
 ## addClass
 
-Adds the passed in class to the Element, if the Element doesnt already have it.
+Adds the passed in class to the Element, if the Element doesn't already have it.
 
 ### Syntax
 
@@ -1331,7 +1345,7 @@ if they match the passed CSS expression, if any given.
 
 ### Example
 
-with the same html as [nextsiblings](#nextsiblings):
+With the same html as [nextsiblings](#nextsiblings):
 
 ```js
 var div = $('div') // finds the two div elements
@@ -1357,8 +1371,8 @@ element. Syntax is the same as [nextSiblings](#nextSiblings).
 
 ```js
 var strong = $('strong') // finds the strong element
-strong.getParent() // the p element
-strong.getParent('div') // the div element
+strong.parent() // the p element
+strong.parent('div') // the div element
 ```
 
 ## parents
@@ -1368,10 +1382,10 @@ expression, if any given.
 
 ### Example
 
-with the same html as [getParent](#getParent):
+With the same html as [parent](#parent):
 
 ```js
 var strong = $('strong') // finds the strong element
-strong.getParents() // returns [p, div]
-strong.getParents('div') // only [div]
+strong.parents() // returns [p, div]
+strong.parents('div') // only [div]
 ```
