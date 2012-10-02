@@ -15,11 +15,11 @@ elements can be obtained through *npm* with the following command:
 
 ### Building elements
 
-In many examples below you can see `require()` calls, just like `require()`
-works in nodejs. If you have downloaded the full version, you don't have to
-worry about it, all methods will be there already by default. However if you
-choose to build elements manually, just with the components you need, you can
-use [wrapup](https://github.com/kamicane/wrapup) to create your own build.
+In many examples below you will see `require()` calls, just like how `require()`
+is used in nodejs. Downloading the full version of elements provides all the methods 
+by default. However, if you choose to build elements manually with just the 
+components you need, you can use [wrapup](https://github.com/kamicane/wrapup) to 
+create your own build of elements.
 
 #### Your main.js
 
