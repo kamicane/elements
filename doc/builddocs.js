@@ -27,6 +27,7 @@ fs.readdir(__dirname, function(err, files){
             .replace(/<code class="(\w+)">([\s|\S]*?)<\/code>/gm, function(original, lang, source){
                 if (lang == 'js') lang = 'javascript'
                 else if (lang == 'html') lang = 'xml'
+                else if (lang == 'shell') lang = 'bash'
                 source = hljs.highlight(lang, unescape(source)).value.trim()
                 return '<code class="' + lang + '">' + source + '</code>'
             })
