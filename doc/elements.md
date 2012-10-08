@@ -11,17 +11,17 @@ Big Fat Download Button
 
 `elements` can be obtained through *npm* with the following command:
 
-```shell
+```
 npm install elements
 ```
 
 ### Building elements
 
 In many examples below you will see `require()` calls, just like how `require()`
-is used in nodejs. Downloading the full version of elements provides all the methods 
-by default. However, if you choose to build `elements` manually with just the 
-components you need, you can use [wrapup](https://github.com/kamicane/wrapup) to 
-create your own build of `elements`.
+is used in nodejs. Downloading the full version of elements provides all the
+methods by default. However, if you choose to build `elements` manually with
+just the components you need, you can use [wrapup](https://github
+com/kamicane/wrapup) to create your own build of `elements`.
 
 #### Your build.js
 
@@ -35,10 +35,10 @@ exports = module.exports = $;
 
 #### Build Command
 
-`elements` is exported to the `$` namespace in the example below. But you can name it anything you want,
-such as "elements".
+`elements is exported to the $ namespace in the example below. But you can name
+`it anything you want, such as "elements".
 
-```shell
+```
 wrup -r $ ./build.js -o elements.js
 ```
 
@@ -78,7 +78,7 @@ var element = $(document.getElementById('not-existing')) // → null
 ## handle
 
 This method will loop through all elements and the callback will be called with
-the native DOM element. An array will be returned by this method, which contains 
+the native DOM element. An array will be returned by this method, which contains
 the values returned by the callback, like `Array.prototype.map`.
 
 ### Syntax
@@ -91,8 +91,8 @@ elements.handle(callback)
 
 1. callback - (*function*) The function that will be called with the native
 element, the index and the returned buffer array. The context is the elements
-instance which belongs to the element. Return a boolean to break out of the loop. 
-The returned boolean will not be included in the returned array.
+instance which belongs to the element. Return a boolean to break out of the
+loop. The returned boolean will not be included in the returned array.
 
 ### Returns
 
@@ -173,7 +173,8 @@ zen('a + a')
 // returns an elements instance with an a in a div
 zen('div a')
 
-// returns an elements instance with one div element with an id, class, and href attributes
+// returns an elements instance with one div element with an id, class, and
+// href attributes
 zen('div a#link.menu.big[href="test.html"]')
 ```
 
@@ -200,11 +201,10 @@ element.attribute(name[, value])
 
 ### Parameters
 
-1. name (*string*) The name of the attribute or property
-2. value (*string*, optional) If the `value` parameter is set, this method will
-act like a setter and will set the `value` to all elements in the collection.
-If this parameter is omitted, it will act as a getter on the first element in
-the collection.
+1. name (*string*) The name of the attribute or property 2. value (*string*,
+optional) If the `value` parameter is set, this method will act like a setter
+and will set the `value` to all elements in the collection. If this parameter is
+omitted, it will act as a getter on the first element in the collection.
 
 ### Example
 
@@ -233,6 +233,35 @@ If only the name parameter is passed:
 If the name and value parameters are passed:
 
 - (*elements*) The `elements` instance.
+
+### Notes
+
+There are several convenient methods available to work with attributes. Used as
+a setter, the methods will return the `elements` instance.
+
+Used as a getter, the following methods will return a `string` value:
+
+* type
+* value
+* name
+* title
+* id
+
+Used as a getter, the following methods will return a `boolean` value:
+
+* checked
+* disabled
+* selected
+
+The following are setter methods that will return the `elements`
+instance.
+
+* check
+* uncheck
+* disable
+* enable
+* select
+* deselect
 
 ## getAttribute
 
@@ -345,8 +374,8 @@ $(document.getElementById('myElement')).hasClass('testClass'); // returns true
 ### Note
 
 - If you need to set HTML to tables, or your HTML contains HTML5 tags, this
-method might not work correctly in each browser. If you really need the
-cross-browser fixes, use something like 
+method might not work correctly in each browser. If you really need the cross-
+browser fixes, use something like
 [html5shiv](http://code.google.com/p/html5shiv/).
 
 ## addClass
@@ -477,8 +506,8 @@ myElement.html([html])
 
 ### Parameters
 
-1. html - (*string*) If the `html` parameter is set, it will set the HTML in the element,
-otherwise it will return the current HTML in the element.
+1. html - (*string*) If the `html` parameter is set, it will set the HTML in the
+element, otherwise it will return the current HTML in the element.
 
 ### Examples
 
@@ -510,8 +539,8 @@ myElement.text([text])
 
 ### Parameters
 
-1. text - (*string*) If the `text` parameter is set, it will set the text in the element,
-otherwise it will return the current text in the element.
+1. text - (*string*) If the `text` parameter is set, it will set the text in the
+element, otherwise it will return the current text in the element.
 
 ### Examples
 
@@ -536,8 +565,8 @@ domready
 
 Contains the DOMReady event, which executes when the DOM is loaded.
 
-Code that attempts to access DOM elements need to be placed within the 'domready' 
-event to ensure that DOM elements exist when the code is executed.
+Code that attempts to access DOM elements need to be placed within the
+'domready' event to ensure that DOM elements exist when the code is executed.
 
 ### Example
 
@@ -551,9 +580,9 @@ domready(function(){
 events
 ======
 
-Events lets you attach event listeners to DOM elements on the page. Those
-event listeners will be executed once the user clicks something or something
-else happens.
+Events lets you attach event listeners to DOM elements on the page. Those event
+listeners will be executed once the user clicks something or something else
+happens.
 
 ### See Also:
 
@@ -622,7 +651,7 @@ myElement.off('click', destroy)
 ### Note
 
 - To remove a listener, it is important to pass the same function to the `fn`
-parameter as the one that was previously attached. In the example the reference 
+parameter as the one that was previously attached. In the example the reference
 to the function is stored in the `destroy` variable.
 
 ## emit
@@ -638,8 +667,8 @@ myElement.emit(type[, args...])
 ### Parameters
 
 1. type - (*string*) The event name.
-2. args... - (*mixed*, optional) Zero or multiple extra parameters that will be passed to
-the event listeners
+2. args... - (*mixed*, optional) Zero or multiple extra parameters that will be
+passed to the event listeners
 
 ### Examples
 
@@ -676,8 +705,8 @@ myElement.delegate(type, selector, fn)
 ### Parameters
 
 1. type - (*string*) The event name.
-2. selector - (*string*) A CSS Selector the element the event is fired on
-should match (see [matches](#matches))
+2. selector - (*string*) A CSS Selector the element the event is fired on should
+match (see [matches](#matches))
 3. fn - (*function*) The function to execute.
 
 ### Returns
@@ -720,8 +749,8 @@ myElement.undelegate(type, selector, fn)
 ### Parameters
 
 1. type - (*string*) The event name.
-2. selector - (*string*) A CSS Selector the element the event is fired on
-should match (see [matches](#matches))
+2. selector - (*string*) A CSS Selector the element the event is fired on should
+match (see [matches](#matches)).
 3. fn   - (*function*) The function to remove.
 
 ### Returns
@@ -743,7 +772,7 @@ $('ul').undelegate('click', 'a', click)
 ### Note
 
 - To remove a listener, it is important to pass the same function to the `fn`
-parameter as the one that was previously attached. In the example the reference 
+parameter as the one that was previously attached. In the example the reference
 to the function is stored in the `click` variable.
 
 insertion
@@ -856,8 +885,8 @@ parent.insertBefore(child, ref)
 
 ## removeChild
 
-Wrapper method of the native `removeChild` method. It will remove a child element 
-from the parent element.
+Wrapper method of the native `removeChild` method. It will remove a child
+element from the parent element.
 
 ### Syntax
 
@@ -865,8 +894,8 @@ from the parent element.
 parent.removeChild(child)
 ```
 
-1. child - (*elements*) An `elements` instance, which is a child of the
-parent element.
+1. child - (*elements*) An `elements` instance, which is a child of the parent
+element.
 
 ### Returns
 
@@ -898,12 +927,13 @@ parent.removeChild(child)
 
 ## replaceChild
 
-Wrapper method of the native `replaceChild` method. It will replace one element with another.
+Wrapper method of the native `replaceChild` method. It will replace one element
+with another.
 
 ### Syntax
 
 1. child - (*elements*) The child `elements` instance.
-1. ref - (*elements*) The reference element. `ref` will be replaced with
+2. ref - (*elements*) The reference element. `ref` will be replaced with
 `child`.
 
 ### Returns
@@ -1112,7 +1142,7 @@ var mapped = elements.map(fn[, bind])
 1. fn - (*function*) Function that produces an element of the new Array from an
 element of the current one. `fn` is called like `fn(element, index)` where
 `element` is the native element, and `index` is the index of the element in the
-elements collection
+elements collection.
 2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
 
 ### Returns
@@ -1206,8 +1236,8 @@ var allEnoughChildren = elements.every(function(element, index){
 
 ## some
 
-Returns true if at least one element in the array satisfies the provided
-testing function.
+Returns true if at least one element in the array satisfies the provided testing
+function.
 
 ### Syntax
 
@@ -1224,8 +1254,8 @@ is called like `fn(element, index)` where `element` is the native element, and
 
 ### Returns
 
-- (*boolean*) - If some element in the collection satisfies the provided
-testing function, returns true. Otherwise, returns false.
+- (*boolean*) - If some element in the collection satisfies the provided testing
+function, returns true. Otherwise, returns false.
 
 ### Example
 
@@ -1396,8 +1426,8 @@ var nextSiblings = element.nextSiblings([expression])
 
 ### Returns
 
-- An `elements` instance with all next siblings that match the CSS expression, if
-any is given.
+- An `elements` instance with all next siblings that match the CSS expression,
+if any is given.
 
 ### Examples
 
@@ -1437,8 +1467,8 @@ next sibling that matches the expression, if any is given.
 
 ### Returns
 
-- An `elements` instance with the first next sibling that matches the CSS expression, if
-any is given.
+- An `elements` instance with the first next sibling that matches the CSS
+expression, if any is given.
 
 ### Example
 
@@ -1471,13 +1501,13 @@ div.previousSiblings('p') // returns [p]
 ```
 ## children
 
-Like [nextSiblings](#nextSiblings), but returns the direct child elements,
-if they match the passed CSS expression, if any is given.
+Like [nextSiblings](#nextSiblings), but returns the direct child elements, if
+they match the passed CSS expression, if any is given.
 
 ### Returns
 
-- An `elements` instance with the the direct child elements that matches the CSS expression, if
-any is given.
+- An `elements` instance with the the direct child elements that matches the CSS
+expression, if any is given.
 
 ### Example
 
@@ -1490,13 +1520,13 @@ div.nextSibling('p') // returns [p, p]
 ```
 ## parent
 
-Get the parent node that matches the expression, if any given, for each
-element. Syntax is the same as [nextSiblings](#nextSiblings).
+Get the parent node that matches the expression, if any given, for each element.
+Syntax is the same as [nextSiblings](#nextSiblings).
 
 ### Returns
 
-- An `elements` instance with one parent element that matches the CSS expression, for each element, if
-any is given.
+- An `elements` instance with one parent element that matches the CSS
+expression, for each element, if any is given.
 
 ### Example
 
@@ -1523,8 +1553,8 @@ expression, if any given.
 
 ### Returns
 
-- An `elements` instance with the parent elements that matches the CSS expression, for each element, if
-any is given.
+- An `elements` instance with the parent elements that matches the CSS
+expression, for each element, if any is given.
 
 ### Example
 
