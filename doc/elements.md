@@ -20,8 +20,9 @@ npm install elements
 In many examples below you will see `require()` calls, just like how `require()`
 is used in nodejs. Downloading the full version of elements provides all the
 methods by default. However, if you choose to build `elements` manually with
-just the components you need, you can use [wrapup](https://github
-com/kamicane/wrapup) to create your own build of `elements`.
+just the components you need, you can use
+[wrapup](https://github.com/kamicane/wrapup) to create your own build of
+`elements`.
 
 #### Your build.js
 
@@ -201,10 +202,11 @@ element.attribute(name[, value])
 
 ### Parameters
 
-1. name (*string*) The name of the attribute or property 2. value (*string*,
-optional) If the `value` parameter is set, this method will act like a setter
-and will set the `value` to all elements in the collection. If this parameter is
-omitted, it will act as a getter on the first element in the collection.
+1. name (*string*) The name of the attribute or property
+2. value (*string*, optional) If the `value` parameter is set, this method will
+act like a setter and will set the `value` to all elements in the collection. If
+this parameter is omitted, it will act as a getter on the first element in the
+collection.
 
 ### Example
 
@@ -832,7 +834,7 @@ parent.appendChild(child)
 
 ### See also
 
-- [MDN appendChild]()
+- [MDN appendChild](https://developer.mozilla.org/en-US/docs/DOM/Node.appendChild)
 
 ## insertBefore
 
@@ -847,7 +849,7 @@ parent.insertBeore(child, ref)
 ### Parameters
 
 1. child - (*elements*) The child `elements` instance.
-1. ref - (*elements*) The reference element. `child` will be inserted before
+2. ref - (*elements*) The reference element. `child` will be inserted before
 `ref`.
 
 ### Returns
