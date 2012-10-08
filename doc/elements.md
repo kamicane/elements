@@ -124,6 +124,10 @@ Removes an element from the DOM.
 element.remove()
 ```
 
+### Returns
+
+- (*elements*) The `elements` instance.
+
 ## $.use
 
 Most modules in `elements` don't require a specific selector engine. With
