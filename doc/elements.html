@@ -75,33 +75,45 @@
 
 <h3>Installation</h3>
 
-<p>elements can be obtained through <em>npm</em> with the following command:</p>
+<p><code>elements</code> can be obtained through <em>npm</em> with the following command:</p>
 
 <pre><code>npm install elements
 </code></pre>
 
 <h3>Building elements</h3>
 
-<p>In many examples below you can see <code>require()</code> calls, just like <code>require()</code>
-works in nodejs. If you have downloaded the full version, you don't have to
-worry about it, all methods will be there already by default. However if you
-choose to build elements manually, just with the components you need, you can
-use <a href="https://github.com/kamicane/wrapup">wrapup</a> to create your own build.</p>
+<p>In many examples below you will see <code>require()</code> calls, just like how <code>require()</code>
+is used in nodejs. Downloading the full version of elements provides all the
+methods by default. However, if you choose to build <code>elements</code> manually with
+just the components you need, you can use
+<a href="https://github.com/kamicane/wrapup">wrapup</a> to create your own build of
+<code>elements</code>.</p>
 
-<h4>Your main.js</h4>
+<h4>Your build.js</h4>
 
 <pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
-<span class="keyword">var</span> ready = require(<span class="string">'elements/lib/domready'</span>)
-<span class="keyword">var</span> zen = require(<span class="string">'elements/lib/zen'</span>)
-ready(<span class="keyword">function</span>(){
-    <span class="keyword">var</span> text = <span class="string">"When all else fails, read the manual"</span>
-    <span class="keyword">var</span> element = zen(<span class="string">'div.class'</span>).text(text).insert(document.body)
-})</code></pre>
+$.ready = require(<span class="string">'elements/lib/domready'</span>)
+$.zen = require(<span class="string">'elements/lib/zen'</span>)
+
+exports = module.exports = $;</code></pre>
 
 <h4>Build Command</h4>
 
-<pre><code>wrup -r ./main.js
+<p><code>elements is exported to the $ namespace in the example below. But you can name
+</code>it anything you want, such as &quot;elements&quot;.</p>
+
+<pre><code>wrup -r $ ./build.js -o elements.js
 </code></pre>
+
+<h4>Use the built elements.js file</h4>
+
+<pre><code class="xml"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"elements.js"</span>></span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>></span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>></span><span class="javascript">
+    $.ready(<span class="keyword">function</span>(){
+        <span class="keyword">var</span> text = <span class="string">"When all else fails, read the manual"</span>
+        <span class="keyword">var</span> element = $.zen(<span class="string">'div.class'</span>).text(text).insert(document.body)
+    })
+</span><span class="tag">&lt;/<span class="title">script</span>></span></code></pre>
 
 <h2><a href="#$" name="$">$</a></h2>
 
@@ -111,7 +123,7 @@ ready(<span class="keyword">function</span>(){
 
 <pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements'</span>)
 
-<span class="comment">// a collection elements, will only contain unique elements</span>
+<span class="comment">// a collection of elements will only contain unique elements</span>
 <span class="keyword">var</span> elements = $(document.getElementsByTagName(<span class="string">'div'</span>))
 elements.addClass(<span class="string">'test'</span>)
 
@@ -125,8 +137,8 @@ element.addClass(<span class="string">'test'</span>)
 <h2><a href="#handle" name="handle">handle</a></h2>
 
 <p>This method will loop through all elements and the callback will be called with
-the native DOM element. The returned version of the callback will be returned
-as an array, like <code>Array.prototype.map</code>.</p>
+the native DOM element. An array will be returned by this method, which contains
+the values returned by the callback, like <code>Array.prototype.map</code>.</p>
 
 <h3>Syntax</h3>
 
@@ -135,28 +147,31 @@ as an array, like <code>Array.prototype.map</code>.</p>
 <h3>Parameters</h3>
 
 <ol>
-<li>callback - (<em>function</em>) callback that will be called with the native
+<li>callback - (<em>function</em>) The function that will be called with the native
 element, the index and the returned buffer array. The context is the elements
-instance which belongs to the element.</li>
+instance which belongs to the element. Return a boolean to break out of the
+loop. The returned boolean will not be included in the returned array.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>array</em>) an array with the values returned by the callbacks</li>
+<li>(<em>array</em>) an array with the values returned by the callback</li>
 </ul>
 
 <h3>Example</h3>
 
-<pre><code class="javascript"><span class="keyword">var</span> checks = checkboxes.handle(<span class="keyword">function</span>(checkbox){
+<pre><code class="javascript"><span class="keyword">var</span> checks = checkboxes.handle(<span class="keyword">function</span>(checkbox, index, buffer){
     <span class="comment">// checkbox is the native element</span>
     <span class="keyword">var</span> checked = checkbox.checked
     checkbox.checked = !checked
-    <span class="comment">// this is the wrapped element object</span>
+
+    <span class="comment">// "this" is the wrapped element object</span>
     <span class="keyword">this</span>.attribute(<span class="string">'data-checked'</span>, !checked)
-    <span class="comment">// return the result</span>
-    <span class="keyword">return</span> checked
-}) <span class="comment">// an array with the returned value for each element</span></code></pre>
+
+    <span class="comment">// return the checked checkboxes</span>
+    <span class="keyword">if</span> (checked) <span class="keyword">return</span> checkbox
+}) <span class="comment">// an array with the returned element</span></code></pre>
 
 <h2><a href="#remove" name="remove">remove</a></h2>
 
@@ -166,9 +181,15 @@ instance which belongs to the element.</li>
 
 <pre><code class="javascript">element.remove()</code></pre>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h2><a href="#$.use" name="$.use">$.use</a></h2>
 
-<p>Most modules in elements don't require a specific selector engine. With
+<p>Most modules in <code>elements</code> don't require a specific selector engine. With
 <code>$.use()</code> a selector engine can be used.</p>
 
 <h3>Examples</h3>
@@ -186,7 +207,7 @@ $.use({
 
 <p>Now <code>$</code> accepts any selector as well:</p>
 
-<pre><code class="javascript">$(<span class="string">'a'</span>) <span class="comment">// returns elements instance with al 'a' elements on the page</span></code></pre>
+<pre><code class="javascript">$(<span class="string">'a'</span>) <span class="comment">// returns elements instance with all 'a' elements on the page</span></code></pre>
 
 <h1><a href="#zen" name="zen">zen</a></h1>
 
@@ -205,7 +226,8 @@ zen(<span class="string">'a + a'</span>)
 <span class="comment">// returns an elements instance with an a in a div</span>
 zen(<span class="string">'div a'</span>)
 
-<span class="comment">// with an id, classes and attributes</span>
+<span class="comment">// returns an elements instance with one div element with an id, class, and</span>
+<span class="comment">// href attributes</span>
 zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)</code></pre>
 
 <h3>Notes</h3>
@@ -229,11 +251,11 @@ zen(<span class="string">'div a#link.menu.big[href="test.html"]'</span>)</code><
 <h3>Parameters</h3>
 
 <ol>
-<li>name (<em>string</em>) the name of the attribute or property</li>
-<li>value (<em>string</em>, optional) if the value parameter is set, this method will
-act like a setter and will set the value to all elements in the collection.
-If this attribute is omitted, it will act as a getter on the first element in
-the collection.</li>
+<li>name (<em>string</em>) The name of the attribute or property</li>
+<li>value (<em>string</em>, optional) If the <code>value</code> parameter is set, this method will
+act like a setter and will set the <code>value</code> to all elements in the collection. If
+this parameter is omitted, it will act as a getter on the first element in the
+collection.</li>
 </ol>
 
 <h3>Example</h3>
@@ -255,13 +277,48 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 <p>If only the name parameter is passed:</p>
 
 <ul>
-<li>the value of the attribute</li>
+<li>The value of the attribute.</li>
 </ul>
 
 <p>If the name and value parameters are passed:</p>
 
 <ul>
-<li>the elements instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
+<h3>Notes</h3>
+
+<p>There are several convenient methods available to work with attributes. Used as
+a setter, the methods will return the <code>elements</code> instance.</p>
+
+<p>Used as a getter, the following methods will return a <code>string</code> value:</p>
+
+<ul>
+<li>type</li>
+<li>value</li>
+<li>name</li>
+<li>title</li>
+<li>id</li>
+</ul>
+
+<p>Used as a getter, the following methods will return a <code>boolean</code> value:</p>
+
+<ul>
+<li>checked</li>
+<li>disabled</li>
+<li>selected</li>
+</ul>
+
+<p>The following are setter methods that will return the <code>elements</code>
+instance.</p>
+
+<ul>
+<li>check</li>
+<li>uncheck</li>
+<li>disable</li>
+<li>enable</li>
+<li>select</li>
+<li>deselect</li>
 </ul>
 
 <h2><a href="#getAttribute" name="getAttribute">getAttribute</a></h2>
@@ -272,13 +329,33 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 
 <pre><code class="javascript">element.getAttribute(<span class="string">'id'</span>)</code></pre>
 
+<h3>Returns</h3>
+
+<p>If the attribute exists on the element:</p>
+
+<ul>
+<li>(<em>string</em>) The value of the attribute.</li>
+</ul>
+
+<p>If the attribute does not exist on the element:</p>
+
+<ul>
+<li>(<em>null</em>)</li>
+</ul>
+
 <h2><a href="#setAttribute" name="setAttribute">setAttribute</a></h2>
 
 <p>Calls the native <code>setAttribute</code> on all elements.</p>
 
 <h3>Example</h3>
 
-<pre><code class="javascript">elements.setAttribut(<span class="string">'src'</span>, <span class="string">'mario.png'</span>)</code></pre>
+<pre><code class="javascript">elements.setAttribute(<span class="string">'src'</span>, <span class="string">'mario.png'</span>)</code></pre>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
 
 <h2><a href="#hasAttribute" name="hasAttribute">hasAttribute</a></h2>
 
@@ -288,17 +365,29 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 
 <pre><code class="javascript">element.hasAttribute(<span class="string">'title'</span>)</code></pre>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>boolean</em>) Returns true if the element has the attribute, otherwise false.</li>
+</ul>
+
 <h2><a href="#removeAttribute" name="removeAttribute">removeAttribute</a></h2>
 
-<p>Removes an attribute from all elements</p>
+<p>Removes an attribute from all elements.</p>
 
 <h3>Example</h3>
 
 <pre><code class="javascript">elements.removeAttribute(<span class="string">'title'</span>)</code></pre>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h2><a href="#classNames" name="classNames">classNames</a></h2>
 
-<p>Get a sorted array of all classes of an element</p>
+<p>Gets a sorted array of all classes of an element.</p>
 
 <h3>Syntax</h3>
 
@@ -307,12 +396,12 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 <h3>Returns</h3>
 
 <ul>
-<li><em>array</em> - an ordered array of the classes on the element</li>
+<li>(<em>array</em>) - an ordered array of the classes on the element.</li>
 </ul>
 
 <h2><a href="#hasClass" name="hasClass">hasClass</a></h2>
 
-<p>Tests the Element to see if it has the passed in className.</p>
+<p>Tests the element to see if it has the passed in className.</p>
 
 <h3>Syntax</h3>
 
@@ -327,7 +416,7 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>boolean</em>) Returns true if the Element has the class, otherwise false.</li>
+<li>(<em>boolean</em>) Returns true if the element has the class, otherwise false.</li>
 </ul>
 
 <h3>Examples</h3>
@@ -344,14 +433,14 @@ element.attribute(<span class="string">"title"</span>, <span class="string">"The
 
 <ul>
 <li>If you need to set HTML to tables, or your HTML contains HTML5 tags, this
-method might not work correctly in each browser. If you really need the
-cross-browser fixes, use something like
+method might not work correctly in each browser. If you really need the cross-
+browser fixes, use something like
 <a href="http://code.google.com/p/html5shiv/">html5shiv</a>.</li>
 </ul>
 
 <h2><a href="#addClass" name="addClass">addClass</a></h2>
 
-<p>Adds the passed in class to the Element, if the Element doesn't already have it.</p>
+<p>Adds the passed in class to the element, if the element doesn't already have it.</p>
 
 <h3>Syntax</h3>
 
@@ -366,7 +455,7 @@ cross-browser fixes, use something like
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>element</em>) This Element.</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Examples</h3>
@@ -385,7 +474,7 @@ cross-browser fixes, use something like
 
 <h2><a href="#removeClass" name="removeClass">removeClass</a></h2>
 
-<p>Works like <a href="#addClass">addClass</a>, but removes the class from the Element.</p>
+<p>Works like <a href="#addClass">addClass</a>, but removes the class from the element.</p>
 
 <h3>Syntax</h3>
 
@@ -400,7 +489,7 @@ cross-browser fixes, use something like
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>element</em>) This Element.</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Examples</h3>
@@ -436,17 +525,29 @@ cross-browser fixes, use something like
 <pre><code>div#myElement.otherClass.testClass
 </code></pre>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>string</em>) A CSS selector string representation of the element.</li>
+</ul>
+
 <h2><a href="#tag" name="tag">tag</a></h2>
 
-<p>Get the tag name of an element as a lower case string.</p>
+<p>Gets the tag name of an element as a lower case string.</p>
 
 <h3>Example</h3>
 
 <pre><code class="javascript">myElement.tag() <span class="comment">// result: div</span></code></pre>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>string</em>) A lower case string of the element's tag</li>
+</ul>
+
 <h2><a href="#html" name="html">html</a></h2>
 
-<p>Set or get HTML to on element.</p>
+<p>Set or get HTML of an element.</p>
 
 <h3>Syntax</h3>
 
@@ -455,8 +556,8 @@ cross-browser fixes, use something like
 <h3>Parameters</h3>
 
 <ol>
-<li>html - (<em>string</em>) if the <code>html</code> parameter is set, it will set the html,
-otherwise it will return the current html.</li>
+<li>html - (<em>string</em>) If the <code>html</code> parameter is set, it will set the HTML in the
+element, otherwise it will return the current HTML in the element.</li>
 </ol>
 
 <h3>Examples</h3>
@@ -465,9 +566,23 @@ otherwise it will return the current html.</li>
 <span class="comment">// or</span>
 <span class="keyword">var</span> html = myElement.html() <span class="comment">// returns: &lt;p>new html&lt;/p></span></code></pre>
 
+<h3>Returns</h3>
+
+<p>If the <code>html</code> parameter is set:</p>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
+<p>If the <code>html</code> parameter is not set:</p>
+
+<ul>
+<li>(<em>string</em>) A string containing the HTML in the element.</li>
+</ul>
+
 <h2><a href="#text" name="text">text</a></h2>
 
-<p>Set or get text to on element.</p>
+<p>Set or get text of on element.</p>
 
 <h3>Syntax</h3>
 
@@ -476,8 +591,8 @@ otherwise it will return the current html.</li>
 <h3>Parameters</h3>
 
 <ol>
-<li>text - (<em>string</em>) if the <code>text</code> parameter is set, it will set the text,
-otherwise it will return the current text.</li>
+<li>text - (<em>string</em>) If the <code>text</code> parameter is set, it will set the text in the
+element, otherwise it will return the current text in the element.</li>
 </ol>
 
 <h3>Examples</h3>
@@ -486,12 +601,26 @@ otherwise it will return the current text.</li>
 <span class="comment">// or</span>
 <span class="keyword">var</span> text = myElement.text()</code></pre>
 
+<h3>Returns</h3>
+
+<p>If the <code>text</code> parameter is set:</p>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
+<p>If the <code>text</code> parameter is not set:</p>
+
+<ul>
+<li>(<em>string</em>) A string containing the text in the element.</li>
+</ul>
+
 <h1><a href="#domready" name="domready">domready</a></h1>
 
 <p>Contains the DOMReady event, which executes when the DOM is loaded.</p>
 
-<p>To ensure that DOM elements exist when the code attempts to access them is
-executed, they need to be placed within the 'domready' event.</p>
+<p>Code that attempts to access DOM elements need to be placed within the
+'domready' event to ensure that DOM elements exist when the code is executed.</p>
 
 <h3>Example</h3>
 
@@ -502,9 +631,9 @@ domready(<span class="keyword">function</span>(){
 
 <h1><a href="#events" name="events">events</a></h1>
 
-<p>Events lets you attach event listeners to DOM elements on the page. Those
-event listeners will be executed once the user clicks something or something
-else happens.</p>
+<p>Events lets you attach event listeners to DOM elements on the page. Those event
+listeners will be executed once the user clicks something or something else
+happens.</p>
 
 <h3>See Also:</h3>
 
@@ -528,17 +657,17 @@ the prefix 'on'.</li>
 <li>fn   - (<em>function</em>) The function to execute.</li>
 </ol>
 
-<h3>Returns</h3>
-
-<ul>
-<li>this <code>elements</code> instance</li>
-</ul>
-
 <h3>Example</h3>
 
 <pre><code class="javascript">myElement.on(<span class="string">'click'</span>, <span class="keyword">function</span>(event){
     alert(<span class="string">'clicked'</span>)
 })</code></pre>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
 
 <h2><a href="#off" name="off">off</a></h2>
 
@@ -555,28 +684,29 @@ the prefix 'on'.</li>
 <li>fn   - (<em>function</em>) The function to remove.</li>
 </ol>
 
-<h3>Returns</h3>
-
-<ul>
-<li>this <code>elements</code> instance</li>
-</ul>
-
 <p>Examples</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> destroy = <span class="keyword">function</span>(){
     alert(<span class="string">'Boom: '</span> + <span class="keyword">this</span>.id)
-} <span class="comment">// this refers to the Element.</span>
+} <span class="comment">// this refers to the element.</span>
+
 myElement.on(<span class="string">'click'</span>, destroy)
 
 <span class="comment">//later...</span>
 myElement.off(<span class="string">'click'</span>, destroy)</code></pre>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h3>Note</h3>
 
 <ul>
 <li>To remove a listener, it is important to pass the same function to the <code>fn</code>
-parameter. In the example the reference to the function is stored in the
-<code>destroy</code> variable.</li>
+parameter as the one that was previously attached. In the example the reference
+to the function is stored in the <code>destroy</code> variable.</li>
 </ul>
 
 <h2><a href="#emit" name="emit">emit</a></h2>
@@ -585,14 +715,14 @@ parameter. In the example the reference to the function is stored in the
 
 <h3>Syntax</h3>
 
-<pre><code class="javascript">myElement.emit(type, args...)</code></pre>
+<pre><code class="javascript">myElement.emit(type[, args...])</code></pre>
 
 <h3>Parameters</h3>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
-<li>args... - (<em>mixed</em>) Zero or multiple extra parameters that will be passed to
-the event listeners</li>
+<li>args... - (<em>mixed</em>, optional) Zero or multiple extra parameters that will be
+passed to the event listeners</li>
 </ol>
 
 <h3>Examples</h3>
@@ -602,6 +732,12 @@ the event listeners</li>
 }
 element.on(<span class="string">'click'</span>, add)
 element.emit(<span class="string">'click'</span>, <span class="number">4</span>, <span class="number">2</span>) <span class="comment">// alerts 6</span></code></pre>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
 
 <h1><a href="#delegation" name="delegation">delegation</a></h1>
 
@@ -622,15 +758,15 @@ with a lot of DOM elements.</p>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
-<li>selector - (<em>string</em>) A CSS Selector the element the event is fired on
-should match (see <a href="#matches">matches</a>)</li>
-<li>fn   - (<em>function</em>) The function to remove.</li>
+<li>selector - (<em>string</em>) A CSS Selector the element the event is fired on should
+match (see <a href="#matches">matches</a>)</li>
+<li>fn - (<em>function</em>) The function to execute.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>this <code>elements</code> instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Example</h3>
@@ -647,7 +783,7 @@ should match (see <a href="#matches">matches</a>)</li>
 
 <pre><code class="javascript"><span class="keyword">var</span> $ = require(<span class="string">'elements/lib/delegation'</span>)
 
-$(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>, <span class="string">'a'</span>, <span class="keyword">function</span>(event, a){
+$(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>, <span class="string">'a'</span>, <span class="keyword">function</span>(event, a){ <span class="comment">// a is the matching element</span>
     alert(a.text())
 })</code></pre>
 
@@ -664,15 +800,15 @@ $(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>
 
 <ol>
 <li>type - (<em>string</em>) The event name.</li>
-<li>selector - (<em>string</em>) A CSS Selector the element the event is fired on
-should match (see <a href="#matches">matches</a>)</li>
+<li>selector - (<em>string</em>) A CSS Selector the element the event is fired on should
+match (see <a href="#matches">matches</a>).</li>
 <li>fn   - (<em>function</em>) The function to remove.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>this <code>elements</code> instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Example</h3>
@@ -684,6 +820,14 @@ should match (see <a href="#matches">matches</a>)</li>
 $(<span class="string">'ul'</span>).delegate(<span class="string">'click'</span>, <span class="string">'a'</span>, click)
 <span class="comment">// later remove the delegation listener again</span>
 $(<span class="string">'ul'</span>).undelegate(<span class="string">'click'</span>, <span class="string">'a'</span>, click)</code></pre>
+
+<h3>Note</h3>
+
+<ul>
+<li>To remove a listener, it is important to pass the same function to the <code>fn</code>
+parameter as the one that was previously attached. In the example the reference
+to the function is stored in the <code>click</code> variable.</li>
+</ul>
 
 <h1><a href="#insertion" name="insertion">insertion</a></h1>
 
@@ -701,6 +845,10 @@ $(document.createElement(<span class="string">'div'</span>)).insert(vince)</code
 <p>Wrapper method of the native <code>appendChild</code> method. It will append another
 element as child element.</p>
 
+<h3>Syntax</h3>
+
+<pre><code class="javascript">parent.appendChild(child)</code></pre>
+
 <h3>Parameters</h3>
 
 <ol>
@@ -710,7 +858,7 @@ element as child element.</p>
 <h3>Returns</h3>
 
 <ul>
-<li>this <code>elements</code> instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Example</h3>
@@ -733,7 +881,7 @@ parent.appendChild(child)</code></pre>
 <h3>See also</h3>
 
 <ul>
-<li><a href="">MDN appendChild</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/DOM/Node.appendChild">MDN appendChild</a></li>
 </ul>
 
 <h2><a href="#insertBefore" name="insertBefore">insertBefore</a></h2>
@@ -741,18 +889,22 @@ parent.appendChild(child)</code></pre>
 <p>Wrapper method of the native <code>insertBefore</code> method. It will insert an element
 before another element.</p>
 
+<h3>Syntax</h3>
+
+<pre><code class="javascript">parent.insertBeore(child, ref)</code></pre>
+
 <h3>Parameters</h3>
 
 <ol>
-<li>child - (<em>elements</em>) another elements instance.</li>
-<li>ref - (<em>elements</em>) the reference element. <code>child</code> will be inserted before
+<li>child - (<em>elements</em>) The child <code>elements</code> instance.</li>
+<li>ref - (<em>elements</em>) The reference element. <code>child</code> will be inserted before
 <code>ref</code>.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>this <code>elements</code> instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Example</h3>
@@ -780,21 +932,22 @@ parent.insertBefore(child, ref)</code></pre>
 
 <h2><a href="#removeChild" name="removeChild">removeChild</a></h2>
 
-<p>Wrapper method of the native <code>removeChild</code> method.</p>
+<p>Wrapper method of the native <code>removeChild</code> method. It will remove a child
+element from the parent element.</p>
 
 <h3>Syntax</h3>
 
 <pre><code class="javascript">parent.removeChild(child)</code></pre>
 
 <ol>
-<li>child - (<em>elements</em>) another elements instance, which is a child of the
-parent element.</li>
+<li>child - (<em>elements</em>) An <code>elements</code> instance, which is a child of the parent
+element.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>this <code>elements</code> instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Example</h3>
@@ -817,20 +970,21 @@ parent.removeChild(child)</code></pre>
 
 <h2><a href="#replaceChild" name="replaceChild">replaceChild</a></h2>
 
-<p>Wrapper method of the native <code>replaceChild</code> method.</p>
+<p>Wrapper method of the native <code>replaceChild</code> method. It will replace one element
+with another.</p>
 
 <h3>Syntax</h3>
 
 <ol>
-<li>child - (<em>elements</em>) another elements instance.</li>
-<li>ref - (<em>elements</em>) the reference element. <code>ref</code> will be replaced with
+<li>child - (<em>elements</em>) The child <code>elements</code> instance.</li>
+<li>ref - (<em>elements</em>) The reference element. <code>ref</code> will be replaced with
 <code>child</code>.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>this <code>elements</code> instance</li>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
 </ul>
 
 <h3>Example</h3>
@@ -857,6 +1011,12 @@ parent.replaceChild(child, ref)</code></pre>
 
 <p>Inserts an element before another element.</p>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h3>Example</h3>
 
 <h4>JS</h4>
@@ -871,6 +1031,12 @@ parent.replaceChild(child, ref)</code></pre>
 <h2><a href="#after" name="after">after</a></h2>
 
 <p>Inserts an element after another element.</p>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance</li>
+</ul>
 
 <h3>Example</h3>
 
@@ -887,6 +1053,12 @@ parent.replaceChild(child, ref)</code></pre>
 
 <p>Injects an element at the bottom of another element.</p>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h3>Example</h3>
 
 <h4>JS</h4>
@@ -896,6 +1068,7 @@ parent.replaceChild(child, ref)</code></pre>
 <h4>Resulting HTML</h4>
 
 <pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mySecondElement"</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myThirdElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
     <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myFirstElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
 <span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
@@ -903,26 +1076,44 @@ parent.replaceChild(child, ref)</code></pre>
 
 <p>Injects an element at the top of another element.</p>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h3>Example</h3>
 
 <h4>JS</h4>
 
-<pre><code class="javascript">myThirdElement.top(mySecondElement)</code></pre>
+<pre><code class="javascript">myFirstElement.top(mySecondElement)</code></pre>
 
 <h4>Resulting HTML</h4>
 
 <pre><code class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mySecondElement"</span>></span>
-    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myThirdElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
     <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myFirstElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"myThirdElement"</span>></span><span class="tag">&lt;/<span class="title">div</span>></span>
 <span class="tag">&lt;/<span class="title">div</span>></span></code></pre>
 
 <h2><a href="#insert" name="insert">insert</a></h2>
 
 <p><code>insert</code> is an alias of <a href="#bottom">bottom</a></p>
 
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
+
 <h2><a href="#replace" name="replace">replace</a></h2>
 
 <p>Replace another element with this element.</p>
+
+<h3>Returns</h3>
+
+<ul>
+<li>(<em>elements</em>) The <code>elements</code> instance.</li>
+</ul>
 
 <h3>Example</h3>
 
@@ -951,7 +1142,7 @@ elements instance.</p>
 <ol>
 <li>fn - (<em>function</em>) Function to execute for each element. <code>fn</code> is called like
 <code>fn(element, index)</code> where <code>element</code> is the native element, and <code>index</code> is the
-index of the element in the elements collection</li>
+index of the element in the elements collection.</li>
 <li>bind - (<em>object</em>, optional) Object to use as <code>this</code> when executing <code>fn</code>.</li>
 </ol>
 
@@ -972,7 +1163,7 @@ elements.forEach(function(element, index){
 <h2><a href="#map" name="map">map</a></h2>
 
 <p>Creates a new array with the results of calling a provided function on every
-element in the elements collection</p>
+element in the elements collection.</p>
 
 <h3>Syntax</h3>
 
@@ -984,7 +1175,7 @@ element in the elements collection</p>
 <li>fn - (<em>function</em>) Function that produces an element of the new Array from an
 element of the current one. <code>fn</code> is called like <code>fn(element, index)</code> where
 <code>element</code> is the native element, and <code>index</code> is the index of the element in the
-elements collection</li>
+elements collection.</li>
 <li>bind - (<em>object</em>, optional) Object to use as <code>this</code> when executing <code>fn</code>.</li>
 </ol>
 
@@ -1085,8 +1276,8 @@ testing function, returns true. Otherwise, returns false.</li>
 
 <h2><a href="#some" name="some">some</a></h2>
 
-<p>Returns true if at least one element in the array satisfies the provided
-testing function.</p>
+<p>Returns true if at least one element in the array satisfies the provided testing
+function.</p>
 
 <h3>Syntax</h3>
 
@@ -1104,8 +1295,8 @@ is called like <code>fn(element, index)</code> where <code>element</code> is the
 <h3>Returns</h3>
 
 <ul>
-<li>(<em>boolean</em>) - If some element in the collection satisfies the provided
-testing function, returns true. Otherwise, returns false.</li>
+<li>(<em>boolean</em>) - If some element in the collection satisfies the provided testing
+function, returns true. Otherwise, returns false.</li>
 </ul>
 
 <h3>Example</h3>
@@ -1152,22 +1343,22 @@ testing function, returns true. Otherwise, returns false.</li>
 <h3>Parameters</h3>
 
 <ol>
-<li>expression - (<em>string</em>) a CSS selector</li>
+<li>expression - (<em>string</em>) A CSS selector.</li>
 </ol>
 
 <h3>Return</h3>
 
 <ul>
-<li>elements instance with the new elements</li>
+<li>(<em>elements</em>) An <code>elements</code> instance with the new elements.</li>
 </ul>
 
 <h3>Example</h3>
 
 <pre><code class="javascript"><span class="comment">// slick is included by traversal, we can pass selectors to $()</span>
 <span class="comment">// select all p elements</span>
-<span class="keyword">var</span> elements = $(<span class="string">"p"</span>)
+<span class="keyword">var</span> elements = $(<span class="string">'p'</span>)
 <span class="comment">// select all a elements in the previously found p elements</span>
-elements.search(<span class="string">"a"</span>)</code></pre>
+elements.search(<span class="string">'a'</span>)</code></pre>
 
 <h3>See also</h3>
 
@@ -1186,13 +1377,13 @@ elements.search(<span class="string">"a"</span>)</code></pre>
 <h3>Parameters</h3>
 
 <ol>
-<li>expression - (<em>string</em>) a CSS selector</li>
+<li>expression - (<em>string</em>) A CSS selector.</li>
 </ol>
 
 <h3>Returns</h3>
 
 <ul>
-<li>elements instance with the new elements</li>
+<li>(<em>elements</em>) An <code>elements</code> instance with the new elements.</li>
 </ul>
 
 <h3>Example</h3>
@@ -1211,11 +1402,12 @@ elements.search(<span class="string">"a"</span>)</code></pre>
 
 <h4>JS</h4>
 
-<pre><code class="javascript"><span class="comment">// slick is included by traversal, we can pass selectors to $()</span>
+<pre><code class="javascript"><span class="comment">// We can pass selectors to $() because slick is included by traversal</span>
+
 <span class="comment">// select both ul elements</span>
-<span class="keyword">var</span> elements = $(<span class="string">"ul"</span>)
+<span class="keyword">var</span> elements = $(<span class="string">'ul'</span>)
 <span class="comment">// select the first element for each list</span>
-<span class="keyword">var</span> cities = elements.find(<span class="string">"li"</span>)
+<span class="keyword">var</span> cities = elements.find(<span class="string">'li'</span>)
 <span class="comment">// cities now contains "Rome" and "Stockholm"</span></code></pre>
 
 <h3>See also</h3>
@@ -1257,6 +1449,7 @@ elements.search(<span class="string">"a"</span>)</code></pre>
 
 <pre><code class="javascript"><span class="keyword">var</span> moo = $(<span class="string">'a.moo'</span>)
 moo.matches(<span class="string">'a[href*="mootools"]'</span>) <span class="comment">// true</span>
+
 <span class="keyword">var</span> goo = $(<span class="string">'a.goo'</span>)
 goo.matches(<span class="string">'a[href*="mootools"]'</span>) <span class="comment">// false</span></code></pre>
 
@@ -1277,8 +1470,8 @@ goo.matches(<span class="string">'a[href*="mootools"]'</span>) <span class="comm
 <h3>Returns</h3>
 
 <ul>
-<li>elements collection with all next siblings that match the CSS expression, if
-any given.</li>
+<li>An <code>elements</code> instance with all next siblings that match the CSS expression,
+if any is given.</li>
 </ul>
 
 <h3>Examples</h3>
@@ -1311,7 +1504,14 @@ div.nextSiblings(<span class="string">'p'</span>) <span class="comment">// retur
 <h2><a href="#nextSibling" name="nextSibling">nextSibling</a></h2>
 
 <p>Exactly like <a href="#nextSiblings">nextSiblings</a>, except it only returns the first
-next sibling that matches the expression, if any given.</p>
+next sibling that matches the expression, if any is given.</p>
+
+<h3>Returns</h3>
+
+<ul>
+<li>An <code>elements</code> instance with the first next sibling that matches the CSS
+expression, if any is given.</li>
+</ul>
 
 <h3>Example</h3>
 
@@ -1323,14 +1523,17 @@ div.nextSibling(<span class="string">'p'</span>) <span class="comment">// return
 
 <h2><a href="#previousSiblings" name="previousSiblings">previousSiblings</a></h2>
 
-<p>Exactly like <a href="#nextSiblings">nextSiblings</a>, except it will return previous
-siblings instead of next siblings.</p>
+<p>Exactly like <a href="#nextSiblings">nextSiblings</a>, except it will return all previous
+siblings instead of next siblings, if any is given.</p>
 
 <h2><a href="#previousSibling" name="previousSibling">previousSibling</a></h2>
 
+<p>Exactly like <a href="#nextSibling">nextSibling</a>, except it will return one previous
+sibling instead of one next sibling, if any is given.</p>
+
 <h3>Example</h3>
 
-<p>With the same HTML as <a href="#nextSiblings">nextSiblings</a>:</p>
+<p>With the same HTML as <a href="#nextSibling">nextSibling</a>:</p>
 
 <pre><code class="javascript"><span class="keyword">var</span> div = $(<span class="string">'div'</span>) <span class="comment">// finds the two div elements</span>
 div.previousSiblings() <span class="comment">// returns [em, p, a]</span>
@@ -1338,8 +1541,15 @@ div.previousSiblings(<span class="string">'p'</span>) <span class="comment">// r
 
 <h2><a href="#children" name="children">children</a></h2>
 
-<p>Like <a href="#nextSiblings">nextSiblings</a>, but returns the direct child elements,
-if they match the passed CSS expression, if any given.</p>
+<p>Like <a href="#nextSiblings">nextSiblings</a>, but returns the direct child elements, if
+they match the passed CSS expression, if any is given.</p>
+
+<h3>Returns</h3>
+
+<ul>
+<li>An <code>elements</code> instance with the the direct child elements that matches the CSS
+expression, if any is given.</li>
+</ul>
 
 <h3>Example</h3>
 
@@ -1351,8 +1561,15 @@ div.nextSibling(<span class="string">'p'</span>) <span class="comment">// return
 
 <h2><a href="#parent" name="parent">parent</a></h2>
 
-<p>Get the parent node that matches the expression, if any given, for each
-element. Syntax is the same as <a href="#nextSiblings">nextSiblings</a>.</p>
+<p>Get the parent node that matches the expression, if any given, for each element.
+Syntax is the same as <a href="#nextSiblings">nextSiblings</a>.</p>
+
+<h3>Returns</h3>
+
+<ul>
+<li>An <code>elements</code> instance with one parent element that matches the CSS
+expression, for each element, if any is given.</li>
+</ul>
 
 <h3>Example</h3>
 
@@ -1372,6 +1589,13 @@ strong.parent(<span class="string">'div'</span>) <span class="comment">// the di
 
 <p>Like <a href="#parent">parent()</a>, but selects all parent elements, that matches the
 expression, if any given.</p>
+
+<h3>Returns</h3>
+
+<ul>
+<li>An <code>elements</code> instance with the parent elements that matches the CSS
+expression, for each element, if any is given.</li>
+</ul>
 
 <h3>Example</h3>
 
