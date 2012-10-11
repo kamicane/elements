@@ -1118,10 +1118,12 @@ index of the element in the elements collection.
 
 ### Example
 
+```js
 var elements = $(document.getElementsByTagName('a'))
 elements.forEach(function(element, index){
 	return $(element).text('element: ' + index)
 })
+```
 
 ### See also
 

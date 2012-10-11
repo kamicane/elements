@@ -24,4 +24,4 @@ test-casper:
 	@casperjs ./test/casper.js 'http://localhost:8080/list.html'
 
 docs:
-	@node ./doc/builddocs.js
+	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html
