@@ -142,12 +142,16 @@ loop. The returned boolean will not be included in the returned array.</li>
 </ul>
 <h3>Example</h3>
 <pre><code class="javascript"><span class="keyword">var</span> checks = checkboxes.handle(<span class="keyword">function</span>(checkbox, index, buffer){
-    <span class="comment">// checkbox is the native element</span>
-    <span class="keyword">var</span> checked = checkbox.checked
-    checkbox.checked = !checked
+    <span class="comment">// The context ('this') is the elements instance containing checkboxes</span>
 
-    <span class="comment">// "this" is the wrapped element object</span>
-    <span class="keyword">this</span>.attribute(<span class="string">'data-checked'</span>, !checked)
+    <span class="comment">// checkbox is the native element</span>
+    <span class="comment">// wrap it to use elements methods</span>
+    checkbox = $(checkbox)
+
+    <span class="keyword">var</span> checked = checkbox.checked()
+    checkbox.checked(!checked)
+
+    checkbox.attribute(<span class="string">'data-checked'</span>, !checked)
 
     <span class="comment">// return the checked checkboxes</span>
     <span class="keyword">if</span> (checked) <span class="keyword">return</span> checkbox

@@ -103,16 +103,21 @@ loop. The returned boolean will not be included in the returned array.
 
 ```js
 var checks = checkboxes.handle(function(checkbox, index, buffer){
-	// checkbox is the native element
-	var checked = checkbox.checked
-	checkbox.checked = !checked
+	// The context ('this') is the elements instance containing checkboxes
 
-	// "this" is the wrapped element object
-	this.attribute('data-checked', !checked)
+	// checkbox is the native element
+	// wrap it to use elements methods
+	checkbox = $(checkbox)
+
+	var checked = checkbox.checked()
+	checkbox.checked(!checked)
+
+	checkbox.attribute('data-checked', !checked)
 
 	// return the checked checkboxes
 	if (checked) return checkbox
 }) // an array with the returned element
+
 ```
 
 ## remove

@@ -50,10 +50,11 @@ describe('attribute.js', function(){
         it('should get correct attributes', function(){
             var lis = $(document.getElementById('container').getElementsByTagName('li'))
             lis.handle(function(element, index){
+                element = $(element)
                 switch (index){
-                    case 0: expect(this.getAttribute('class')).to.be('first'); break
-                    case 1: expect(this.getAttribute('title')).to.be('title'); break
-                    case 2: expect(this.getAttribute('id')).to.be('third'); break
+                    case 0: expect(element.getAttribute('class')).to.be('first'); break
+                    case 1: expect(element.getAttribute('title')).to.be('title'); break
+                    case 2: expect(element.getAttribute('id')).to.be('third'); break
                 }
             })
         })
