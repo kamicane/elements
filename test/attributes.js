@@ -370,7 +370,7 @@ describe('attribute.js', function(){
             $(div).html('<div style="text-transform: uppercase">text</div>')
             document.body.appendChild(div)
             expect($(div.firstChild).text()).to.equal('text')
-            document.body.removeChild(div.firstChild)
+            div.removeChild(div.firstChild)
         })
     })
 
