@@ -152,6 +152,22 @@ describe('insertion.js', function(){
 
     })
 
+    describe('remove', function(){
+
+        it('should remove the current node', function(){
+            var ul = document.getElementById('container').firstChild
+            var childNodes = ul.childNodes.length
+            var li = document.createElement('li')
+            ul.appendChild(li)
+            expect(ul.childNodes.length).to.be(childNodes + 1)
+            var el = $(li);
+            var r = el.remove()
+            expect(ul.childNodes.length).to.be(childNodes)
+            expect(el === r).to.be.ok()
+        })
+
+    })
+
     describe('implements insert, remove, replace', function(){
 
         it('should alias bottom as insert', function(){

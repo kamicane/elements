@@ -50,10 +50,11 @@ describe('attribute.js', function(){
         it('should get correct attributes', function(){
             var lis = $(document.getElementById('container').getElementsByTagName('li'))
             lis.handle(function(element, index){
+                var self = $(element)
                 switch (index){
-                    case 0: expect(this.getAttribute('class')).to.be('first'); break
-                    case 1: expect(this.getAttribute('title')).to.be('title'); break
-                    case 2: expect(this.getAttribute('id')).to.be('third'); break
+                    case 0: expect(self.getAttribute('class')).to.be('first'); break
+                    case 1: expect(self.getAttribute('title')).to.be('title'); break
+                    case 2: expect(self.getAttribute('id')).to.be('third'); break
                 }
             })
         })
@@ -283,8 +284,8 @@ describe('attribute.js', function(){
             var select = document.createElement('select')
             $(select).html(html)
             expect(select.getElementsByTagName('*').length).to.equal(2)
-            expect(select.options.length).to.equal(2);
-            expect(select.selectedIndex).to.equal(1);
+            expect(select.options.length).to.equal(2)
+            expect(select.selectedIndex).to.equal(1)
         })
 
         it("should set the html of a table Element", function(){
@@ -368,8 +369,8 @@ describe('attribute.js', function(){
             var div = document.createElement('div')
             $(div).html('<div style="text-transform: uppercase">text</div>')
             document.body.appendChild(div)
-            expect($(div.firstChild).text()).to.equal('text');
-            $(div).remove(true)
+            expect($(div.firstChild).text()).to.equal('text')
+            document.body.removeChild(div.firstChild)
         })
     })
 

@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 var $ = require('../lib/elements')
 var expect = require('expect.js')
@@ -20,15 +20,15 @@ describe('elements.js', function(){
         body.appendChild(container)
         container.innerHTML = ['',
             '<ul>',
-            '<li class="first">1</li>',
-            '<li title="title">2</li>',
-            '<li id="third">3</li>',
+                '<li class="first">1</li>',
+                '<li title="title">2</li>',
+                '<li id="third">3</li>',
             '</ul>',
             '<input id="moo" name="library" type="text" value="mootools" />',
             '<a id="link" href="#library">library</a>',
             '<select id="mooselect">',
-            '<option>1</option>',
-            '<option selected="selected">2</option>',
+                '<option>1</option>',
+                '<option selected="selected">2</option>',
             '</select>'
         ].join('')
     })
@@ -81,6 +81,15 @@ describe('elements.js', function(){
             expect(res[1].getAttribute('rel')).to.be('handled1')
         })
 
+        it('is a sort of Array.filter', function(){
+            var lis = $(document.getElementById('container').getElementsByTagName('li'))
+            var res = $(lis.handle(function(element){
+                return element.className ? element : null
+            }))
+
+            expect(res.length).to.be(1)
+        })
+
         it('can be used as Array.some', function(){
             var someHasRelHandled1 = function(element, index, buffer){
                 if (element.getAttribute('rel') == 'handled1'){
@@ -115,30 +124,35 @@ describe('elements.js', function(){
             expect(res.length).to.not.be(options.length)
         })
 
-        it('expose a use method, to allow custom selector', function(){
-            var html = $(document.documentElement)
-            $.use({
-                prototype: {
+        it('allow to implement custom selector engine', function(){
+            $.implement({
+                search: function(expression){ // stupid tagName selector
 
-                },
-                search: function(n, ctx, self){
-                    self[self.length++] = document.documentElement
+                    var res = this.handle(function(node, i, buffer){
+                        var nodes = Array.prototype.slice.call(node.getElementsByTagName(expression))
+                        buffer.push.apply(buffer, nodes)
+                    })
+
+                    return $(res)
                 }
             })
-            expect($('^_^') == html).to.be.ok()
+
+            expect($("input").length).to.be(1)
         })
 
-        it('expose a use method, to allow custom sorter', function(){
+        it('allow to implement custom sorter', function(){
             var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            $.use({
-                prototype: {},
-                sort: function(self){
+            $.implement({
+
+                sort: function(){
                     //swap self[0] with self[1]
-                    var tmp = self[0]
-                    self[0] = self[1]
-                    self[1] = tmp
+                    var tmp = this[0]
+                    this[0] = this[1]
+                    this[1] = tmp
                 }
+
             })
+
             var lis2 = $(document.getElementById('container').getElementsByTagName('li'))
             expect(lis2[0] == lis[1]).to.be.ok()
             expect(lis2[1] == lis[0]).to.be.ok()
@@ -147,24 +161,12 @@ describe('elements.js', function(){
 
     })
 
-    describe('remove', function(){
+    describe('unlink', function(){
 
-        it('should remove the current node', function(){
-            var ul = document.getElementById('container').firstChild
-            var childNodes = ul.childNodes.length
-            var li = document.createElement('li')
-            ul.appendChild(li)
-            expect(ul.childNodes.length).to.be(childNodes + 1)
-            var el = $(li);
-            var r = el.remove()
-            expect(ul.childNodes.length).to.be(childNodes)
-            expect(el === r).to.be.ok()
-        })
-
-        it('should remove the current node including elements instance', function(){
+        it('should remove the current node from the internal collection', function(){
             var li = document.createElement('li')
             var a = $(li)
-            var r = a.remove(true)
+            var r = a.unlink()
             var b = $(li)
             expect(a === b).not.to.be.ok()
             expect(r[0] === li).to.be.ok()
