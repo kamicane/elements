@@ -46,7 +46,7 @@ describe('insertion.js', function(){
             ul.appendChild($E('li', 'insertedLI'))
             var found = false
             var index = 0
-            $(document.getElementById('container').firstChild.childNodes).handle(function(element, i){
+            $(document.getElementById('container').firstChild.childNodes).forEach(function(element, i){
                 if (element.id == 'insertedLI'){
                     found = true
                     index = i
@@ -68,7 +68,7 @@ describe('insertion.js', function(){
 
             ul.insertBefore(bef, ins)
 
-            $(document.getElementById('container').firstChild.childNodes).handle(function(element, i){
+            $(document.getElementById('container').firstChild.childNodes).forEach(function(element, i){
                 if (element.id == 'beforeLI'){
                     found = true
                     index = i

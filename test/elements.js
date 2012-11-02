@@ -3,35 +3,39 @@
 var $ = require('../lib/elements')
 var expect = require('expect.js')
 
-describe('elements.js', function(){
+var reset = function(){
+
+    var container = document.getElementById('container')
+    if (container) document.body.removeChild(container)
+
+    container = document.createElement('div')
+    container.id = 'container'
+    container.style.display = 'none'
+    container.style.position = 'absolute'
+    container.top = 0
+    container.left = 0
+
+    document.body.appendChild(container)
+
+    container.innerHTML = ['',
+        '<ul>',
+            '<li class="first">1</li>',
+            '<li title="title">2</li>',
+            '<li id="third">3</li>',
+        '</ul>',
+        '<input id="moo" name="library" type="text" value="mootools" />',
+        '<a id="link" href="#library">library</a>',
+        '<select id="mooselect">',
+            '<option>1</option>',
+            '<option selected="selected">2</option>',
+        '</select>'
+    ].join('')
+}
+
+describe('elements constructor', function(){
 
     // prepare the environment
-    beforeEach(function(){
-        var body = document.getElementsByTagName('body')[0]
-        var container = document.getElementById('container')
-        if (!container){
-            container = document.createElement('div')
-            container.id = 'container'
-            container.style.display = 'none'
-            container.style.position = 'absolute'
-            container.top = 0
-            container.left = 0
-        }
-        body.appendChild(container)
-        container.innerHTML = ['',
-            '<ul>',
-                '<li class="first">1</li>',
-                '<li title="title">2</li>',
-                '<li id="third">3</li>',
-            '</ul>',
-            '<input id="moo" name="library" type="text" value="mootools" />',
-            '<a id="link" href="#library">library</a>',
-            '<select id="mooselect">',
-                '<option>1</option>',
-                '<option selected="selected">2</option>',
-            '</select>'
-        ].join('')
-    })
+    beforeEach(reset)
 
     it('should receive null and return null', function(){
         expect($(null)).to.be(null)
@@ -66,81 +70,29 @@ describe('elements.js', function(){
         expect(res2.length).to.be(2)
     })
 
-    describe('expose a handle method that ', function(){
+    describe('selector engine implementation', function(){
 
-        var setRel = function(element, index){
-            element.setAttribute('rel', 'handled' + index)
-            return element
-        }
-
-        it('is a sort of Array.map', function(){
-            var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            expect(lis.length).to.be(3)
-            var res = lis.handle(setRel)
-            expect(res[0].getAttribute('rel')).to.be('handled0')
-            expect(res[1].getAttribute('rel')).to.be('handled1')
-        })
-
-        it('is a sort of Array.filter', function(){
-            var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            var res = $(lis.handle(function(element){
-                return element.className ? element : null
-            }))
-
-            expect(res.length).to.be(1)
-        })
-
-        it('can be used as Array.some', function(){
-            var someHasRelHandled1 = function(element, index, buffer){
-                if (element.getAttribute('rel') == 'handled1'){
-                    buffer.push(true)
-                    return true
-                }
-            }
-            var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            var res
-            lis.handle(setRel)
-            res = lis.handle(someHasRelHandled1)
-
-            expect(res.length).to.be(1)
-            expect(res[0]).to.be.ok()
-
-            var options = $(document.getElementById('container').getElementsByTagName('option'))
-            res = options.handle(someHasRelHandled1)
-            expect(res.length).to.be(0)
-        })
-
-        it('can be used as Array.every', function(){
-            var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            lis.handle(setRel)
-            var everyHasRel = function(element){
-                if (null === element.getAttribute('rel')) return false
-                return this
-            }
-            var res = lis.handle(everyHasRel)
-            expect(res.length).to.be(lis.length)
-            var options = $(document.getElementById('container').getElementsByTagName('option'))
-            res = options.handle(everyHasRel)
-            expect(res.length).to.not.be(options.length)
-        })
-
-        it('allow to implement custom selector engine', function(){
+        it('implement custom selector engine', function(){
             $.implement({
                 search: function(expression){ // stupid tagName selector
 
-                    var res = this.handle(function(node, i, buffer){
+                    var buffer = []
+
+                    this.forEach(function(node){
                         var nodes = Array.prototype.slice.call(node.getElementsByTagName(expression))
                         buffer.push.apply(buffer, nodes)
                     })
 
-                    return $(res)
+                    return $(buffer)
                 }
             })
 
             expect($("input").length).to.be(1)
+
+            delete $.prototype.search
         })
 
-        it('allow to implement custom sorter', function(){
+        it('implement custom element sorter', function(){
             var lis = $(document.getElementById('container').getElementsByTagName('li'))
             $.implement({
 
@@ -157,6 +109,8 @@ describe('elements.js', function(){
             expect(lis2[0] == lis[1]).to.be.ok()
             expect(lis2[1] == lis[0]).to.be.ok()
             expect(lis2[2] == lis[2]).to.be.ok()
+
+            delete $.prototype.sort
         })
 
     })
@@ -175,3 +129,61 @@ describe('elements.js', function(){
     })
 
 })
+
+describe('list methods', function(){
+
+    // prepare the environment
+    beforeEach(reset)
+
+    describe('$ should implement es5 list prototypes', function(){
+
+        it('implement forEach', function(){
+            var ul = $(document.getElementById('container').firstChild)
+            var lis = $(ul[0].childNodes)
+            lis.forEach(function(el, i){
+                expect(el.innerHTML).to.be('' + (i + 1))
+            })
+        })
+
+        it('implement map', function(){
+            var lis = $(document.getElementById('container').firstChild.childNodes)
+            var maps = lis.map(function(el){
+                return el.innerHTML
+            })
+            expect(maps[0]).to.be('1')
+            expect(maps[1]).to.be('2')
+            expect(maps[2]).to.be('3')
+        })
+
+        it('implement filter', function(){
+            var lis = $(document.getElementById('container').firstChild.childNodes)
+            var maps = lis.filter(function(el){
+                return el.innerHTML - 0 < 3
+            })
+            expect(maps.length).to.be(2)
+        })
+
+        it('implement every', function(){
+            var lis = $(document.getElementById('container').firstChild.childNodes)
+            expect(lis.every(function(el){
+                return el.tagName.toLowerCase() == 'li'
+            })).to.be.ok()
+            expect(lis.every(function(el){
+                return el.innerHTML == '1'
+            })).to.be(false)
+        })
+
+        it('implement some', function(){
+            var lis = $(document.getElementById('container').firstChild.childNodes)
+            expect(lis.some(function(el){
+                return el.tagName == 'p'
+            })).to.be(false)
+            expect(lis.some(function(el){
+                return el.innerHTML == '1'
+            })).to.be.ok()
+        })
+
+    })
+
+})
+

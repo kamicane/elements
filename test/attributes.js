@@ -49,7 +49,7 @@ describe('attribute.js', function(){
 
         it('should get correct attributes', function(){
             var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            lis.handle(function(element, index){
+            lis.forEach(function(element, index){
                 var self = $(element)
                 switch (index){
                     case 0: expect(self.getAttribute('class')).to.be('first'); break
