@@ -1,7 +1,6 @@
 "use strict";
 
 var $ = require('../lib/delegation')
-$.use(require('slick'))
 var expect = require('expect.js')
 
 describe('delegation', function(){
