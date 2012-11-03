@@ -88,7 +88,7 @@ Notes:
 2. if the internal collection is empty, you will get `null` instead of an empty
 elements instance.
 
-## arguments
+## parameters
 
 1. (*node* / *collection* / *string* / *array*) - an dom node, a collection of
 nodes, a string representing a css selector (requires slick or any other
@@ -195,7 +195,7 @@ otherwise returns the current elements instance.
 element.attribute(name[, value])
 ```
 
-### arguments
+### parameters
 
 1. name (*string*) The name of the attribute or property
 2. value (*string*, optional) If the `value` parameter is set, this method will
@@ -269,7 +269,7 @@ Tests the element to see if it has the passed in className. Returns the boolean
 var result = myElement.hasClass(className)
 ```
 
-### arguments
+### parameters
 
 1. className - (*string*) The class name to test.
 
@@ -295,7 +295,7 @@ Adds the passed in class to the element, if the element doesn't already have it
 myElement.addClass(className)
 ```
 
-### arguments
+### parameters
 
 1. className - (*string*) The class name to add.
 
@@ -325,7 +325,7 @@ Returns the elements instance.
 myElement.removeClass(className)
 ```
 
-### arguments
+### parameters
 
 1. className - (*string*) The class name to remove.
 
@@ -380,7 +380,7 @@ Set or get HTML of an element.
 myElement.html([html])
 ```
 
-### arguments
+### parameters
 
 1. html - (*string*) If the `html` parameter is set, it will set the HTML in the
 element, otherwise it will return the current HTML in the element. Returns the
