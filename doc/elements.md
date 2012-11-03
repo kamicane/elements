@@ -3,9 +3,12 @@ package: elements
 
 Elements is the most awesome DOM library you will ever use.
 
-In many examples below you will see `require()` calls, as if elements was used in nodejs. You can build `elements` for browsers with just the components you need, using [wrapup](https://github.com/kamicane/wrapup).
+In many examples below you will see `require()` calls, as if elements was used
+in nodejs. You can build `elements` for browsers with just the components you
+need, using [wrapup](https://github.com/kamicane/wrapup).
 
-You will need node and npm installed in your system. Make sure to configure the `NODE_PATH` environment variable in your bash profile.
+You will need node and npm installed in your system. Make sure to configure the
+`NODE_PATH` environment variable in your bash profile.
 
 ## install wrapup:
 
@@ -22,9 +25,14 @@ npm install elements
 
 ## build elements from a custom control module
 
-Create a JavaScript file in the root of your project. We will feed this file to WrapUp to make your personalized build. Feel free to customize the global variables as you see fit.
+Create a JavaScript file in the root of your project. We will feed this file to
+WrapUp to make your personalized build. Feel free to customize the global
+variables as you see fit.
 
-Note: It is strongly advised to organize your code using modules, this way you can organize your codebase using `require()` calls, in which case you will direct WrapUp to build from your own modules / entry point module, instead of the following dummy module.
+Note: It is strongly advised to organize your code using modules, this way you
+can organize your codebase using `require()` calls, in which case you will
+direct WrapUp to build from your own modules / entry point module, instead of
+the following dummy module.
 
 ```js
 // assign window.$
@@ -49,7 +57,9 @@ wrup -r ./file.js -o elements.js
 ```
 
 This will generate an elements.js in the root of your project.
-Note: you can skip creating this control module and use WrapUp command-line parameters instead. Refer to the WrapUp documentation for more information.
+
+**Note:** you can skip creating this control module and use WrapUp command-line
+parameters instead. Refer to the WrapUp documentation for more information.
 
 ## use the built elements.js
 
@@ -75,12 +85,17 @@ elements.js exports a function which returns an elements instance.
 Notes:
 
 1. an elements instance will never contain duplicate elements
-2. if the internal collection is empty, you will get `null` instead of an empty elements instance.
+2. if the internal collection is empty, you will get `null` instead of an empty
+elements instance.
 
 ## arguments
 
-1. (*node* / *collection* / *string* / *array*) - an dom node, a collection of nodes, a string representing a css selector (requires slick or any other selector engine) or an array containing any of the above.
-2. context - (*node* - optional, defaults to *document*) - when string is used as the first argument, the context argument will decide from where to run the dom search.
+1. (*node* / *collection* / *string* / *array*) - an dom node, a collection of
+nodes, a string representing a css selector (requires slick or any other
+selector engine) or an array containing any of the above.
+2. context - (*node* - optional, defaults to *document*) - when string is used
+as the first argument, the context argument will decide from where to run the
+dom search.
 
 ## syntax
 
@@ -171,7 +186,8 @@ method: attribute
 -----------------
 
 Gets or sets an attribute or property.
-Returns the value of the attribute If only the name parameter is passed, otherwise returns the current elements instance.
+Returns the value of the attribute If only the name parameter is passed,
+otherwise returns the current elements instance.
 
 ### syntax
 
@@ -182,12 +198,16 @@ element.attribute(name[, value])
 ### arguments
 
 1. name (*string*) The name of the attribute or property
-2. value (*string*, optional) If the `value` parameter is set, this method will act like a setter and will set the `value` to all elements in the collection. If this parameter is omitted, it will act as a getter on the first element in the collection.
+2. value (*string*, optional) If the `value` parameter is set, this method will
+act like a setter and will set the `value` to all elements in the collection. If
+this parameter is omitted, it will act as a getter on the first element in the
+collection.
 
 ### sample
 
 ```html
 <a href="/test" title="elements">test</a>
+```
 
 ```js
 // as getter
@@ -200,7 +220,9 @@ element.attribute("title", "The Shining")
 method: convenience methods
 ---------------------------
 
-There are several convenience methods available to work with attributes. Used as a setter, the methods will return the `elements` instance, while used as a getter, they will return a `string` value:
+There are several convenience methods available to work with attributes. Used as
+a setter, the methods will return the `elements` instance, while used as a
+getter, they will return a `string` value:
 
 * `type`
 * `value`
@@ -214,7 +236,8 @@ Used only as a getter, the following methods will return a `boolean` value:
 * `disabled`
 * `selected`
 
-The following methods will return the `elements` instance, and perform a self-explanatory action.
+The following methods will return the `elements` instance, and perform a
+self-explanatory action.
 
 * `check`
 * `uncheck`
@@ -237,7 +260,8 @@ elements.classNames()
 method: hasClass
 ----------------
 
-Tests the element to see if it has the passed in className. Returns the boolean `true`, or `false`.
+Tests the element to see if it has the passed in className. Returns the boolean
+`true`, or `false`.
 
 ### sample
 
@@ -262,7 +286,8 @@ $(document.getElementById('myElement')).hasClass('testClass'); // returns true
 method: addClass
 ----------------
 
-Adds the passed in class to the element, if the element doesn't already have it. Returns the elements instance.
+Adds the passed in class to the element, if the element doesn't already have it
+. Returns the elements instance.
 
 ### syntax
 
@@ -291,7 +316,8 @@ $(document.getElementById('myElement')).addClass('newClass')
 method: removeClass
 -------------------
 
-Works like [addClass](#addClass), but removes the class from the element. Returns the elements instance.
+Works like [addClass](#addClass), but removes the class from the element.
+Returns the elements instance.
 
 ### syntax
 
@@ -356,7 +382,10 @@ myElement.html([html])
 
 ### arguments
 
-1. html - (*string*) If the `html` parameter is set, it will set the HTML in the element, otherwise it will return the current HTML in the element. Returns the `elements` instance If the `html` parameter is set, otherwise a string containing the HTML in the element.
+1. html - (*string*) If the `html` parameter is set, it will set the HTML in the
+element, otherwise it will return the current HTML in the element. Returns the
+`elements` instance If the `html` parameter is set, otherwise a string
+containing the HTML in the element.
 
 ### sample
 
@@ -448,7 +477,7 @@ the prefix 'on'.
 
 ```js
 myElement.on('click', function(event){
-	alert('clicked')
+    alert('clicked')
 })
 ```
 

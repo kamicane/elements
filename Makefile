@@ -24,3 +24,6 @@ test-casper:
 
 docs:
 	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html
+
+docs-watch:
+	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html --watch

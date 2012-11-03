@@ -25,7 +25,7 @@
     "mocha": "1.4",
     "expect.js": "0.1",
     "wrapup": "0.9",
-    "procs": "0.0.3"
+    "procs": "0.0.4"
   },
   "optionalDependencies": {
     "slick": "1.9.1-alpha"
