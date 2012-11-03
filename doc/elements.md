@@ -1,166 +1,131 @@
-Elements
-========
+package: elements
+=================
 
-Elements is a DOM library using wrapped elements.
+Elements is the most awesome DOM library you will ever use.
 
-### Downloading elements
+In many examples below you will see `require()` calls, as if elements was used in nodejs. You can build `elements` for browsers with just the components you need, using [wrapup](https://github.com/kamicane/wrapup).
 
-Big Fat Download Button
+You will need node and npm installed in your system. Make sure to configure the `NODE_PATH` environment variable in your bash profile.
 
-### Installation
-
-`elements` can be obtained through *npm* with the following command:
+## install wrapup:
 
 ```
+npm install wrapup -g
+```
+
+## install elements in your project folder
+
+```
+cd path/to/project
 npm install elements
 ```
 
-### Building elements
+## build elements from a custom control module
 
-In many examples below you will see `require()` calls, just like how `require()`
-is used in nodejs. Downloading the full version of elements provides all the
-methods by default. However, if you choose to build `elements` manually with
-just the components you need, you can use
-[wrapup](https://github.com/kamicane/wrapup) to create your own build of
-`elements`.
+Create a JavaScript file in the root of your project. We will feed this file to WrapUp to make your personalized build. Feel free to customize the global variables as you see fit.
 
-#### Your build.js
+Note: It is strongly advised to organize your code using modules, this way you can organize your codebase using `require()` calls, in which case you will direct WrapUp to build from your own modules / entry point module, instead of the following dummy module.
 
 ```js
-var $ = require('elements')
-$.ready = require('elements/lib/domready')
-$.zen = require('elements/lib/zen')
+// assign window.$
+global.$ = require('elements')
 
-exports = module.exports = $;
+// extend elements with its modules
+require('elements/lib/attributes')
+require('elements/lib/events')
+require('elements/lib/delegation')
+require('elements/lib/insertion')
+require('elements/lib/traversal')
+
+// elements utilities
+global.ready = require('elements/lib/domready')
+global.zen = require('elements/lib/zen')
 ```
 
-#### Build Command
-
-`elements is exported to the $ namespace in the example below. But you can name
-`it anything you want, such as "elements".
+Now we're ready to build elements using WrapUp
 
 ```
-wrup -r $ ./build.js -o elements.js
+wrup -r ./file.js -o elements.js
 ```
 
-#### Use the built elements.js file
+This will generate an elements.js in the root of your project.
+Note: you can skip creating this control module and use WrapUp command-line parameters instead. Refer to the WrapUp documentation for more information.
+
+## use the built elements.js
+
+An index.html in the root of your project will look like this:
 
 ```html
 <script type="text/javascript" src="elements.js"></script>
 <script type="text/javascript">
-	$.ready(function(){
-		var text = "When all else fails, read the manual"
-		var element = $.zen('div.class').text(text).insert(document.body)
-	})
+    ready(function(){
+        var text = "When all else fails, read the manual"
+        var element = zen('div.class').text(text).insert(document.body)
+    })
 </script>
 ```
 
-## $
+module: elements
+================
 
-Returns `elements` instances.
+## exports
 
-### Example
+elements.js exports a function which returns an elements instance.
+
+Notes:
+
+1. an elements instance will never contain duplicate elements
+2. if the internal collection is empty, you will get `null` instead of an empty elements instance.
+
+## arguments
+
+1. (*node* / *collection* / *string* / *array*) - an dom node, a collection of nodes, a string representing a css selector (requires slick or any other selector engine) or an array containing any of the above.
+2. context - (*node* - optional, defaults to *document*) - when string is used as the first argument, the context argument will decide from where to run the dom search.
+
+## syntax
 
 ```js
 var $ = require('elements')
 
-// a collection of elements will only contain unique elements
 var elements = $(document.getElementsByTagName('div'))
 elements.addClass('test')
 
-// a single element
 var element = $(document.getElementById('myElement'))
 element.addClass('test')
 
-// if an element does not exist, $ will return null
+var elements = $('li.someClass')
+
+// requires a selector engine
+var elements = $(['li.someClass', someDiv, document.getElementsByTagName('a')])
+
 var element = $(document.getElementById('not-existing')) // → null
 ```
 
-## handle
-
-This method will loop through all elements and the callback will be called with
-the native DOM element. An array will be returned by this method, which contains
-the values returned by the callback, like `Array.prototype.map`.
-
-### Syntax
+## selector engine integration
 
 ```js
-elements.handle(callback)
-```
-
-### Parameters
-
-1. callback - (*function*) The function that will be called with the native
-element, the index and the returned buffer array. The context is the elements
-instance which belongs to the element. Return a boolean to break out of the
-loop. The returned boolean will not be included in the returned array.
-
-### Returns
-
-- (*array*) an array with the values returned by the callback
-
-### Example
-
-```js
-var checks = checkboxes.handle(function(checkbox, index, buffer){
-	// checkbox is the native element
-	var checked = checkbox.checked
-	checkbox.checked = !checked
-
-	// "this" is the wrapped element object
-	this.attribute('data-checked', !checked)
-
-	// return the checked checkboxes
-	if (checked) return checkbox
-}) // an array with the returned element
-```
-
-## remove
-
-Removes an element from the DOM.
-
-### Syntax
-
-```js
-element.remove()
-```
-
-### Returns
-
-- (*elements*) The `elements` instance.
-
-## $.use
-
-Most modules in `elements` don't require a specific selector engine. With
-`$.use()` a selector engine can be used.
-
-### Examples
-
-```js
-// simply require slick. install slick with: npm install slick
 var $ = require('elements')
-$.use(require('slick'))
-
-// or use some other engine:
-$.use({
-	search: function(selector, context){
-		return context.querySelectorAll(selector)
-	}
+$.implement({
+    search: function(expression){
+        /*... filtering logic ...*/
+    },
+    sort: function(){
+        /*... sorting logic ...*/
+    }
 })
 ```
 
-Now `$` accepts any selector as well:
+module: zen
+===========
 
-```js
-$('a') // returns elements instance with all 'a' elements on the page
-```
+The zen modules generates dom elements using CSS-Style selectors.
+Note: zen requires the slick parser.
 
-zen
-===
+## exports
 
-Create elements through CSS selectors.
+exports the function used to generate elements.
 
-### Examples
+## syntax
 
 ```js
 var zen = require('elements/lib/zen')
@@ -179,339 +144,221 @@ zen('div a')
 zen('div a#link.menu.big[href="test.html"]')
 ```
 
-### Notes
+module: attributes
+==================
 
-- zen also requires the Slick CSS parser.
+This the attributes module implements attribute-related methods to elements.
 
-attributes
-==========
+## exports
+
+elements
+
+## syntax
 
 ```js
 var $ = require('elements/lib/attributes')
 ```
 
-## attribute
+same as
 
-Get or set an attribute or property.
+```js
+var $ = require('elements')
+require('elements/lib/attributes')
 
-### Syntax
+```
+
+method: attribute
+-----------------
+
+Gets or sets an attribute or property.
+Returns the value of the attribute If only the name parameter is passed, otherwise returns the current elements instance.
+
+### syntax
 
 ```js
 element.attribute(name[, value])
 ```
 
-### Parameters
+### arguments
 
 1. name (*string*) The name of the attribute or property
-2. value (*string*, optional) If the `value` parameter is set, this method will
-act like a setter and will set the `value` to all elements in the collection. If
-this parameter is omitted, it will act as a getter on the first element in the
-collection.
+2. value (*string*, optional) If the `value` parameter is set, this method will act like a setter and will set the `value` to all elements in the collection. If this parameter is omitted, it will act as a getter on the first element in the collection.
 
-### Example
-
-#### HTML
+### sample
 
 ```html
 <a href="/test" title="elements">test</a>
-```
-
-#### JS
 
 ```js
 // as getter
-element.attribute('title') // elements
+element.attribute('title') // returns 'some title'
 // as setter
 element.attribute("text", "Here's Johnny!")
 element.attribute("title", "The Shining")
 ```
 
-### Returns
+method: convenience methods
+---------------------------
 
-If only the name parameter is passed:
+There are several convenience methods available to work with attributes. Used as a setter, the methods will return the `elements` instance, while used as a getter, they will return a `string` value:
 
-- The value of the attribute.
+* `type`
+* `value`
+* `name`
+* `title`
+* `id`
 
-If the name and value parameters are passed:
+Used only as a getter, the following methods will return a `boolean` value:
 
-- (*elements*) The `elements` instance.
+* `checked`
+* `disabled`
+* `selected`
 
-### Notes
+The following methods will return the `elements` instance, and perform a self-explanatory action.
 
-There are several convenient methods available to work with attributes. Used as
-a setter, the methods will return the `elements` instance.
+* `check`
+* `uncheck`
+* `disable`
+* `enable`
+* `select`
+* `deselect`
 
-Used as a getter, the following methods will return a `string` value:
+method: classNames
+------------------
 
-* type
-* value
-* name
-* title
-* id
+Gets a sorted array of all class names of an element.
 
-Used as a getter, the following methods will return a `boolean` value:
-
-* checked
-* disabled
-* selected
-
-The following are setter methods that will return the `elements`
-instance.
-
-* check
-* uncheck
-* disable
-* enable
-* select
-* deselect
-
-## getAttribute
-
-Calls the native `getAttribute` on the first element.
-
-### Example
-
-```js
-element.getAttribute('id')
-```
-
-### Returns
-
-If the attribute exists on the element:
-
-- (*string*) The value of the attribute.
-
-If the attribute does not exist on the element:
-
-- (*null*)
-
-## setAttribute
-
-Calls the native `setAttribute` on all elements.
-
-### Example
-
-```js
-elements.setAttribute('src', 'mario.png')
-```
-
-### Returns
-
-- (*elements*) The `elements` instance.
-
-## hasAttribute
-
-Checks if an element has an attribute.
-
-### Example
-
-```js
-element.hasAttribute('title')
-```
-
-### Returns
-
-- (*boolean*) Returns true if the element has the attribute, otherwise false.
-
-## removeAttribute
-
-Removes an attribute from all elements.
-
-### Example
-
-```js
-elements.removeAttribute('title')
-```
-
-### Returns
-
-- (*elements*) The `elements` instance.
-
-## classNames
-
-Gets a sorted array of all classes of an element.
-
-### Syntax
+### syntax
 
 ```js
 elements.classNames()
 ```
 
-### Returns
+method: hasClass
+----------------
 
-- (*array*) - an ordered array of the classes on the element.
+Tests the element to see if it has the passed in className. Returns the boolean `true`, or `false`.
 
-## hasClass
-
-Tests the element to see if it has the passed in className.
-
-### Syntax
+### sample
 
 ```js
 var result = myElement.hasClass(className)
 ```
 
-### Parameters
+### arguments
 
 1. className - (*string*) The class name to test.
 
-### Returns
-
-- (*boolean*) Returns true if the element has the class, otherwise false.
-
-### Examples
-
-#### HTML
+### sample
 
 ```html
 <div id="myElement" class="testClass"></div>
 ```
-
-#### JS
 
 ```js
 $(document.getElementById('myElement')).hasClass('testClass'); // returns true
 ```
 
-### Note
+method: addClass
+----------------
 
-- If you need to set HTML to tables, or your HTML contains HTML5 tags, this
-method might not work correctly in each browser. If you really need the cross-
-browser fixes, use something like
-[html5shiv](http://code.google.com/p/html5shiv/).
+Adds the passed in class to the element, if the element doesn't already have it. Returns the elements instance.
 
-## addClass
-
-Adds the passed in class to the element, if the element doesn't already have it.
-
-### Syntax
+### syntax
 
 ```js
 myElement.addClass(className)
 ```
 
-### Parameters
+### arguments
 
 1. className - (*string*) The class name to add.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Examples
-
-#### HTML
+### sample
 
 ```html
 <div id="myElement" class="testClass"></div>
 ```
-
-#### JavaScript
 
 ```js
 $(document.getElementById('myElement')).addClass('newClass')
 ```
 
-#### Resulting HTML
-
 ```html
 <div id="myElement" class="newClass testClass"></div>
 ```
 
-## removeClass
+method: removeClass
+-------------------
 
-Works like [addClass](#addClass), but removes the class from the element.
+Works like [addClass](#addClass), but removes the class from the element. Returns the elements instance.
 
-### Syntax
+### syntax
 
 ```js
 myElement.removeClass(className)
 ```
 
-### Parameters
+### arguments
 
 1. className - (*string*) The class name to remove.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Examples
-
-#### HTML
+### sample
 
 ```html
 <div id="myElement" class="testClass newClass"></div>
 ```
 
-#### JavaScript
-
 ```js
 $(document.getElementById('myElement')).removeClass('newClass')
 ```
-
-#### Resulting HTML
 
 ```html
 <div id="myElement" class="testClass"></div>
 ```
 
-## toString
+method: toString
+----------------
 
 Creates a simple CSS selector from the element.
 
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div id="myElement" class="otherClass testClass"></div>
 ```
 
-#### JS
-
 ```js
-$(document.getElementById('myElement')).toString()
+$(document.getElementById('myElement')).toString() // div#myElement.otherClass.testClass
 ```
 
-#### Result
-
-	div#myElement.otherClass.testClass
-
-### Returns
-
-- (*string*) A CSS selector string representation of the element.
-
-## tag
+method: tag
+-----------
 
 Gets the tag name of an element as a lower case string.
 
-### Example
+### syntax
 
 ```js
-myElement.tag() // result: div
+myElement.tag() // div
 ```
 
-### Returns
-
-- (*string*) A lower case string of the element's tag
-
-## html
+method: html
+------------
 
 Set or get HTML of an element.
 
-### Syntax
+### syntax
 
 ```js
 myElement.html([html])
 ```
 
-### Parameters
+### arguments
 
-1. html - (*string*) If the `html` parameter is set, it will set the HTML in the
-element, otherwise it will return the current HTML in the element.
+1. html - (*string*) If the `html` parameter is set, it will set the HTML in the element, otherwise it will return the current HTML in the element. Returns the `elements` instance If the `html` parameter is set, otherwise a string containing the HTML in the element.
 
-### Examples
+### sample
 
 ```js
 myElement.html('<p>new html</p>')
@@ -519,17 +366,8 @@ myElement.html('<p>new html</p>')
 var html = myElement.html() // returns: <p>new html</p>
 ```
 
-### Returns
-
-If the `html` parameter is set:
-
-- (*elements*) The `elements` instance.
-
-If the `html` parameter is not set:
-
-- (*string*) A string containing the HTML in the element.
-
-## text
+method: text
+------------
 
 Set or get text of on element.
 
