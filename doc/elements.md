@@ -1,7 +1,7 @@
 package: elements
 =================
 
-Elements is the most awesome DOM library you will ever use.
+Elements is a DOM library written for prime.
 
 In many examples below you will see `require()` calls, as if elements was used
 in nodejs. You can build `elements` for browsers with just the components you
@@ -286,8 +286,7 @@ $(document.getElementById('myElement')).hasClass('testClass'); // returns true
 method: addClass
 ----------------
 
-Adds the passed in class to the element, if the element doesn't already have it
-. Returns the elements instance.
+Adds the passed in class to the element, if the element doesn't already have it. Returns the `elements` instance.
 
 ### syntax
 
@@ -398,20 +397,20 @@ var html = myElement.html() // returns: <p>new html</p>
 method: text
 ------------
 
-Set or get text of on element.
+Sets or gets the text of on element. Returns the `elements` instance when setting a value, otherwise a *string* containing the text in the element.
 
-### Syntax
+### syntax
 
 ```js
 myElement.text([text])
 ```
 
-### Parameters
+### parameters
 
 1. text - (*string*) If the `text` parameter is set, it will set the text in the
 element, otherwise it will return the current text in the element.
 
-### Examples
+### sample
 
 ```js
 myElement.text("I'm just contemplating the ifs.")
@@ -419,25 +418,14 @@ myElement.text("I'm just contemplating the ifs.")
 var text = myElement.text()
 ```
 
-### Returns
+module: domready
+================
 
-If the `text` parameter is set:
+## exports
 
-- (*elements*) The `elements` instance.
+Exports a function that executes functions passed to it when the DOM is loaded.
 
-If the `text` parameter is not set:
-
-- (*string*) A string containing the text in the element.
-
-domready
-========
-
-Contains the DOMReady event, which executes when the DOM is loaded.
-
-Code that attempts to access DOM elements need to be placed within the
-'domready' event to ensure that DOM elements exist when the code is executed.
-
-### Example
+## sample
 
 ```js
 var domready = require('elements/lib/domready')
@@ -446,34 +434,33 @@ domready(function(){
 })
 ```
 
-events
-======
+module: events
+==============
 
-Events lets you attach event listeners to DOM elements on the page. Those event
-listeners will be executed once the user clicks something or something else
-happens.
+The events.js module implements functions to attach event listeners to DOM elements on the page. See also [MDN DOM Event Reference](https://developer.mozilla.org/en/DOM/DOM_event_reference).
 
-### See Also:
+## exports
 
-- [MDN DOM Event Reference](https://developer.mozilla.org/en/DOM/DOM_event_reference)
+exports the function used to generate elements.
 
-## on
+method: on
+----------
 
-Attaches an event listener to a DOM element.
+Attaches an event listener to a DOM element. Returns the `elements` instance.
 
-### Syntax
+### syntax
 
 ```js
 myElement.on(type, fn)
 ```
 
-### Parameters
+### parameters
 
 1. type - (*string*) The event name to monitor ('click', 'load', etc) without
 the prefix 'on'.
 2. fn   - (*function*) The function to execute.
 
-### Example
+### sample
 
 ```js
 myElement.on('click', function(event){
@@ -481,26 +468,23 @@ myElement.on('click', function(event){
 })
 ```
 
-### Returns
+method: off
+-----------
 
-- (*elements*) The `elements` instance.
+Removes the specified event listener from the `elements` collection. Returns the `elements` instance.
 
-## off
-
-Works as [on](#on), but instead removes the specified event listener.
-
-### Syntax
+### syntax
 
 ```js
 myElement.off(type, fn)
 ```
 
-### Parameters
+### parameters
 
 1. type - (*string*) The event name.
 2. fn   - (*function*) The function to remove.
 
-Examples
+### sample
 
 ```js
 var destroy = function(){
@@ -513,33 +497,24 @@ myElement.on('click', destroy)
 myElement.off('click', destroy)
 ```
 
-### Returns
+method: emit
+------------
 
-- (*elements*) The `elements` instance.
+Executes all events attached for the specified type on an element. Returns the `elements` instance.
 
-### Note
-
-- To remove a listener, it is important to pass the same function to the `fn`
-parameter as the one that was previously attached. In the example the reference
-to the function is stored in the `destroy` variable.
-
-## emit
-
-Executes all events attached for the specified type on an element.
-
-### Syntax
+### syntax
 
 ```js
 myElement.emit(type[, args...])
 ```
 
-### Parameters
+### parameters
 
 1. type - (*string*) The event name.
 2. args... - (*mixed*, optional) Zero or multiple extra parameters that will be
 passed to the event listeners
 
-### Examples
+### sample
 
 ```js
 var add = function(a, b){
@@ -549,42 +524,37 @@ element.on('click', add)
 element.emit('click', 4, 2) // alerts 6
 ```
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-delegation
-==========
+module: delegation
+==================
 
 Delegation is a common practice where an event listener is attached to a parent
 element to monitor its children rather than attach events to every single child
 element. It's more efficient for dynamic content or highly interactive pages
 with a lot of DOM elements.
 
-## delegate
+## exports
 
-Add a new delegation event listener to an element.
+...
 
-### Syntax
+method: delegate
+----------------
+
+Add a new delegation event listener to an element. Returns the `elements` instance.
+
+### syntax
 
 ```js
 myElement.delegate(type, selector, fn)
 ```
 
-### Parameters
+### parameters
 
 1. type - (*string*) The event name.
 2. selector - (*string*) A CSS Selector the element the event is fired on should
 match (see [matches](#matches))
 3. fn - (*function*) The function to execute.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <ul>
@@ -594,8 +564,6 @@ match (see [matches](#matches))
 </ul>
 ```
 
-#### JS
-
 ```js
 var $ = require('elements/lib/delegation')
 
@@ -604,29 +572,26 @@ $('ul').delegate('click', 'a', function(event, a){ // a is the matching element
 })
 ```
 
-## undelegate
+method: undelegate
+------------------
 
 Removes a delegation event listener from an element. Opposite operation of
-[delegate](#delegate).
+[delegate](#delegate). Returns the `elements` instance.
 
-### Syntax
+### syntax
 
 ```js
 myElement.undelegate(type, selector, fn)
 ```
 
-### Parameters
+### parameters
 
 1. type - (*string*) The event name.
 2. selector - (*string*) A CSS Selector the element the event is fired on should
 match (see [matches](#matches)).
 3. fn   - (*function*) The function to remove.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
+### sample
 
 ```js
 var click = function(event, a){
@@ -638,18 +603,16 @@ $('ul').delegate('click', 'a', click)
 $('ul').undelegate('click', 'a', click)
 ```
 
-### Note
+module: insertion
+=================
 
-- To remove a listener, it is important to pass the same function to the `fn`
-parameter as the one that was previously attached. In the example the reference
-to the function is stored in the `click` variable.
+Insertion implements methods to insert, remove or replace elements from / to the DOM.
 
-insertion
-=========
+## exports
 
-Insertion will insert, inject or replace elements at certain places.
+...
 
-### Example
+### sample
 
 ```js
 var $ = require('elements/lib/insertion')
@@ -658,34 +621,26 @@ var vince = $(document.getElementById('vince'))
 $(document.createElement('div')).insert(vince)
 ```
 
-## appendChild
+method: appendChild
+-------------------
 
-Wrapper method of the native `appendChild` method. It will append another
-element as child element.
+Wrapper method of the native `appendChild` method. It will append another element as child element. Returns the `elements` instance.
 
-### Syntax
+### syntax
 ```js
 parent.appendChild(child)
 ```
 
-### Parameters
+### parameters
 
 1. child - (*elements*) another elements instance.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div id="child"></div>
 <div id="parent"></div>
 ```
-
-#### JS
 
 ```js
 var parent = $(document.getElementById('parent'))
@@ -703,29 +658,23 @@ parent.appendChild(child)
 
 - [MDN appendChild](https://developer.mozilla.org/en-US/docs/DOM/Node.appendChild)
 
-## insertBefore
+method: insertBefore
+--------------------
 
-Wrapper method of the native `insertBefore` method. It will insert an element
-before another element.
+Wrapper method of the native `insertBefore` method. It will insert an element before another element. Returns the `elements` instance.
 
-### Syntax
+### syntax
 ```js
 parent.insertBeore(child, ref)
 ```
 
-### Parameters
+### parameters
 
 1. child - (*elements*) The child `elements` instance.
 2. ref - (*elements*) The reference element. `child` will be inserted before
 `ref`.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div id="first"></div>
@@ -733,8 +682,6 @@ parent.insertBeore(child, ref)
 	<div id="second"></div>
 </div>
 ```
-
-#### JS
 
 ```js
 var parent = $(document.getElementById('parent'))
@@ -752,12 +699,12 @@ parent.insertBefore(child, ref)
 </div>
 ```
 
-## removeChild
+method: removeChild
+-------------------
 
-Wrapper method of the native `removeChild` method. It will remove a child
-element from the parent element.
+Wrapper method of the native `removeChild` method. It will remove a child element from the parent element. Returns the `elements` instance.
 
-### Syntax
+### syntax
 
 ```js
 parent.removeChild(child)
@@ -766,21 +713,13 @@ parent.removeChild(child)
 1. child - (*elements*) An `elements` instance, which is a child of the parent
 element.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div id="parent">
 	<div id="child"></div>
 </div>
 ```
-
-#### JS
 
 ```js
 var parent = $(document.getElementById('parent'))
@@ -794,24 +733,18 @@ parent.removeChild(child)
 <div id="parent"></div>
 ```
 
-## replaceChild
+method: replaceChild
+--------------------
 
-Wrapper method of the native `replaceChild` method. It will replace one element
-with another.
+Wrapper method of the native `replaceChild` method. It will replace one element with another. Returns the `elements` instance.
 
-### Syntax
+### syntax
 
 1. child - (*elements*) The child `elements` instance.
 2. ref - (*elements*) The reference element. `ref` will be replaced with
 `child`.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div id="child"></div>
@@ -819,8 +752,6 @@ with another.
 	<div id="ref"></div>
 </div>
 ```
-
-#### JS
 
 ```js
 var parent = $(document.getElementById('parent'))
@@ -835,17 +766,12 @@ parent.replaceChild(child, ref)
 <div id="parent"><div id="child"></div></div>
 ```
 
-## before
+method: before
+--------------
 
-Inserts an element before another element.
+Inserts elements before an element. Returns the `elements` instance.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### JS
+### sample
 
 ```js
 myFirstElement.before(mySecondElement)
@@ -858,17 +784,12 @@ myFirstElement.before(mySecondElement)
 <div id="mySecondElement"></div>
 ```
 
-## after
+method: after
+-------------
 
 Inserts an element after another element.
 
-### Returns
-
-- (*elements*) The `elements` instance
-
-### Example
-
-#### JS
+### sample
 
 ```js
 myFirstElement.after(mySecondElement)
@@ -881,17 +802,12 @@ myFirstElement.after(mySecondElement)
 <div id="myFirstElement"></div>
 ```
 
-## bottom
+method: bottom
+--------------
 
-Injects an element at the bottom of another element.
+Injects an element at the bottom of another element. Returns the `elements` instance.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### JS
+### sample
 
 ```js
 myFirstElement.bottom(mySecondElement)
@@ -906,17 +822,12 @@ myFirstElement.bottom(mySecondElement)
 </div>
 ```
 
-## top
+method: top
+-----------
 
-Injects an element at the top of another element.
+Injects elements at the top of another element. Returns the `elements` instance.
 
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### JS
+### sample
 
 ```js
 myFirstElement.top(mySecondElement)
@@ -931,25 +842,17 @@ myFirstElement.top(mySecondElement)
 </div>
 ```
 
-## insert
+method: insert
+--------------
 
-`insert` is an alias of [bottom](#bottom)
+`insert` is an alias of [bottom](#bottom). Returns the `elements` instance.
 
-### Returns
+method: replace
+---------------
 
-- (*elements*) The `elements` instance.
+Replace another element with this element. Returns the `elements` instance.
 
-## replace
-
-Replace another element with this element.
-
-### Returns
-
-- (*elements*) The `elements` instance.
-
-### Example
-
-#### JS
+### sample
 
 ```js
 myNewElement.replaces(myOldElement)
@@ -966,24 +869,25 @@ elements instance.
 var $ = require('elements/lib/list')
 ```
 
-## forEach
+method: forEach
+---------------
 
 Calls a function for each element in the array.
 
-### Syntax
+### syntax
 
 ```js
 elements.forEach(fn[, bind])
 ```
 
-### Parameters
+### parameters
 
 1. fn - (*function*) Function to execute for each element. `fn` is called like
 `fn(element, index)` where `element` is the native element, and `index` is the
 index of the element in the elements collection.
 2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
 
-### Example
+### sample
 
 ```js
 var elements = $(document.getElementsByTagName('a'))
@@ -997,18 +901,18 @@ elements.forEach(function(element, index){
 - [handle()](#handle)
 - [MDN Array forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
-## map
+method: map
+-----------
 
-Creates a new array with the results of calling a provided function on every
-element in the elements collection.
+Creates a new array with the results of calling a provided function on every element in the elements collection. Returns the new mapped array.
 
-### Syntax
+### syntax
 
 ```js
 var mapped = elements.map(fn[, bind])
 ```
 
-### Parameters
+### parameters
 
 1. fn - (*function*) Function that produces an element of the new Array from an
 element of the current one. `fn` is called like `fn(element, index)` where
@@ -1016,11 +920,7 @@ element of the current one. `fn` is called like `fn(element, index)` where
 elements collection.
 2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
 
-### Returns
-
-- (*array*) The new mapped array.
-
-### Example
+### sample
 
 ```js
 var elements = $(document.getElementsByTagName('a'))
@@ -1034,29 +934,25 @@ var result = elements.map(function(element, index){
 - [handle()](#handle)
 - [MDN Array Map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
 
-## filter
+method: filter
+--------------
 
-Creates a new array with all of the elements of the collection for which the
-provided filtering function returns true.
+Creates a new array with all of the elements of the collection for which the provided filtering function returns true. Returns an array with only the filtered elements
 
-### Syntax
+### syntax
 
 ```js
 var filtered = elements.filter(fn[, bind])
 ```
 
-### Parameters
+### parameters
 
 1. fn - (*function*) The function to test each element of the collection. `fn`
 is called like `fn(element, index)` where `element` is the native element, and
 `index` is the index of the element in the elements collection.
 2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
 
-### Returns
-
-- (*array*) an array with only the filtered elements
-
-### Example
+### sample
 
 ```js
 var elements = $(document.getElementsByTagName('*'))
@@ -1069,30 +965,25 @@ var filtered = elements.filter(function(element, index){
 
 - [MDN Array Filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
 
-## every
+method: every
+-------------
 
-Returns true if every element in the array satisfies the provided testing
-function.
+If every element in the collection satisfies the provided testing function, returns true. Otherwise, returns false.
 
-### Syntax
+### syntax
 
 ```js
 var allPassed = elements.every(fn[, bind])
 ```
 
-### Parameters
+### parameters
 
 1. fn - (*function*) The function to test each element of the collection. `fn`
 is called like `fn(element, index)` where `element` is the native element, and
 `index` is the index of the element in the elements collection.
 2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
 
-### Returns
-
-- (*boolean*) - If every element in the collection satisfies the provided
-testing function, returns true. Otherwise, returns false.
-
-### Example
+### sample
 
 ```js
 var elements = $(document.getElementsByTagName('div'))
@@ -1105,30 +996,25 @@ var allEnoughChildren = elements.every(function(element, index){
 
 - [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
 
-## some
+method: some
+------------
 
-Returns true if at least one element in the array satisfies the provided testing
-function.
+If some element in the collection satisfies the provided testing function, returns true. Otherwise, returns false.
 
-### Syntax
+### syntax
 
 ```js
 var somePassed = elements.some(fn[, bind])
 ```
 
-### Parameters
+### parameters
 
 1. fn - (*function*) The function to test each element of the collection. `fn`
 is called like `fn(element, index)` where `element` is the native element, and
 `index` is the index of the element in the elements collection.
 2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
 
-### Returns
-
-- (*boolean*) - If some element in the collection satisfies the provided testing
-function, returns true. Otherwise, returns false.
-
-### Example
+### sample
 
 ```js
 var elements = $(document.getElementsByTagName('div'))
@@ -1146,7 +1032,7 @@ traversal
 
 Traversal adds multiple methods for finding other elements.
 
-### Example
+### sample
 
 ```js
 var $ = require('elements/lib/traversal')
@@ -1160,25 +1046,22 @@ var $ = require('elements/lib/traversal')
 
 - [CSS Selectors](http://www.w3.org/TR/css3-selectors/)
 
-## search
+method: search
+--------------
 
-Search elements with by an selector, with the current elements as context.
+Search elements with by an selector, with the current elements as context. Returns a new `elements` instance if not empty, otherwise, `null`.
 
-### Syntax
+### syntax
 
 ```js
 elements.search(expression)
 ```
 
-### Parameters
+### parameters
 
 1. expression - (*string*) A CSS selector.
 
-### Return
-
-- (*elements*) An `elements` instance with the new elements.
-
-### Example
+### sample
 
 ```js
 // slick is included by traversal, we can pass selectors to $()
@@ -1192,27 +1075,22 @@ elements.search('a')
 
 - [find()](#find)
 
-## find
+method: find
+------------
 
-Find one element for each element in the elements collection.
+Find one element for each element in the elements collection. Returns a new `elements` instance with the found elements, otherwise `null`.
 
-### Syntax
+### syntax
 
 ```js
 elements.find(expression)
 ```
 
-### Parameters
+### parameters
 
 1. expression - (*string*) A CSS selector.
 
-### Returns
-
-- (*elements*) An `elements` instance with the new elements.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <ul>
@@ -1225,8 +1103,6 @@ elements.find(expression)
 	<li>London</li>
 </ul>
 ```
-
-#### JS
 
 ```js
 // We can pass selectors to $() because slick is included by traversal
@@ -1242,27 +1118,22 @@ var cities = elements.find('li')
 
 - [search()](#search)
 
-## matches
+method: matches
+---------------
 
-Test if this element matches the passed CSS Selector.
+Test if this element matches the passed CSS Selector. If the element matched, returns true. Otherwise, returns false.
 
-### Syntax
+### syntax
 
 ```js
 element.matches(selector)
 ```
 
-### Parameters
+### parameters
 
 1. match - (*string*) a CSS selector to test this element against
 
-### Returns
-
-- (*boolean*) If the element matched, returns true. Otherwise, returns false.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div>
@@ -1270,8 +1141,6 @@ element.matches(selector)
 	<a class="goo" href="http://google.com">
 </div>
 ```
-
-#### JS
 
 ```js
 var moo = $('a.moo')
@@ -1281,28 +1150,22 @@ var goo = $('a.goo')
 goo.matches('a[href*="mootools"]') // false
 ```
 
-## nextSiblings
+method: nextSiblings
+--------------------
 
 Returns all next siblings of each element in the collection.
 
-### Syntax
+### syntax
 
 ```js
 var nextSiblings = element.nextSiblings([expression])
 ```
 
-### Parameters
+### parameters
 
 1. (*string*, optional) - A CSS Selector to filter the next siblings
 
-### Returns
-
-- An `elements` instance with all next siblings that match the CSS expression,
-if any is given.
-
-### Examples
-
-#### HTML
+### sample
 
 ```html
 <section>
@@ -1323,25 +1186,19 @@ if any is given.
 </section>
 ```
 
-#### JS
-
 ```js
 var div = $('div') // finds the two div elements
 div.nextSiblings() // returns [p, em, p, strong, strong, p, em]
 div.nextSiblings('p') // returns [p, p, p]
 ```
 
-## nextSibling
+method: nextSibling
+-------------------
 
 Exactly like [nextSiblings](#nextSiblings), except it only returns the first
 next sibling that matches the expression, if any is given.
 
-### Returns
-
-- An `elements` instance with the first next sibling that matches the CSS
-expression, if any is given.
-
-### Example
+### sample
 
 With the same HTML as [nextSiblings](#nextSiblings):
 
@@ -1351,17 +1208,19 @@ div.nextSibling() // returns [p, strong]
 div.nextSibling('p') // returns [p, p]
 ```
 
-## previousSiblings
+method: previousSiblings
+------------------------
 
 Exactly like [nextSiblings](#nextSiblings), except it will return all previous
 siblings instead of next siblings, if any is given.
 
-## previousSibling
+method: previousSibling
+-----------------------
 
 Exactly like [nextSibling](#nextSibling), except it will return one previous
 sibling instead of one next sibling, if any is given.
 
-### Example
+### sample
 
 With the same HTML as [nextSibling](#nextSibling):
 
@@ -1370,17 +1229,13 @@ var div = $('div') // finds the two div elements
 div.previousSiblings() // returns [em, p, a]
 div.previousSiblings('p') // returns [p]
 ```
-## children
+method: children
+----------------
 
 Like [nextSiblings](#nextSiblings), but returns the direct child elements, if
 they match the passed CSS expression, if any is given.
 
-### Returns
-
-- An `elements` instance with the the direct child elements that matches the CSS
-expression, if any is given.
-
-### Example
+### sample
 
 With the same html as [nextsiblings](#nextsiblings):
 
@@ -1389,19 +1244,13 @@ var div = $('div') // finds the two div elements
 div.nextSibling() // returns [p, strong]
 div.nextSibling('p') // returns [p, p]
 ```
-## parent
+method: parent
+--------------
 
 Get the parent node that matches the expression, if any given, for each element.
 Syntax is the same as [nextSiblings](#nextSiblings).
 
-### Returns
-
-- An `elements` instance with one parent element that matches the CSS
-expression, for each element, if any is given.
-
-### Example
-
-#### HTML
+### sample
 
 ```html
 <div>
@@ -1417,17 +1266,13 @@ strong.parent() // the p element
 strong.parent('div') // the div element
 ```
 
-## parents
+method: parents
+---------------
 
 Like [parent()](#parent), but selects all parent elements, that matches the
 expression, if any given.
 
-### Returns
-
-- An `elements` instance with the parent elements that matches the CSS
-expression, for each element, if any is given.
-
-### Example
+### sample
 
 With the same html as [parent](#parent):
 
