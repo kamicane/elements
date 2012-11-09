@@ -286,7 +286,8 @@ $(document.getElementById('myElement')).hasClass('testClass'); // returns true
 method: addClass
 ----------------
 
-Adds the passed in class to the element, if the element doesn't already have it. Returns the `elements` instance.
+Adds the passed in class to the element, if the element doesn't already have it.
+Returns the `elements` instance.
 
 ### syntax
 
@@ -397,7 +398,8 @@ var html = myElement.html() // returns: <p>new html</p>
 method: text
 ------------
 
-Sets or gets the text of on element. Returns the `elements` instance when setting a value, otherwise a *string* containing the text in the element.
+Sets or gets the text of on element. Returns the `elements` instance when
+setting a value, otherwise a *string* containing the text in the element.
 
 ### syntax
 
@@ -437,11 +439,14 @@ domready(function(){
 module: events
 ==============
 
-The events.js module implements functions to attach event listeners to DOM elements on the page. See also [MDN DOM Event Reference](https://developer.mozilla.org/en/DOM/DOM_event_reference).
+The events.js module implements functions to attach event listeners to DOM
+elements on the page.
+
+See also [MDN DOM Event Reference](https://developer.mozilla.org/en/DOM/DOM_event_reference).
 
 ## exports
 
-exports the function used to generate elements.
+elements
 
 method: on
 ----------
@@ -471,7 +476,8 @@ myElement.on('click', function(event){
 method: off
 -----------
 
-Removes the specified event listener from the `elements` collection. Returns the `elements` instance.
+Removes the specified event listener from the `elements` collection. Returns
+the `elements` instance.
 
 ### syntax
 
@@ -500,7 +506,8 @@ myElement.off('click', destroy)
 method: emit
 ------------
 
-Executes all events attached for the specified type on an element. Returns the `elements` instance.
+Executes all events attached for the specified type on an element. Returns the
+`elements` instance.
 
 ### syntax
 
@@ -534,12 +541,13 @@ with a lot of DOM elements.
 
 ## exports
 
-...
+elements
 
 method: delegate
 ----------------
 
-Add a new delegation event listener to an element. Returns the `elements` instance.
+Add a new delegation event listener to an element. Returns the `elements`
+instance.
 
 ### syntax
 
@@ -606,11 +614,12 @@ $('ul').undelegate('click', 'a', click)
 module: insertion
 =================
 
-Insertion implements methods to insert, remove or replace elements from / to the DOM.
+Insertion implements methods to insert, remove or replace elements from / to
+the DOM.
 
 ## exports
 
-...
+elements
 
 ### sample
 
@@ -624,7 +633,8 @@ $(document.createElement('div')).insert(vince)
 method: appendChild
 -------------------
 
-Wrapper method of the native `appendChild` method. It will append another element as child element. Returns the `elements` instance.
+Wrapper method of the native `appendChild` method. It will append another
+element as child element. Returns the `elements` instance.
 
 ### syntax
 ```js
@@ -661,7 +671,8 @@ parent.appendChild(child)
 method: insertBefore
 --------------------
 
-Wrapper method of the native `insertBefore` method. It will insert an element before another element. Returns the `elements` instance.
+Wrapper method of the native `insertBefore` method. It will insert an element
+before another element. Returns the `elements` instance.
 
 ### syntax
 ```js
@@ -702,7 +713,8 @@ parent.insertBefore(child, ref)
 method: removeChild
 -------------------
 
-Wrapper method of the native `removeChild` method. It will remove a child element from the parent element. Returns the `elements` instance.
+Wrapper method of the native `removeChild` method. It will remove a child
+element from the parent element. Returns the `elements` instance.
 
 ### syntax
 
@@ -736,7 +748,8 @@ parent.removeChild(child)
 method: replaceChild
 --------------------
 
-Wrapper method of the native `replaceChild` method. It will replace one element with another. Returns the `elements` instance.
+Wrapper method of the native `replaceChild` method. It will replace one element
+with another. Returns the `elements` instance.
 
 ### syntax
 
@@ -805,7 +818,8 @@ myFirstElement.after(mySecondElement)
 method: bottom
 --------------
 
-Injects an element at the bottom of another element. Returns the `elements` instance.
+Injects an element at the bottom of another element. Returns the `elements`
+instance.
 
 ### sample
 
@@ -904,7 +918,8 @@ elements.forEach(function(element, index){
 method: map
 -----------
 
-Creates a new array with the results of calling a provided function on every element in the elements collection. Returns the new mapped array.
+Creates a new array with the results of calling a provided function on every
+element in the elements collection. Returns the new mapped array.
 
 ### syntax
 
@@ -937,7 +952,9 @@ var result = elements.map(function(element, index){
 method: filter
 --------------
 
-Creates a new array with all of the elements of the collection for which the provided filtering function returns true. Returns an array with only the filtered elements
+Creates a new array with all of the elements of the collection for which the
+provided filtering function returns true. Returns an array with only the
+filtered elements
 
 ### syntax
 
@@ -968,7 +985,8 @@ var filtered = elements.filter(function(element, index){
 method: every
 -------------
 
-If every element in the collection satisfies the provided testing function, returns true. Otherwise, returns false.
+If every element in the collection satisfies the provided testing function,
+returns `true`. Otherwise, returns `false`.
 
 ### syntax
 
@@ -999,7 +1017,8 @@ var allEnoughChildren = elements.every(function(element, index){
 method: some
 ------------
 
-If some element in the collection satisfies the provided testing function, returns true. Otherwise, returns false.
+If some element in the collection satisfies the provided testing function,
+returns `true`. Otherwise, returns `false`.
 
 ### syntax
 
@@ -1049,7 +1068,8 @@ var $ = require('elements/lib/traversal')
 method: search
 --------------
 
-Search elements with by an selector, with the current elements as context. Returns a new `elements` instance if not empty, otherwise, `null`.
+Search elements with by an selector, with the current elements as context.
+Returns a new `elements` instance if not empty, otherwise, `null`.
 
 ### syntax
 
@@ -1078,7 +1098,8 @@ elements.search('a')
 method: find
 ------------
 
-Find one element for each element in the elements collection. Returns a new `elements` instance with the found elements, otherwise `null`.
+Find one element for each element in the elements collection. Returns a new
+`elements` instance with the found elements, otherwise `null`.
 
 ### syntax
 
@@ -1121,7 +1142,8 @@ var cities = elements.find('li')
 method: matches
 ---------------
 
-Test if this element matches the passed CSS Selector. If the element matched, returns true. Otherwise, returns false.
+Test if this element matches the passed CSS Selector. If the element matched,
+returns `true`. Otherwise, returns `false`.
 
 ### syntax
 
