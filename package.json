@@ -1,7 +1,7 @@
 {
   "name": "elements",
   "description": "prime dom library",
-  "version": "0.0.7-alpha",
+  "version": "0.0.8",
   "license": "MIT (http://mootools.net/license.txt)",
   "main": "./lib/elements.js",
   "keywords": [
@@ -19,16 +19,14 @@
     "url": "git://github.com/mootools/elements.git"
   },
   "dependencies": {
-    "prime": "0.0.5-alpha"
+    "prime": "0.0.6",
+    "slick": "1.9.2"
   },
   "devDependencies": {
     "mocha": "1.4",
     "expect.js": "0.1",
-    "wrapup": "0.9",
+    "wrapup": "0.10",
     "procs": "0.0.4"
-  },
-  "optionalDependencies": {
-    "slick": "1.9.1-alpha"
   },
   "engines": {
     "node": "*"
