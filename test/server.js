@@ -14,7 +14,6 @@ var app = require('http').createServer(function(req, res){
 
 		var query = qs.parse(parsed.search.slice(1))
 		var wrup = wrapup()
-		wrup.log()
 
 		for (var q in query){
 			if (query[q]) wrup.require(q, __dirname + '/../' + query[q])
@@ -22,7 +21,11 @@ var app = require('http').createServer(function(req, res){
 		}
 
 		res.writeHead(200, {'Content-Type': 'text/javascript'})
-		res.end(wrup.up())
+
+		wrup.pipe(res)
+		wrup.up(function(err){
+			if (err) throw err
+		})
 
 	} else {
 
