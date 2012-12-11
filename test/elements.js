@@ -86,10 +86,22 @@ describe('elements constructor', function(){
                     return $(buffer)
                 }
             })
+            expect($.prototype.search).to.be.ok()
+        })
 
+        it('should use the new .search, find a single element', function(){
             expect($("input").length).to.be(1)
+            expect($("input") === $("input")).to.be.ok()
+        })
 
-            ;delete $.prototype.search
+        it('should use the new .search, find multiple elements', function(){
+            expect($("div").length).to.be.greaterThan(1)
+            expect($("div") !== $("div")).to.be.ok()
+        })
+
+        it('should remove the .search from the $ prototype', function(){
+            delete $.prototype.search
+            expect($.prototype.search).not.to.be.ok()
         })
 
     })
