@@ -89,28 +89,7 @@ describe('elements constructor', function(){
 
             expect($("input").length).to.be(1)
 
-            delete $.prototype.search
-        })
-
-        it('implement custom element sorter', function(){
-            var lis = $(document.getElementById('container').getElementsByTagName('li'))
-            $.implement({
-
-                sort: function(){
-                    //swap self[0] with self[1]
-                    var tmp = this[0]
-                    this[0] = this[1]
-                    this[1] = tmp
-                }
-
-            })
-
-            var lis2 = $(document.getElementById('container').getElementsByTagName('li'))
-            expect(lis2[0] == lis[1]).to.be.ok()
-            expect(lis2[1] == lis[0]).to.be.ok()
-            expect(lis2[2] == lis[2]).to.be.ok()
-
-            delete $.prototype.sort
+            ;delete $.prototype.search
         })
 
     })
