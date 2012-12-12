@@ -21,6 +21,7 @@ test-casper:
 	@casperjs ./test/casper.js 'http://localhost:8080/events.html'
 	@casperjs ./test/eventsCasper.js
 	@casperjs ./test/casper.js 'http://localhost:8080/insertion.html'
+	@casperjs ./test/casper.js 'http://localhost:8080/traversal.html'
 
 docs:
 	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html
