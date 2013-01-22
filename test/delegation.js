@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('../lib/delegation')
+var $ = require('../delegation')
 var expect = require('expect.js')
 
 describe('delegation', function(){

@@ -2,7 +2,7 @@
 traversal
 */"use strict"
 
-var $     = require("./elements"),
+var $     = require("./index"),
     array = require("prime/es5/array"),
     slick = require("slick")
 

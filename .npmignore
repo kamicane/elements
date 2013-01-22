@@ -1,6 +1,5 @@
-*.html
-test.js
-.tm_properties
 .gitignore
+.travis.yml
+.jshintrc
 doc
 test

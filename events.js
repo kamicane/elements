@@ -2,9 +2,9 @@
 events
 */"use strict"
 
-var $       = require("./elements"),
-    prime   = require("prime/prime"),
-    Emitter = require("prime/util/emitter")
+var $       = require("./index"),
+    prime   = require("prime"),
+    Emitter = require("prime/emitter")
 
 var html = document.documentElement
 

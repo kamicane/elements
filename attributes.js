@@ -2,8 +2,8 @@
 attributes
 */"use strict"
 
-var $      = require("./elements"),
-    string = require("prime/types/string"),
+var $      = require("./index"),
+    string = require("prime/shell/string"),
     array  = require("prime/es5/array")
 
 // attributes

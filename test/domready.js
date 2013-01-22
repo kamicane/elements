@@ -1,5 +1,5 @@
 "use strict";
-var ready = require('../lib/domready')
+var ready = require('../domready')
 var expect = require('expect.js')
 describe('domready.js', function(){
     // prepare the environment

@@ -2,9 +2,9 @@
 zen
 */"use strict"
 
-var parse = require("slick/lib/parser"),
-    array = require("prime/es5/array"),
-    $     = require("./elements")
+var $     = require("./index"),
+    parse = require("slick/parser"),
+    array = require("prime/es5/array")
 
 module.exports = function(expression, doc){
 

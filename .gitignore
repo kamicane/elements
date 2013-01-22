@@ -1,7 +1,2 @@
-test.js
 node_modules/*
-.tm_properties
-nodes.build.js
-nodes.build.min.js
-.DS_Store
-lib-cov/*
+./doc/elements.html

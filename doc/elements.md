@@ -39,15 +39,15 @@ the following dummy module.
 global.$ = require('elements')
 
 // extend elements with its modules
-require('elements/lib/attributes')
-require('elements/lib/events')
-require('elements/lib/delegation')
-require('elements/lib/insertion')
-require('elements/lib/traversal')
+require('elements/attributes')
+require('elements/events')
+require('elements/delegation')
+require('elements/insertion')
+require('elements/traversal')
 
 // elements utilities
-global.ready = require('elements/lib/domready')
-global.zen = require('elements/lib/zen')
+global.ready = require('elements/domready')
+global.zen = require('elements/zen')
 ```
 
 Now we're ready to build elements using WrapUp
@@ -143,7 +143,7 @@ exports the function used to generate elements.
 ## syntax
 
 ```js
-var zen = require('elements/lib/zen')
+var zen = require('elements/zen')
 
 // returns elements instance with one div element
 zen('div')
@@ -171,14 +171,14 @@ elements
 ## syntax
 
 ```js
-var $ = require('elements/lib/attributes')
+var $ = require('elements/attributes')
 ```
 
 same as
 
 ```js
 var $ = require('elements')
-require('elements/lib/attributes')
+require('elements/attributes')
 
 ```
 
@@ -430,7 +430,7 @@ Exports a function that executes functions passed to it when the DOM is loaded.
 ## sample
 
 ```js
-var domready = require('elements/lib/domready')
+var domready = require('elements/domready')
 domready(function(){
 	alert('The DOM is ready!')
 })
@@ -573,7 +573,7 @@ match (see [matches](#matches))
 ```
 
 ```js
-var $ = require('elements/lib/delegation')
+var $ = require('elements/delegation')
 
 $('ul').delegate('click', 'a', function(event, a){ // a is the matching element
 	alert(a.text())
@@ -624,7 +624,7 @@ elements
 ### sample
 
 ```js
-var $ = require('elements/lib/insertion')
+var $ = require('elements/insertion')
 
 var vince = $(document.getElementById('vince'))
 $(document.createElement('div')).insert(vince)
@@ -880,7 +880,7 @@ List provides elements for iterating over the collection of elements of the
 elements instance.
 
 ```js
-var $ = require('elements/lib/list')
+var $ = require('elements/list')
 ```
 
 method: forEach
@@ -1054,7 +1054,7 @@ Traversal adds multiple methods for finding other elements.
 ### sample
 
 ```js
-var $ = require('elements/lib/traversal')
+var $ = require('elements/traversal')
 ```
 
 ### Note

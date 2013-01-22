@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('../lib/attributes')
+var $ = require('../attributes')
 var expect = require('expect.js')
 
 describe('attribute.js', function(){

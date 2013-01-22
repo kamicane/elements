@@ -1,6 +1,6 @@
 "use strict"
 
-var $ = require('../lib/traversal')
+var $ = require('../traversal')
 var expect = require('expect.js')
 
 // just test the code in traversal.js, not all slick stuff or check if all

@@ -3,7 +3,7 @@ delegation
 */"use strict"
 
 var $   = require("./events"),
-    Map = require("prime/collection/map")
+    Map = require("prime/map")
 
 require('./traversal')
 

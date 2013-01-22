@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('../lib/insertion')
+var $ = require('../insertion')
 var expect = require('expect.js')
 
 describe('insertion.js', function(){

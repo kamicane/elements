@@ -1,6 +1,6 @@
 "use strict"
 
-var $ = require('../lib/elements')
+var $ = require('../index')
 var expect = require('expect.js')
 
 var reset = function(){

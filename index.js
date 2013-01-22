@@ -2,7 +2,7 @@
 elements
 */"use strict"
 
-var prime = require("prime/prime/"),
+var prime = require("prime"),
     array = require("prime/es5/array").prototype
 
 // uniqueID

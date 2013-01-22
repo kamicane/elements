@@ -1,6 +1,6 @@
 "use strict";
 
-var $ = require('../lib/events')
+var $ = require('../events')
 var expect = require('expect.js')
 
 describe('events.js', function(){

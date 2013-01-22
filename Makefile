@@ -1,14 +1,4 @@
 
-all: build build-compress
-
-build:
-	@wrup -r elements ./ > elements.build.js
-	@echo "File written to 'elements.build.js'"
-
-build-compress:
-	@wrup -r elements ./ > elements.build.min.js --compress
-	@echo "File written to 'elements.build.min.js'"
-
 test-server:
 	@node ./test/server.js
 
