@@ -2,6 +2,10 @@
 
 var casper = require('casper').create();
 
+casper.test.on('fail', function(){
+    casper.exit(1)
+})
+
 casper.start('http://localhost:9090/delegation.html', function(){
     this.echo('Testing Delegation', 'INFO_BAR')
 })

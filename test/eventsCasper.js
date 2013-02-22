@@ -2,8 +2,12 @@
 
 var casper = require('casper').create();
 
+casper.test.on('fail', function(){
+    casper.exit(1)
+})
+
 casper.start('http://localhost:9090/events.html', function(){
-    this.echo('Testing Delegation', 'INFO_BAR')
+    this.echo('Testing Events', 'INFO_BAR')
 })
 
 casper.waitFor(function(){
@@ -16,19 +20,45 @@ casper.waitFor(function(){
     this.die()
 })
 
+function testContainer(expect, msg){
+    return function(){
+        casper.test.assertEvalEquals(function(){
+            return document.querySelector('#container').innerHTML
+        }, expect, msg)
+    }
+}
+
+// click
+
 casper.then(function(){
     this.echo('click an elements', 'INFO')
     this.click('#container')
 })
 
+casper.then(
+    testContainer("equal", "this should be the same as the element the event is added to")
+)
+
+// keydown
+
 casper.then(function(){
-
-    this.echo('check if the added handler for is executed correctly', 'INFO')
-
-    this.test.assertEvalEquals(function(){
-        return document.querySelector('#container').innerHTML
-    }, "equal", "this should be the same as the element the event is added to")
-
+    this.echo('send keys an elements', 'INFO')
+    this.sendKeys('#input', "it's a me!")
 })
+
+casper.then(
+    testContainer("keydown", "it should have executed the keydown listener")
+)
+
+// submit
+
+casper.then(function(){
+    this.echo('submit form', 'INFO')
+    this.click('#submit')
+})
+
+casper.then(
+    testContainer("submit", "it should have executed the submit listener")
+)
 
 casper.run()

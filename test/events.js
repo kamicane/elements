@@ -7,7 +7,18 @@ var expect = require('expect.js')
 
 describe('events.js', function(){
 
-    var body = $(document.documentElement)
+    var body, container, form, input, submit
+
+    before(function(){
+        body = $(document.documentElement)
+
+        container = $(document.getElementById('container'))
+
+        form   = $(document.getElementById('form'))
+        input  = $(document.getElementById('input'))
+        submit = $(document.getElementById('submit'))
+    })
+
 
     describe('should implement Emit.on/off/emit', function(){
 
@@ -33,17 +44,31 @@ describe('events.js', function(){
 
     })
 
+    // the behavior is mostly tested with eventsCasper.js
+
     describe("on('click')", function(){
-
         it('should attach an event listener', function(){
-
-            var container = $(document.getElementById('container'))
             container.on('click', function(event){
                 container[0].innerHTML = (this == container) ? 'equal' : 'wop'
             })
-
         })
+    })
 
+    describe("on('keydown')", function(){
+        it('should attach keydown listener', function(){
+            input.on('keydown', function(event){
+                container[0].innerHTML = 'keydown'
+            })
+        })
+    })
+
+    describe("on('submit')", function(){
+        it('should attach keydown listener', function(){
+            form.on('submit', function(event){
+                event.preventDefault()
+                container[0].innerHTML = 'submit'
+            })
+        })
     })
 
 })
