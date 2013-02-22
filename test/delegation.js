@@ -1,5 +1,7 @@
 "use strict";
 
+require('./runmocha')
+
 var $ = require('../delegation')
 var expect = require('expect.js')
 

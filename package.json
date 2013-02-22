@@ -23,7 +23,8 @@
     "slick": "1.10"
   },
   "devDependencies": {
-    "mocha": "1.4",
+    "mocha": "1.8",
+    "mocha-phantomjs": "2.0",
     "expect.js": "0.1",
     "wrapup": "0.10",
     "procs": "0.0.4"

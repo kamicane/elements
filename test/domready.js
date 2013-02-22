@@ -1,7 +1,12 @@
 "use strict";
+
+require('./runmocha')
+
 var ready = require('../domready')
 var expect = require('expect.js')
+
 describe('domready.js', function(){
+
     // prepare the environment
     beforeEach(function(){
         var body = document.getElementsByTagName('body')[0];

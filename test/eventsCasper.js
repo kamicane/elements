@@ -2,7 +2,7 @@
 
 var casper = require('casper').create();
 
-casper.start('http://localhost:8080/events.html', function(){
+casper.start('http://localhost:9090/events.html', function(){
     this.echo('Testing Delegation', 'INFO_BAR')
 })
 

@@ -1,5 +1,7 @@
 "use strict";
 
+require('./runmocha')
+
 var $ = require('../attributes')
 var expect = require('expect.js')
 

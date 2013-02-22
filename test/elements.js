@@ -1,4 +1,6 @@
-"use strict"
+"use strict";
+
+require('./runmocha')
 
 var $ = require('../index')
 var expect = require('expect.js')

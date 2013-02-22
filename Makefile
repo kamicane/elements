@@ -3,15 +3,15 @@ test-server:
 	@node ./test/server.js
 
 test-casper:
-	@casperjs ./test/casper.js 'http://localhost:8080/attributes.html'
-	@casperjs ./test/casper.js 'http://localhost:8080/delegation.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/attributes.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/delegation.html'
 	@casperjs ./test/delegationCasper.js
-	@casperjs ./test/casper.js 'http://localhost:8080/domready.html'
-	@casperjs ./test/casper.js 'http://localhost:8080/elements.html'
-	@casperjs ./test/casper.js 'http://localhost:8080/events.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/domready.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/elements.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/events.html'
 	@casperjs ./test/eventsCasper.js
-	@casperjs ./test/casper.js 'http://localhost:8080/insertion.html'
-	@casperjs ./test/casper.js 'http://localhost:8080/traversal.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/insertion.html'
+	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/traversal.html'
 
 docs:
 	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html
