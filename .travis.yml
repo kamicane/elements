@@ -2,15 +2,9 @@ language: node_js
 node_js:
   - 0.8
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sudo node test/server.js &
-  - sleep 5
-  - git clone git://github.com/n1k0/casperjs.git
-  - cd casperjs
-  - git checkout 1.0.0-RC1
-  - cd ..
-  - export PATH=$PATH:$PWD/casperjs/bin/
+  - wget https://github.com/n1k0/casperjs/archive/1.0.2.tar.gz -O casper.tar.gz
+  - tar -xvf casper.tar.gz
+  - export PATH=$PATH:$PWD/casperjs-1.0.2/bin/
 script: make test-casper
 notifications:
   irc: "irc.freenode.org#mootools-dev"
