@@ -20,7 +20,7 @@ $.implement({
                 map        = (events[selector] || (events[selector] = new Map))
 
             var action = function(e){
-                var target = $(e.target),
+                var target = $(e.target || e.srcElement),
                     match  = target.matches(selector) ? target : target.parent(selector)
                 if (match) handle.call(self, e, match)
             }
