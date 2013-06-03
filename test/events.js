@@ -22,24 +22,23 @@ describe('events.js', function(){
 
     describe('should implement Emit.on/off/emit', function(){
 
-        it('should allow event subscription', function(){
+        it('should allow event subscription', function(done){
             var flag = false
             body.on('w00fz', function(){
                 flag = true
+                done()
             })
             body.emit('w00fz')
-            expect(flag).to.be.ok()
+            expect(flag).to.not.be.ok()
         })
 
         it('should allow event de-subscription', function(){
-            var flag = false
             var callback = function(){
-                flag = true
+                throw new Error("this should never be called")
             }
             body.on('w00fz', callback)
             body.off('w00fz', callback)
             body.emit('w00fz')
-            expect(flag).to.be(false)
         })
 
     })

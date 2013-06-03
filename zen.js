@@ -4,15 +4,16 @@ zen
 
 var $     = require("./index"),
     parse = require("slick/parser"),
-    array = require("prime/es5/array")
+    forEach = require("prime/array/forEach"),
+    map     = require("prime/array/map")
 
 module.exports = function(expression, doc){
 
-    return $(array.map(parse(expression), function(expression){
+    return $(map(parse(expression), function(expression){
 
         var previous, result
 
-        array.forEach(expression, function(part, i){
+        forEach(expression, function(part, i){
 
             var node = (doc || document).createElement(part.tag)
 
@@ -20,11 +21,11 @@ module.exports = function(expression, doc){
 
             if (part.classList) node.className = part.classList.join(" ")
 
-            if (part.attributes) array.forEach(part.attributes, function(attribute){
+            if (part.attributes) forEach(part.attributes, function(attribute){
                 node.setAttribute(attribute.name, attribute.value)
             })
 
-            if (part.pseudos) array.forEach(part.pseudos, function(pseudo){
+            if (part.pseudos) forEach(part.pseudos, function(pseudo){
                 var n = $(node), method = n[pseudo.name]
                 if (method) method.call(n, pseudo.value)
             })

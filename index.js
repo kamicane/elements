@@ -2,8 +2,12 @@
 elements
 */"use strict"
 
-var prime = require("prime"),
-    array = require("prime/es5/array").prototype
+var prime   = require("prime"),
+    forEach = require("prime/array/forEach"),
+    map     = require("prime/array/map"),
+    filter  = require("prime/array/filter"),
+    every   = require("prime/array/every"),
+    some    = require("prime/array/some")
 
 // uniqueID
 
@@ -91,11 +95,25 @@ var elements = prime({
 
     // straight es5 prototypes (or emulated methods)
 
-    forEach: array.forEach,
-    map: array.map,
-    filter: array.filter,
-    every: array.every,
-    some: array.some
+    forEach: function(method, context){
+        return forEach(this, method, context);
+    },
+
+    map: function(method, context){
+        return map(this, method, context);
+    },
+
+    filter: function(method, context){
+        return filter(this, method, context);
+    },
+
+    every: function(method, context){
+        return every(this, method, context);
+    },
+
+    some: function(method, context){
+        return some(this, method, context);
+    }
 
 })
 

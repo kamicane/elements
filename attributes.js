@@ -2,9 +2,11 @@
 attributes
 */"use strict"
 
-var $      = require("./index"),
-    string = require("prime/shell/string"),
-    array  = require("prime/es5/array")
+var $       = require("./index"),
+    clean   = require("prime/string/clean"),
+    forEach = require("prime/array/forEach"),
+    filter  = require("prime/array/filter"),
+    indexOf = require("prime/array/indexOf")
 
 // attributes
 
@@ -41,7 +43,7 @@ $.implement({
 
 var accessors = {}
 
-array.forEach("type,value,name,href,title,id".split(","), function(name){
+forEach("type,value,name,href,title,id".split(","), function(name){
 
     accessors[name] = function(value){
         if (value !== undefined){
@@ -58,7 +60,7 @@ array.forEach("type,value,name,href,title,id".split(","), function(name){
 
 // booleans
 
-array.forEach("checked,disabled,selected".split(","), function(name){
+forEach("checked,disabled,selected".split(","), function(name){
 
     accessors[name] = function(value){
         if (value !== undefined){
@@ -76,10 +78,10 @@ array.forEach("checked,disabled,selected".split(","), function(name){
 // className
 
 var classes = function(className){
-    var classNames = string.clean(className).split(" "),
+    var classNames = clean(className).split(" "),
         uniques    = {}
 
-    return array.filter(classNames, function(className){
+    return filter(classNames, function(className){
         if (className !== "" && !uniques[className]) return uniques[className] = className
     }).sort()
 }
@@ -151,7 +153,7 @@ $.implement({
     },
 
     hasClass: function(className){
-        return array.indexOf(this.classNames(), className) > -1
+        return indexOf(this.classNames(), className) > -1
     },
 
     addClass: function(className){
@@ -166,8 +168,8 @@ $.implement({
     removeClass: function(className){
         this.forEach(function(node){
             var classNames = classes(node.className)
-            array.forEach(classes(className), function(className){
-                var index = array.indexOf(classNames, className)
+            forEach(classes(className), function(className){
+                var index = indexOf(classNames, className)
                 if (index > -1) classNames.splice(index, 1)
             })
             node.className = classNames.join(" ")

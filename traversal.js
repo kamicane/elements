@@ -3,7 +3,7 @@ traversal
 */"use strict"
 
 var $     = require("./index"),
-    array = require("prime/es5/array"),
+    map   = require("prime/array/map"),
     slick = require("slick")
 
 var walk = function(combinator, method){
@@ -11,7 +11,7 @@ var walk = function(combinator, method){
     return function(expression){
         var parts = slick.parse(expression || "*")
 
-        expression = array.map(parts, function(part){
+        expression = map(parts, function(part){
             return combinator + " " + part
         }).join(", ")
 
