@@ -26,17 +26,16 @@ npm install elements
 ## build elements from a custom control module
 
 Create a JavaScript file in the root of your project. We will feed this file to
-WrapUp to make your personalized build. Feel free to customize the global
-variables as you see fit.
+WrapUp to make your personalized build.
 
-Note: It is strongly advised to organize your code using modules, this way you
-can organize your codebase using `require()` calls, in which case you will
+**Note:** It is strongly advised to organize your code using modules, this way
+you can organize your codebase using `require()` calls, in which case you will
 direct WrapUp to build from your own modules / entry point module, instead of
 the following dummy module.
 
 ```js
 // assign window.$
-global.$ = require('elements')
+var $ = require('elements')
 
 // extend elements with its modules
 require('elements/attributes')
@@ -46,8 +45,14 @@ require('elements/insertion')
 require('elements/traversal')
 
 // elements utilities
-global.ready = require('elements/domready')
-global.zen = require('elements/zen')
+var ready = require('elements/domready')
+var zen = require('elements/zen')
+
+// and finally use the modules
+ready(function(){
+    var text = "When all else fails, read the manual"
+    var element = zen('div.class').text(text).insert(document.body)
+})
 ```
 
 Now we're ready to build elements using WrapUp
@@ -66,13 +71,7 @@ parameters instead. Refer to the WrapUp documentation for more information.
 An index.html in the root of your project will look like this:
 
 ```html
-<script type="text/javascript" src="elements.js"></script>
-<script type="text/javascript">
-    ready(function(){
-        var text = "When all else fails, read the manual"
-        var element = zen('div.class').text(text).insert(document.body)
-    })
-</script>
+<script src="elements.js"></script>
 ```
 
 module: elements
