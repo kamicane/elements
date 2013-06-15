@@ -15,9 +15,3 @@ test-casper:
 	@./node_modules/.bin/mocha-phantomjs 'http://localhost:9090/traversal.html'
 	@kill `cat server.pid`
 	@rm server.pid
-
-docs:
-	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html
-
-docs-watch:
-	@./node_modules/.bin/procs -f ./doc/elements.md -t ./doc/layout.html --watch
