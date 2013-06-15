@@ -431,7 +431,7 @@ Exports a function that executes functions passed to it when the DOM is loaded.
 ```js
 var domready = require('elements/domready')
 domready(function(){
-	alert('The DOM is ready!')
+    alert('The DOM is ready!')
 })
 ```
 
@@ -493,7 +493,7 @@ myElement.off(type, fn)
 
 ```js
 var destroy = function(){
-	alert('Boom: ' + this.id)
+    alert('Boom: ' + this.id)
 } // this refers to the element.
 
 myElement.on('click', destroy)
@@ -524,7 +524,7 @@ passed to the event listeners
 
 ```js
 var add = function(a, b){
-	alert(a + b)
+    alert(a + b)
 }
 element.on('click', add)
 element.emit('click', 4, 2) // alerts 6
@@ -565,9 +565,9 @@ match (see [matches](#matches))
 
 ```html
 <ul>
-	<li><a href="#">one</a></li>
-	<li><a href="#">two</a></li>
-	<li><a href="#">three</a></li>
+    <li><a href="#">one</a></li>
+    <li><a href="#">two</a></li>
+    <li><a href="#">three</a></li>
 </ul>
 ```
 
@@ -575,7 +575,7 @@ match (see [matches](#matches))
 var $ = require('elements/delegation')
 
 $('ul').delegate('click', 'a', function(event, a){ // a is the matching element
-	alert(a.text())
+    alert(a.text())
 })
 ```
 
@@ -602,7 +602,7 @@ match (see [matches](#matches)).
 
 ```js
 var click = function(event, a){
-	alert(a.text())
+    alert(a.text())
 }
 // add the delegation listener
 $('ul').delegate('click', 'a', click)
@@ -689,7 +689,7 @@ parent.insertBeore(child, ref)
 ```html
 <div id="first"></div>
 <div id="parent">
-	<div id="second"></div>
+    <div id="second"></div>
 </div>
 ```
 
@@ -704,8 +704,8 @@ parent.insertBefore(child, ref)
 
 ```html
 <div id="parent">
-	<div id="first"></div>
-	<div id="second"></div>
+    <div id="first"></div>
+    <div id="second"></div>
 </div>
 ```
 
@@ -728,7 +728,7 @@ element.
 
 ```html
 <div id="parent">
-	<div id="child"></div>
+    <div id="child"></div>
 </div>
 ```
 
@@ -761,7 +761,7 @@ with another. Returns the `elements` instance.
 ```html
 <div id="child"></div>
 <div id="parent">
-	<div id="ref"></div>
+    <div id="ref"></div>
 </div>
 ```
 
@@ -830,8 +830,8 @@ myFirstElement.bottom(mySecondElement)
 
 ```html
 <div id="mySecondElement">
-	<div id="myThirdElement"></div>
-	<div id="myFirstElement"></div>
+    <div id="myThirdElement"></div>
+    <div id="myFirstElement"></div>
 </div>
 ```
 
@@ -850,8 +850,8 @@ myFirstElement.top(mySecondElement)
 
 ```html
 <div id="mySecondElement">
-	<div id="myFirstElement"></div>
-	<div id="myThirdElement"></div>
+    <div id="myFirstElement"></div>
+    <div id="myThirdElement"></div>
 </div>
 ```
 
@@ -923,7 +923,7 @@ index of the element in the elements collection.
 ```js
 var elements = $(document.getElementsByTagName('a'))
 elements.forEach(function(element, index){
-	return $(element).text('element: ' + index)
+    return $(element).text('element: ' + index)
 })
 ```
 
@@ -957,7 +957,7 @@ elements collection.
 ```js
 var elements = $(document.getElementsByTagName('a'))
 var result = elements.map(function(element, index){
-	return $(element).attribute('href')
+    return $(element).attribute('href')
 }) // array with all href values of each element
 ```
 
@@ -991,7 +991,7 @@ is called like `fn(element, index)` where `element` is the native element, and
 ```js
 var elements = $(document.getElementsByTagName('*'))
 var filtered = elements.filter(function(element, index){
-	return element.childNodes.length > 4
+    return element.childNodes.length > 4
 }) // array with elements that have more than 4 direct children
 ```
 
@@ -1023,7 +1023,7 @@ is called like `fn(element, index)` where `element` is the native element, and
 ```js
 var elements = $(document.getElementsByTagName('div'))
 var allEnoughChildren = elements.every(function(element, index){
-	return element.childNodes.length > 4
+    return element.childNodes.length > 4
 }) // true if each div has more than 4 child elements
 ```
 
@@ -1055,7 +1055,7 @@ is called like `fn(element, index)` where `element` is the native element, and
 ```js
 var elements = $(document.getElementsByTagName('div'))
 var someEnoughChildren = elements.some(function(element, index){
-	return element.childNodes.length > 4
+    return element.childNodes.length > 4
 }) // true if some div has more than 4 child elements
 ```
 
@@ -1132,13 +1132,13 @@ elements.find(expression)
 
 ```html
 <ul>
-	<li>Rome</li>
-	<li>Delft</li>
-	<li>Graz</li>
+    <li>Rome</li>
+    <li>Delft</li>
+    <li>Graz</li>
 </ul>
 <ul>
-	<li>Stockholm</li>
-	<li>London</li>
+    <li>Stockholm</li>
+    <li>London</li>
 </ul>
 ```
 
@@ -1176,8 +1176,8 @@ element.matches(selector)
 
 ```html
 <div>
-	<a class="moo" href="http://mootools.net">MooTools</a>
-	<a class="goo" href="http://google.com">
+    <a class="moo" href="http://mootools.net">MooTools</a>
+    <a class="goo" href="http://google.com">
 </div>
 ```
 
@@ -1208,20 +1208,20 @@ var nextSiblings = element.nextSiblings([expression])
 
 ```html
 <section>
-	<em></em>
-	<p></p>
-	<div></div>
-	<p></p>
-	<em></em>
-	<p></p>
-	<strong></strong>
+    <em></em>
+    <p></p>
+    <div></div>
+    <p></p>
+    <em></em>
+    <p></p>
+    <strong></strong>
 </section>
 <section>
-	<a></a>
-	<div></div>
-	<strong></strong>
-	<p></p>
-	<em></em>
+    <a></a>
+    <div></div>
+    <strong></strong>
+    <p></p>
+    <em></em>
 </section>
 ```
 
@@ -1293,9 +1293,9 @@ Syntax is the same as [nextSiblings](#nextSiblings).
 
 ```html
 <div>
-	<p>
-		<strong></strong>
-	</p>
+    <p>
+        <strong></strong>
+    </p>
 </div>
 ```
 
