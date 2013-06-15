@@ -860,6 +860,24 @@ method: insert
 
 `insert` is an alias of [bottom](#bottom). Returns the `elements` instance.
 
+method: remove
+--------------
+
+Removes one or more elements from the DOM.
+
+```html
+<div id="myElement"></div>
+<div id="mySecondElement"></div>
+```
+
+```js
+$(document.getElementById('myElement')).remove()
+```
+
+```html
+<div id="myElement"></div>
+```
+
 method: replace
 ---------------
 
