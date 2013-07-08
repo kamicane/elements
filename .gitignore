@@ -1,2 +1,4 @@
+manifest.json
 node_modules/*
-./doc/elements.html
+doc
+test
