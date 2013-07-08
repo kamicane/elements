@@ -11,7 +11,7 @@ $.implement({
 
     delegate: function(event, selector, handle){
 
-        this.forEach(function(node){
+        return this.forEach(function(node){
 
             var self = $(node)
 
@@ -22,6 +22,7 @@ $.implement({
             var action = function(e){
                 var target = $(e.target),
                     match  = target.matches(selector) ? target : target.parent(selector)
+
                 if (match) handle.call(self, e, match)
             }
 
@@ -31,13 +32,11 @@ $.implement({
 
         })
 
-        return this
-
     },
 
     undelegate: function(event, selector, handle){
 
-        this.forEach(function(node){
+        return this.forEach(function(node){
 
             var self = $(node), delegation, events, map
 
@@ -69,7 +68,6 @@ $.implement({
 
         })
 
-        return this
     }
 
 })
