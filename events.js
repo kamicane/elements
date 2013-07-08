@@ -26,23 +26,21 @@ $.implement({
 
     on: function(event, handle){
 
-        this.forEach(function(node){
+        return this.forEach(function(node){
             var self = $(node)
 
             Emitter.prototype.on.call(self, event, handle)
 
             var domListeners = self._domListeners || (self._domListeners = {})
             if (!domListeners[event]) domListeners[event] = addEventListener(node, event, function(e){
-                self.emit(event, (e || window.event))
+                self.emit(event, e || window.event, Emitter.EMIT_SYNC)
             })
         })
-
-        return this
     },
 
     off: function(event, handle){
 
-        this.forEach(function(node){
+        return this.forEach(function(node){
 
             var self = $(node)
 
@@ -62,22 +60,23 @@ $.implement({
                     removeEventListener(node, event, domEvent)
                     delete domListeners[event]
 
-                    for (l in domListeners) empty = false
+                    for (l in domListeners){
+                        empty = false
+                        break
+                    }
+
                     if (empty) delete self._domListeners
                 }
 
             }
         })
-
-        return this
     },
 
     emit: function(event){
         var args = arguments
-        this.forEach(function(node){
+        return this.forEach(function(node){
             Emitter.prototype.emit.apply($(node), args)
         })
-        return this
     }
 
 })
