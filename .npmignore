@@ -1,0 +1,6 @@
+Makefile
+manifest.json
+.travis.yml
+.jshintrc
+doc
+test
