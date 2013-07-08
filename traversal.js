@@ -46,6 +46,10 @@ $.implement({
         return slick.matches(this[0], expression)
     },
 
+    contains: function(node){
+        return slick.contains(this[0], node)
+    },
+
     nextSiblings: walk("~", "search"),
 
     nextSibling: walk("+", "find"),
