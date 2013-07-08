@@ -54,18 +54,16 @@ $.implement({
 
     bottom: function(element){
         element = $(element)[0]
-        this.forEach(function(node){
+        return this.forEach(function(node){
             element.appendChild(node)
         })
-        return this
     },
 
     top: function(element){
         element = $(element)[0]
-        this.forEach(function(node){
+        return this.forEach(function(node){
             element.insertBefore(node, element.firstChild)
         })
-        return this
     }
 
 })
@@ -77,11 +75,10 @@ $.implement({
     insert: $.prototype.bottom,
 
     remove: function(){
-        this.forEach(function(node){
+        return this.forEach(function(node){
             var parent = node.parentNode
             if (parent) parent.removeChild(node)
         })
-        return this
     },
 
     replace: function(element){
