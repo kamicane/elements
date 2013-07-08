@@ -13,10 +13,9 @@ var $       = require("./index"),
 $.implement({
 
     setAttribute: function(name, value){
-        this.forEach(function(node){
+        return this.forEach(function(node){
             node.setAttribute(name, value)
         })
-        return this
     },
 
     getAttribute: function(name){
@@ -32,45 +31,34 @@ $.implement({
     },
 
     removeAttribute: function(name){
-        this.forEach(function(node){
+        return this.forEach(function(node){
             var attr = node.getAttributeNode(name)
             if (attr) node.removeAttributeNode(attr)
         })
-        return this
     }
 
 })
 
 var accessors = {}
 
-forEach("type,value,name,href,title,id".split(","), function(name){
+forEach(["type", "value", "name", "href", "title", "id"], function(name){
 
     accessors[name] = function(value){
-        if (value !== undefined){
-            this.forEach(function(node){
-                node[name] = value
-            })
-            return this
-        }
-
-        return this[0][name]
+        return (value !== undefined) ? this.forEach(function(node){
+            node[name] = value
+        }) : this[0][name]
     }
 
 })
 
 // booleans
 
-forEach("checked,disabled,selected".split(","), function(name){
+forEach(["checked", "disabled", "selected"], function(name){
 
     accessors[name] = function(value){
-        if (value !== undefined){
-            this.forEach(function(node){
-                node[name] = !!value
-            })
-            return this
-        }
-
-        return !!this[0][name]
+        return (value !== undefined) ? this.forEach(function(node){
+            node[name] = !!value
+        }) : !!this[0][name]
     }
 
 })
@@ -87,15 +75,9 @@ var classes = function(className){
 }
 
 accessors.className = function(className){
-    if (className !== undefined){
-        this.forEach(function(node){
-            node.className = classes(className).join(" ")
-        })
-
-        return this
-    }
-
-    return classes(this[0].className).join(" ")
+    return (className !== undefined) ? this.forEach(function(node){
+        node.className = classes(className).join(" ")
+    }) : classes(this[0].className).join(" ")
 }
 
 // attribute
@@ -157,16 +139,15 @@ $.implement({
     },
 
     addClass: function(className){
-        this.forEach(function(node){
+        return this.forEach(function(node){
             var nodeClassName = node.className
             var classNames = classes(nodeClassName + " " + className).join(" ")
             if (nodeClassName != classNames) node.className = classNames
         })
-        return this
     },
 
     removeClass: function(className){
-        this.forEach(function(node){
+        return this.forEach(function(node){
             var classNames = classes(node.className)
             forEach(classes(className), function(className){
                 var index = indexOf(classNames, className)
@@ -174,7 +155,6 @@ $.implement({
             })
             node.className = classNames.join(" ")
         })
-        return this
     }
 
 })
@@ -194,7 +174,7 @@ $.prototype.toString = function(){
 
 var textProperty = (document.createElement('div').textContent == null) ? 'innerText' : 'textContent'
 
-// tag, html, text
+// tag, html, text, data
 
 $.implement({
 
@@ -203,23 +183,19 @@ $.implement({
     },
 
     html: function(html){
-        if (html != null){
-            this.forEach(function(node){
-                node.innerHTML = html
-            })
-            return this
-        }
-        return this[0].innerHTML
+        return (html !== undefined) ? this.forEach(function(node){
+            node.innerHTML = html
+        }) : this[0].innerHTML
     },
 
     text: function(text){
-        if (text != undefined){
-            this.forEach(function(node){
-                node[textProperty] = text
-            })
-            return this
-        }
-        return this[0][textProperty]
+        return (text !== undefined) ? this.forEach(function(node){
+            node[textProperty] = text
+        }) : this[0][textProperty]
+    },
+
+    data: function(key, value){
+        return (value !== undefined) ? this.setAttribute("data-" + key, value) : this.getAttribute('data-' + key)
     }
 
 })
