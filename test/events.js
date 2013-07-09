@@ -36,9 +36,9 @@ describe('events.js', function(){
             var callback = function(){
                 throw new Error("this should never be called")
             }
-            body.on('w00fz', callback)
-            body.off('w00fz', callback)
-            body.emit('w00fz')
+            body.on('Timmeh', callback)
+            body.off('Timmeh', callback)
+            body.emit('Timmeh')
         })
 
     })
