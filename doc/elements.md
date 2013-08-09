@@ -315,7 +315,7 @@ $(document.getElementById('myElement')).addClass('newClass')
 method: removeClass
 -------------------
 
-Works like [addClass](#addClass), but removes the class from the element.
+Works like [addClass](#method-addclass), but removes the class from the element.
 Returns the elements instance.
 
 ### syntax
@@ -558,7 +558,7 @@ myElement.delegate(type, selector, fn)
 
 1. type - (*string*) The event name.
 2. selector - (*string*) A CSS Selector the element the event is fired on should
-match (see [matches](#matches))
+match (see [matches](#method-matches))
 3. fn - (*function*) The function to execute.
 
 ### sample
@@ -595,7 +595,7 @@ myElement.undelegate(type, selector, fn)
 
 1. type - (*string*) The event name.
 2. selector - (*string*) A CSS Selector the element the event is fired on should
-match (see [matches](#matches)).
+match (see [matches](#method-matches)).
 3. fn   - (*function*) The function to remove.
 
 ### sample
@@ -858,7 +858,7 @@ myFirstElement.top(mySecondElement)
 method: insert
 --------------
 
-`insert` is an alias of [bottom](#bottom). Returns the `elements` instance.
+`insert` is an alias of [bottom](#method-bottom). Returns the `elements` instance.
 
 method: remove
 --------------
@@ -929,7 +929,6 @@ elements.forEach(function(element, index){
 
 ### See also
 
-- [handle()](#handle)
 - [MDN Array forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
 
 method: map
@@ -963,7 +962,6 @@ var result = elements.map(function(element, index){
 
 ### See also
 
-- [handle()](#handle)
 - [MDN Array Map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
 
 method: filter
@@ -1110,7 +1108,7 @@ elements.search('a')
 
 ### See also
 
-- [find()](#find)
+- [find()](#method-find)
 
 method: find
 ------------
@@ -1154,7 +1152,7 @@ var cities = elements.find('li')
 
 ### See also
 
-- [search()](#search)
+- [search()](#method-search)
 
 method: matches
 ---------------
@@ -1234,12 +1232,12 @@ div.nextSiblings('p') // returns [p, p, p]
 method: nextSibling
 -------------------
 
-Exactly like [nextSiblings](#nextSiblings), except it only returns the first
+Exactly like [nextSiblings](#method-nextsiblings), except it only returns the first
 next sibling that matches the expression, if any is given.
 
 ### sample
 
-With the same HTML as [nextSiblings](#nextSiblings):
+With the same HTML as [nextSiblings](#method-nextsiblings):
 
 ```js
 var div = $('div') // finds the two div elements
@@ -1250,18 +1248,18 @@ div.nextSibling('p') // returns [p, p]
 method: previousSiblings
 ------------------------
 
-Exactly like [nextSiblings](#nextSiblings), except it will return all previous
+Exactly like [nextSiblings](#method-nextsiblings), except it will return all previous
 siblings instead of next siblings, if any is given.
 
 method: previousSibling
 -----------------------
 
-Exactly like [nextSibling](#nextSibling), except it will return one previous
+Exactly like [nextSibling](#method-nextsibling), except it will return one previous
 sibling instead of one next sibling, if any is given.
 
 ### sample
 
-With the same HTML as [nextSibling](#nextSibling):
+With the same HTML as [nextSibling](#method-nextsibling):
 
 ```js
 var div = $('div') // finds the two div elements
@@ -1271,12 +1269,12 @@ div.previousSiblings('p') // returns [p]
 method: children
 ----------------
 
-Like [nextSiblings](#nextSiblings), but returns the direct child elements, if
+Like [nextSiblings](#method-nextsiblings), but returns the direct child elements, if
 they match the passed CSS expression, if any is given.
 
 ### sample
 
-With the same html as [nextsiblings](#nextsiblings):
+With the same html as [nextsiblings](#method-nextsiblings):
 
 ```js
 var div = $('div') // finds the two div elements
@@ -1287,7 +1285,7 @@ method: parent
 --------------
 
 Get the parent node that matches the expression, if any given, for each element.
-Syntax is the same as [nextSiblings](#nextSiblings).
+Syntax is the same as [nextSiblings](#method-nextsiblings).
 
 ### sample
 
@@ -1308,12 +1306,12 @@ strong.parent('div') // the div element
 method: parents
 ---------------
 
-Like [parent()](#parent), but selects all parent elements, that matches the
+Like [parent()](#method-parent), but selects all parent elements, that matches the
 expression, if any given.
 
 ### sample
 
-With the same html as [parent](#parent):
+With the same html as [parent](#method-parent):
 
 ```js
 var strong = $('strong') // finds the strong element
