@@ -19,7 +19,7 @@
     "url": "git://github.com/mootools/elements.git"
   },
   "dependencies": {
-    "prime": "0.2",
+    "prime": "0.3",
     "slick": "1.10"
   },
   "devDependencies": {
