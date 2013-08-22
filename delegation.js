@@ -23,7 +23,11 @@ $.implement({
                 var target = $(e.target),
                     match  = target.matches(selector) ? target : target.parent(selector)
 
-                if (match) handle.call(self, e, match)
+                var res
+
+                if (match) res = handle.call(self, e, match)
+
+                return res
             }
 
             map.set(handle, action)
