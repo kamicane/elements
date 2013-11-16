@@ -108,9 +108,25 @@ describe('lastChild', function(){
 })
 
 describe('parent', function(){
-
+    it('should match parent', function(){
+        expect($('div.last').parent('body')).to.be($(document.body));
+        expect($('div.last').parent('#parent')).to.be($('#parent'));
+        expect($('div.last').parent('#parent2')).to.be(null);
+    })
 })
 
 describe('parents', function(){
+    it('should match parents', function(){
+        var lastParents = $('div.last').parents();
+        expect(lastParents.length).to.be(3);
+        expect($(lastParents[2])).to.be($('html'));
+        expect($(lastParents[1])).to.be($('body'));
+        expect($(lastParents[0])).to.be($('#parent'));
 
+    })
+
+    it('should match parents with expression', function(){
+        var lastParents = $('div.last').parents('body');
+        expect(lastParents).to.be($('body'));
+    })
 })

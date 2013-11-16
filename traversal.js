@@ -66,20 +66,9 @@ $.implement({
 
     lastChild: walk("!^", "find"),
 
-    parent: function(expression){
-        for (var i = 0, node; node = this[i]; i++) while ((node = node.parentNode)){
-            if (!expression || slick.matches(node, expression)) return $(node)
-        }
-        return null
-    },
+    parent: walk("!", "find"),
 
-    parents: function(expression){
-        var buffer = []
-        for (var i = 0, node; node = this[i]; i++) while ((node = node.parentNode)){
-            if (!expression || slick.matches(node, expression)) buffer.push(node)
-        }
-        return $(buffer)
-    }
+    parents: walk("!", "search")
 
 })
 
