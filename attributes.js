@@ -195,7 +195,11 @@ $.implement({
     },
 
     data: function(key, value){
-        return (value !== undefined) ? this.setAttribute("data-" + key, value) : this.getAttribute('data-' + key)
+        switch(value) {
+            case undefined: return this.getAttribute("data-" + key)
+            case null: return this.removeAttribute("data-" + key)
+            default: return this.setAttribute("data-" + key, value)
+        }
     }
 
 })
