@@ -2,11 +2,11 @@
 attributes
 */"use strict"
 
-var $       = require("./index"),
-    clean   = require("prime/string/clean"),
-    forEach = require("prime/array/forEach"),
-    filter  = require("prime/array/filter"),
-    indexOf = require("prime/array/indexOf")
+var $       = require("./base"),
+    trim    = require("mout/string/trim"),
+    forEach = require("mout/array/forEach"),
+    filter  = require("mout/array/filter"),
+    indexOf = require("mout/array/indexOf")
 
 // attributes
 
@@ -66,7 +66,7 @@ forEach(["checked", "disabled", "selected"], function(name){
 // className
 
 var classes = function(className){
-    var classNames = clean(className).split(" "),
+    var classNames = trim(className).replace(/\s+/g, " ").split(" "),
         uniques    = {}
 
     return filter(classNames, function(className){
@@ -142,7 +142,7 @@ $.implement({
         return this.forEach(function(node){
             var nodeClassName = node.className
             var classNames = classes(nodeClassName + " " + className).join(" ")
-            if (nodeClassName != classNames) node.className = classNames
+            if (nodeClassName !== classNames) node.className = classNames
         })
     },
 

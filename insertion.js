@@ -2,7 +2,7 @@
 insertion
 */"use strict"
 
-var $ = require("./index")
+var $ = require("./base")
 
 // base insertion
 

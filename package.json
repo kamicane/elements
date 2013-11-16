@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "prime": "0.3",
-    "slick": "1.10"
+    "slick": "1.10",
+    "mout": "~0.7.1"
   },
   "devDependencies": {
     "mocha": "1.12",

@@ -1,7 +1,7 @@
 elements
 ========
 
-elements is a minimal DOM Library for [prime](https://github.com/mootools/prime).
+elements is a minimal DOM Library built on top of [prime](https://github.com/mootools/prime).
 
 Read the [documentation](https://github.com/mootools/elements/blob/master/doc/elements.md).
 

@@ -2,9 +2,11 @@
 traversal
 */"use strict"
 
-var $     = require("./index"),
-    map   = require("prime/array/map"),
-    slick = require("slick")
+var map = require("mout/array/map")
+
+var slick = require("slick")
+
+var $ = require("./base")
 
 var walk = function(combinator, method){
 

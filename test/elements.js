@@ -2,7 +2,7 @@
 
 require('./runmocha')
 
-var $ = require('../index')
+var $ = require('../base')
 var expect = require('expect.js')
 
 var reset = function(){

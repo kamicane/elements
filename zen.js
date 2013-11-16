@@ -2,10 +2,12 @@
 zen
 */"use strict"
 
-var $       = require("./index"),
-    parse   = require("slick/parser"),
-    forEach = require("prime/array/forEach"),
-    map     = require("prime/array/map")
+var forEach = require("mout/array/forEach"),
+    map     = require("mout/array/map")
+
+var parse = require("slick/parser")
+
+var $ = require("./base")
 
 module.exports = function(expression, doc){
 

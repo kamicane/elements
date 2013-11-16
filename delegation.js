@@ -2,10 +2,10 @@
 delegation
 */"use strict"
 
-var $   = require("./events"),
-    Map = require("prime/map")
+var Map = require("prime/map")
 
-require('./traversal')
+var $ = require("./events")
+        require('./traversal')
 
 $.implement({
 
