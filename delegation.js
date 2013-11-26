@@ -19,6 +19,8 @@ $.implement({
                 events     = delegation[event] || (delegation[event] = {}),
                 map        = (events[selector] || (events[selector] = new Map))
 
+            if (map.get(handle)) return
+
             var action = function(e){
                 var target = $(e.target),
                     match  = target.matches(selector) ? target : target.parent(selector)
