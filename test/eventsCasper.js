@@ -27,6 +27,13 @@ function testContainer(expect, msg){
         }, expect, msg)
     }
 }
+function testCaptureContainer(expect, msg){
+    return function(){
+        casper.test.assertEvalEquals(function(){
+            return document.querySelector('#capture-container').innerHTML
+        }, expect, msg)
+    }
+}
 
 // click
 
@@ -37,6 +44,15 @@ casper.then(function(){
 
 casper.then(
     testContainer("equal", "this should be the same as the element the event is added to")
+)
+
+casper.then(function(){
+    this.echo('click an elements (capture)', 'INFO')
+    this.click('#capture-container')
+})
+
+casper.then(
+    testCaptureContainer("element:afterwindow", "the handler on the element should be triggered after the one on window (when using capture)")
 )
 
 // keydown
