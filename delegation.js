@@ -69,7 +69,7 @@ $.implement({
                     break
                 }
                 // if there are no more delegation events in the element, delete the _delegation object
-                if (!e2) delete self._delegation
+                if (e2) delete self._delegation
             }
 
         })
