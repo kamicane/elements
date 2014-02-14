@@ -2,8 +2,9 @@
 attributes
 */"use strict"
 
-var $       = require("./base"),
-    trim    = require("mout/string/trim"),
+var $       = require("./base")
+
+var trim    = require("mout/string/trim"),
     forEach = require("mout/array/forEach"),
     filter  = require("mout/array/filter"),
     indexOf = require("mout/array/indexOf")
