@@ -2,8 +2,9 @@
 elements
 */"use strict"
 
-var prime   = require("prime"),
-    forEach = require("mout/array/forEach"),
+var prime   = require("prime")
+
+var forEach = require("mout/array/forEach"),
     map     = require("mout/array/map"),
     filter  = require("mout/array/filter"),
     every   = require("mout/array/every"),
@@ -11,9 +12,16 @@ var prime   = require("prime"),
 
 // uniqueID
 
-var uniqueIndex = 0
+var index = 0,
+    __dc = document.__counter,
+    counter = document.__counter = (__dc ? parseInt(__dc, 36) + 1 : 0).toString(36),
+    key = "uid:" + counter
+
 var uniqueID = function(n){
-    return (n === global) ? "global" : n.uniqueNumber || (n.uniqueNumber = "n:" + (uniqueIndex++).toString(36))
+    if (n === global) return "global"
+    if (n === document) return "document"
+    if (n === document.documentElement) return "html"
+    return n[key] || (n[key] = (index++).toString(36))
 }
 
 var instances = {}
