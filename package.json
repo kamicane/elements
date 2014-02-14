@@ -21,7 +21,7 @@
   "dependencies": {
     "prime": "0.4",
     "mout": "0.9",
-    "slick": ">=1.10.4 <2.0.0"
+    "slick": ">=1.11.0 <2.0.0"
   },
   "devDependencies": {
     "mocha": "1.12",
