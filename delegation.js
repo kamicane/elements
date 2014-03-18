@@ -22,7 +22,7 @@ $.implement({
             if (map.get(handle)) return
 
             var action = function(e){
-                var target = $(e.target),
+                var target = $(e.target || e.srcElement),
                     match  = target.matches(selector) ? target : target.parent(selector)
 
                 var res
