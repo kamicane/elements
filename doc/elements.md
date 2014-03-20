@@ -1,48 +1,12 @@
 package: elements
 =================
 
-Elements is a DOM library written for prime.
-
 In many examples below you will see `require()` calls, as if elements was used
-in nodejs. You can build `elements` for browsers with just the components you
-need, using [wrapup](https://github.com/kamicane/wrapup).
-
-You will need node and npm installed in your system. Make sure to configure the
-`NODE_PATH` environment variable in your bash profile.
-
-## install wrapup:
-
-```
-npm install wrapup -g
-```
-
-## install elements in your project folder
-
-```
-cd path/to/project
-npm install elements
-```
-
-## build elements from a custom control module
-
-Create a JavaScript file in the root of your project. We will feed this file to
-WrapUp to make your personalized build.
-
-**Note:** It is strongly advised to organize your code using modules, this way
-you can organize your codebase using `require()` calls, in which case you will
-direct WrapUp to build from your own modules / entry point module, instead of
-the following dummy module.
+in nodejs. You can build `elements` for browsers with any commonJS build tool,
+such as [WrapUp](https://github.com/mootools/wrapup) or [Browserify](https://github.com/substack/node-browserify).
 
 ```js
-// assign window.$
 var $ = require('elements')
-
-// extend elements with its modules
-require('elements/attributes')
-require('elements/events')
-require('elements/delegation')
-require('elements/insertion')
-require('elements/traversal')
 
 // elements utilities
 var ready = require('elements/domready')
@@ -51,27 +15,8 @@ var zen = require('elements/zen')
 // and finally use the modules
 ready(function(){
     var text = "When all else fails, read the manual"
-    var element = zen('div.class').text(text).insert(document.body)
+    var element = zen('div.className').text(text).insert(document.body)
 })
-```
-
-Now we're ready to build elements using WrapUp
-
-```
-wrup -r ./file.js -o elements.js
-```
-
-This will generate an elements.js in the root of your project.
-
-**Note:** you can skip creating this control module and use WrapUp command-line
-parameters instead. Refer to the WrapUp documentation for more information.
-
-## use the built elements.js
-
-An index.html in the root of your project will look like this:
-
-```html
-<script src="elements.js"></script>
 ```
 
 module: elements
@@ -80,6 +25,7 @@ module: elements
 ## exports
 
 elements.js exports a function which returns an elements instance.
+The main module includes every other module used by elements, but you can choose to `require('elements/base')` if you only want the barebones.
 
 Notes:
 
@@ -117,6 +63,8 @@ var element = $(document.getElementById('not-existing')) // → null
 
 ## selector engine integration
 
+When requiring the base module, you can integrate any selector engine:
+
 ```js
 var $ = require('elements')
 $.implement({
@@ -128,6 +76,169 @@ $.implement({
     }
 })
 ```
+
+The default selector engine is [slick](http://github.com/kamicane/slick).
+
+method: forEach
+---------------
+
+Calls a function for each element in the array.
+
+### syntax
+
+```js
+elements.forEach(fn[, bind])
+```
+
+### parameters
+
+1. fn - (*function*) Function to execute for each element. `fn` is called like
+`fn(element, index)` where `element` is the native element, and `index` is the
+index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### sample
+
+```js
+var elements = $(document.getElementsByTagName('a'))
+elements.forEach(function(element, index){
+    return $(element).text('element: ' + index)
+})
+```
+
+### See also
+
+- [MDN Array forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
+
+method: map
+-----------
+
+Creates a new array with the results of calling a provided function on every
+element in the elements collection. Returns the new mapped array.
+
+### syntax
+
+```js
+var mapped = elements.map(fn[, bind])
+```
+
+### parameters
+
+1. fn - (*function*) Function that produces an element of the new Array from an
+element of the current one. `fn` is called like `fn(element, index)` where
+`element` is the native element, and `index` is the index of the element in the
+elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### sample
+
+```js
+var elements = $(document.getElementsByTagName('a'))
+var result = elements.map(function(element, index){
+    return $(element).attribute('href')
+}) // array with all href values of each element
+```
+
+### See also
+
+- [MDN Array Map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
+
+method: filter
+--------------
+
+Creates a new array with all of the elements of the collection for which the
+provided filtering function returns true. Returns an array with only the
+filtered elements
+
+### syntax
+
+```js
+var filtered = elements.filter(fn[, bind])
+```
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the collection. `fn`
+is called like `fn(element, index)` where `element` is the native element, and
+`index` is the index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### sample
+
+```js
+var elements = $(document.getElementsByTagName('*'))
+var filtered = elements.filter(function(element, index){
+    return element.childNodes.length > 4
+}) // array with elements that have more than 4 direct children
+```
+
+### See also
+
+- [MDN Array Filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
+
+method: every
+-------------
+
+If every element in the collection satisfies the provided testing function,
+returns `true`. Otherwise, returns `false`.
+
+### syntax
+
+```js
+var allPassed = elements.every(fn[, bind])
+```
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the collection. `fn`
+is called like `fn(element, index)` where `element` is the native element, and
+`index` is the index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### sample
+
+```js
+var elements = $(document.getElementsByTagName('div'))
+var allEnoughChildren = elements.every(function(element, index){
+    return element.childNodes.length > 4
+}) // true if each div has more than 4 child elements
+```
+
+### See also
+
+- [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
+
+method: some
+------------
+
+If some element in the collection satisfies the provided testing function,
+returns `true`. Otherwise, returns `false`.
+
+### syntax
+
+```js
+var somePassed = elements.some(fn[, bind])
+```
+
+### parameters
+
+1. fn - (*function*) The function to test each element of the collection. `fn`
+is called like `fn(element, index)` where `element` is the native element, and
+`index` is the index of the element in the elements collection.
+2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
+
+### sample
+
+```js
+var elements = $(document.getElementsByTagName('div'))
+var someEnoughChildren = elements.some(function(element, index){
+    return element.childNodes.length > 4
+}) // true if some div has more than 4 child elements
+```
+
+### See also
+
+- [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
 
 module: zen
 ===========
@@ -178,7 +289,6 @@ same as
 ```js
 var $ = require('elements')
 require('elements/attributes')
-
 ```
 
 method: attribute
@@ -216,8 +326,8 @@ element.attribute("text", "Here's Johnny!")
 element.attribute("title", "The Shining")
 ```
 
-method: convenience methods
----------------------------
+convenience methods
+-------------------
 
 There are several convenience methods available to work with attributes. Used as
 a setter, the methods will return the `elements` instance, while used as a
@@ -890,181 +1000,10 @@ myNewElement.replaces(myOldElement)
 // myOldElement is gone, and myNewElement is in its place.
 ```
 
-list
-====
+module: traversal
+=================
 
-List provides elements for iterating over the collection of elements of the
-elements instance.
-
-```js
-var $ = require('elements/list')
-```
-
-method: forEach
----------------
-
-Calls a function for each element in the array.
-
-### syntax
-
-```js
-elements.forEach(fn[, bind])
-```
-
-### parameters
-
-1. fn - (*function*) Function to execute for each element. `fn` is called like
-`fn(element, index)` where `element` is the native element, and `index` is the
-index of the element in the elements collection.
-2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
-
-### sample
-
-```js
-var elements = $(document.getElementsByTagName('a'))
-elements.forEach(function(element, index){
-    return $(element).text('element: ' + index)
-})
-```
-
-### See also
-
-- [MDN Array forEach](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach)
-
-method: map
------------
-
-Creates a new array with the results of calling a provided function on every
-element in the elements collection. Returns the new mapped array.
-
-### syntax
-
-```js
-var mapped = elements.map(fn[, bind])
-```
-
-### parameters
-
-1. fn - (*function*) Function that produces an element of the new Array from an
-element of the current one. `fn` is called like `fn(element, index)` where
-`element` is the native element, and `index` is the index of the element in the
-elements collection.
-2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
-
-### sample
-
-```js
-var elements = $(document.getElementsByTagName('a'))
-var result = elements.map(function(element, index){
-    return $(element).attribute('href')
-}) // array with all href values of each element
-```
-
-### See also
-
-- [MDN Array Map](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map)
-
-method: filter
---------------
-
-Creates a new array with all of the elements of the collection for which the
-provided filtering function returns true. Returns an array with only the
-filtered elements
-
-### syntax
-
-```js
-var filtered = elements.filter(fn[, bind])
-```
-
-### parameters
-
-1. fn - (*function*) The function to test each element of the collection. `fn`
-is called like `fn(element, index)` where `element` is the native element, and
-`index` is the index of the element in the elements collection.
-2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
-
-### sample
-
-```js
-var elements = $(document.getElementsByTagName('*'))
-var filtered = elements.filter(function(element, index){
-    return element.childNodes.length > 4
-}) // array with elements that have more than 4 direct children
-```
-
-### See also
-
-- [MDN Array Filter](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter)
-
-method: every
--------------
-
-If every element in the collection satisfies the provided testing function,
-returns `true`. Otherwise, returns `false`.
-
-### syntax
-
-```js
-var allPassed = elements.every(fn[, bind])
-```
-
-### parameters
-
-1. fn - (*function*) The function to test each element of the collection. `fn`
-is called like `fn(element, index)` where `element` is the native element, and
-`index` is the index of the element in the elements collection.
-2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
-
-### sample
-
-```js
-var elements = $(document.getElementsByTagName('div'))
-var allEnoughChildren = elements.every(function(element, index){
-    return element.childNodes.length > 4
-}) // true if each div has more than 4 child elements
-```
-
-### See also
-
-- [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
-
-method: some
-------------
-
-If some element in the collection satisfies the provided testing function,
-returns `true`. Otherwise, returns `false`.
-
-### syntax
-
-```js
-var somePassed = elements.some(fn[, bind])
-```
-
-### parameters
-
-1. fn - (*function*) The function to test each element of the collection. `fn`
-is called like `fn(element, index)` where `element` is the native element, and
-`index` is the index of the element in the elements collection.
-2. bind - (*object*, optional) Object to use as `this` when executing `fn`.
-
-### sample
-
-```js
-var elements = $(document.getElementsByTagName('div'))
-var someEnoughChildren = elements.some(function(element, index){
-    return element.childNodes.length > 4
-}) // true if some div has more than 4 child elements
-```
-
-### See also
-
-- [MDN Array every](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/every)
-
-traversal
-=========
-
-Traversal adds multiple methods for finding other elements.
+Adds multiple methods for finding other elements.
 
 ### sample
 
@@ -1306,7 +1245,7 @@ strong.parent('div') // the div element
 method: parents
 ---------------
 
-Like [parent()](#method-parent), but selects all parent elements, that matches the
+Like [parent()](#method-parent), but selects all parent elements that match the
 expression, if any given.
 
 ### sample
