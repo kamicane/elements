@@ -36,7 +36,7 @@ ready(function() {
   }
 
   // delegate click, because delegation is best
-  document.delegate('div#someID', 'click', function() {
+  document.delegate('click', 'div#someID', function() {
     console.log('delegation is nice');
   });
 
