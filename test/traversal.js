@@ -113,6 +113,10 @@ describe('parent', function(){
         expect($('div.last').parent('#parent')).to.be($('#parent'));
         expect($('div.last').parent('#parent2')).to.be(null);
     })
+
+    it('should support selectors with spaces', function(){
+        expect($('#child1').parent('#parent3 div')).to.be($('#child1parent'));
+    })
 })
 
 describe('parents', function(){
