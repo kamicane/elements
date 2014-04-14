@@ -8,18 +8,10 @@ var slick = require("slick")
 
 var $ = require("./base")
 
-var walk = function(combinator, method){
-
-    return function(expression){
-        var parts = slick.parse(expression || "*")
-
-        expression = map(parts, function(part){
-            return combinator + " " + part
-        }).join(", ")
-
-        return this[method](expression)
-    }
-
+var gen = function(combinator, expression){
+    return map(slick.parse(expression || "*"), function(part){
+        return combinator + " " + part
+    }).join(", ")
 }
 
 $.implement({
@@ -52,23 +44,52 @@ $.implement({
         return slick.contains(this[0], node)
     },
 
-    nextSiblings: walk("~", "search"),
+    nextSiblings: function(expression){
+        return this.search(gen('~', expression))
+    },
 
-    nextSibling: walk("+", "find"),
+    nextSibling: function(expression){
+        return this.find(gen('+', expression))
+    },
 
-    previousSiblings: walk("!~", "search"),
+    previousSiblings: function(expression){
+        return this.search(gen('!~', expression))
+    },
 
-    previousSibling: walk("!+", "find"),
+    previousSibling: function(expression){
+        return this.find(gen('!+', expression))
+    },
 
-    children: walk(">", "search"),
+    children: function(expression){
+        return this.search(gen('>', expression))
+    },
 
-    firstChild: walk("^", "find"),
+    firstChild: function(expression){
+        return this.find(gen('^', expression))
+    },
 
-    lastChild: walk("!^", "find"),
+    lastChild: function(expression){
+        return this.find(gen('!^', expression))
+    },
 
-    parent: walk("!", "find"),
+    parent: function(expression){
+        var buffer = []
+        for (var i = 0, node; node = this[i]; i++) while ((node = node.parentNode) && (node !== document)){
+            if (!expression || slick.matches(node, expression)){
+                buffer.push(node)
+                break
+            }
+        }
+        return $(buffer)
+    },
 
-    parents: walk("!", "search")
+    parents: function(expression){
+        var buffer = []
+        for (var i = 0, node; node = this[i]; i++) while ((node = node.parentNode) && (node !== document)){
+            if (!expression || slick.matches(node, expression)) buffer.push(node)
+        }
+        return $(buffer)
+    }
 
 })
 
