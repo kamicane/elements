@@ -74,9 +74,10 @@ $.implement({
 
     parent: function(expression){
         var buffer = []
-        for (var i = 0, node; node = this[i]; i++) while ((node = node.parentNode) && (node !== document)){
+        loop: for (var i = 0, node; node = this[i]; i++) while ((node = node.parentNode) && (node !== document)){
             if (!expression || slick.matches(node, expression)){
                 buffer.push(node)
+                break loop
                 break
             }
         }

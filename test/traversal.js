@@ -117,6 +117,10 @@ describe('parent', function(){
     it('should support selectors with spaces', function(){
         expect($('#child1').parent('#parent3 div')).to.be($('#child1parent'));
     })
+
+    it('should support multiple contexts', function(){
+        expect($('.child').parent('div')).to.be($('#parent4'));
+    })
 })
 
 describe('parents', function(){
