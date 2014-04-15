@@ -14,22 +14,28 @@ var gen = function(combinator, expression){
     }).join(", ")
 }
 
+var push_ = Array.prototype.push
+
 $.implement({
 
     search: function(expression){
         if (this.length === 1) return $(slick.search(expression, this[0], new $))
 
         var buffer = []
-        for (var i = 0, node; node = this[i]; i++) buffer.push.apply(buffer, slick.search(expression, node))
-        return $(buffer).sort()
+        for (var i = 0, node; node = this[i]; i++) push_.apply(buffer, slick.search(expression, node))
+        buffer = $(buffer)
+        return buffer && buffer.sort()
     },
 
     find: function(expression){
         if (this.length === 1) return $(slick.find(expression, this[0]))
 
-        var buffer = []
-        for (var i = 0, node; node = this[i]; i++) buffer.push(slick.find(expression, node))
-        return $(buffer)
+        for (var i = 0, node; node = this[i]; i++) {
+            var found = slick.find(expression, node)
+            if (found) return $(found)
+        }
+
+        return null
     },
 
     sort: function(){
