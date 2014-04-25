@@ -18,7 +18,7 @@ var index = 0,
     key = "uid:" + counter
 
 var uniqueID = function(n){
-    if (n === global) return "global"
+    if (n === window) return "window"
     if (n === document) return "document"
     if (n === document.documentElement) return "html"
     return n[key] || (n[key] = (index++).toString(36))
@@ -44,7 +44,7 @@ var $ = prime({constructor: function $(n, context){
             return self.search(n)
         }
 
-        if (n.nodeType || n === global){
+        if (n.nodeType || n === window){
 
             self[self.length++] = n
 
