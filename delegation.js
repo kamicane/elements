@@ -52,7 +52,7 @@ $.implement({
 
             if (action){
                 self.off(event, action)
-                map.remove(handle)
+                map.remove(action)
 
                 // if there are no more handles in a given selector, delete it
                 if (!map.count()) delete events[selector]
