@@ -24,7 +24,7 @@ module.exports = function(expression, doc){
             if (part.classList) node.className = part.classList.join(" ")
 
             if (part.attributes) forEach(part.attributes, function(attribute){
-                node.setAttribute(attribute.name, attribute.value)
+                node.setAttribute(attribute.name, attribute.value || "")
             })
 
             if (part.pseudos) forEach(part.pseudos, function(pseudo){
