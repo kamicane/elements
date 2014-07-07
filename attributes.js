@@ -156,6 +156,15 @@ $.implement({
             })
             node.className = classNames.join(" ")
         })
+    },
+
+    toggleClass: function(className, force){
+        var add = force !== undefined ? force : !this.hasClass(className)
+        if (add)
+            this.addClass(className)
+        else
+            this.removeClass(className)
+        return !!add
     }
 
 })
