@@ -452,6 +452,48 @@ $(document.getElementById('myElement')).removeClass('newClass')
 <div id="myElement" class="testClass"></div>
 ```
 
+method: toggleClass
+-------------------
+
+Removes or adds a class from the element, depending on if it's currently set or not.
+Returns true or false, depending on if the className was set.
+
+Takes an optional second parameter to force the value on or off, useful to set a className based on a condition.
+
+### syntax
+
+```js
+myElement.toggleClass(className[, forceState])
+```
+
+### parameters
+
+1. className - (*string*) The class name to toggle.
+2. forceState - (*mixed*, optional) Parameter that, when present, enforces to add or remove className.
+
+### sample
+
+```html
+<div id="myElement" class="testClass oneMore"></div>
+```
+
+```js
+$(document.getElementById('myElement')).toggleClass('testClass')
+```
+
+```html
+<div id="myElement" class="oneMore"></div>
+```
+
+```js
+var mustHaveClass = true;
+$(document.getElementById('myElement')).toggleClass('otherClass', mustHaveClass)
+```
+
+```html
+<div id="myElement" class="oneMore otherClass"></div>
+```
+
 method: toString
 ----------------
 

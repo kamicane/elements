@@ -24,7 +24,7 @@ describe('attribute.js', function(){
             '<ul>',
             '<li class="first">1</li>',
             '<li title="title">2</li>',
-            '<li id="third">3</li>',
+            '<li id="third" class="baa boo bee">3</li>',
             '</ul>',
             '<input id="moo" name="library" type="text" value="mootools" />',
             '<a id="link" href="#library">library</a>',
@@ -210,7 +210,7 @@ describe('attribute.js', function(){
 
         })
 
-        describe('implements has/add/removeClass:', function(){
+        describe('implements has/add/remove/toggleClass:', function(){
 
             it('can tell if an element has a class', function(){
                 var lis = document.getElementById('container').getElementsByTagName('li')
@@ -234,6 +234,42 @@ describe('attribute.js', function(){
                 li.addClass('mootools')
                 expect(li.hasClass('mootools')).to.be.ok()
                 expect(li.hasClass('first')).to.be(false)
+            })
+
+            it('can toggle a class on an element', function(){
+                var lis = document.getElementById('container').getElementsByTagName('li')
+                var li = $(lis[2])
+                // Initial classList: baa boo bee
+
+                // off
+                var addedBaa = li.toggleClass('baa')
+                expect(li.hasClass('baa')).to.be(false)
+                expect(addedBaa).to.be(false)
+
+                // on / new
+                var addedZee = li.toggleClass('zee')
+                expect(li.hasClass('zee')).to.be(true)
+                expect(addedZee).to.be(true)
+
+                // force off, was on
+                var addedBoo = li.toggleClass('boo', false)
+                expect(li.hasClass('boo')).to.be(false)
+                expect(addedBoo).to.be(false)
+
+                // force off, was off
+                var addedGoo = li.toggleClass('goo', 0)
+                expect(li.hasClass('goo')).to.be(false)
+                expect(addedGoo).to.be(false)
+
+                // force on, was on, with truthy
+                var addedBee = li.toggleClass('bee', true)
+                expect(li.hasClass('bee')).to.be(true)
+                expect(addedBee).to.be(true)
+
+                // force on, was off, with falsey
+                var addedDee = li.toggleClass('dee', 1)
+                expect(li.hasClass('dee')).to.be(true)
+                expect(addedDee).to.be(true)
             })
 
         })
