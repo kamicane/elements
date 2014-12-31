@@ -9,7 +9,7 @@ var $ = require("./events")
 
 $.implement({
 
-    delegate: function(event, selector, handle){
+    delegate: function(event, selector, handle, useCapture){
 
         return this.forEach(function(node){
 
@@ -34,13 +34,13 @@ $.implement({
 
             map.set(handle, action)
 
-            self.on(event, action)
+            self.on(event, action, useCapture)
 
         })
 
     },
 
-    undelegate: function(event, selector, handle){
+    undelegate: function(event, selector, handle, useCapture){
 
         return this.forEach(function(node){
 
@@ -51,7 +51,7 @@ $.implement({
             var action = map.get(handle)
 
             if (action){
-                self.off(event, action)
+                self.off(event, action, useCapture)
                 map.remove(action)
 
                 // if there are no more handles in a given selector, delete it

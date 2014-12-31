@@ -703,7 +703,7 @@ instance.
 ### syntax
 
 ```js
-myElement.delegate(type, selector, fn)
+myElement.delegate(type, selector, fn[, useCapture])
 ```
 
 ### parameters
@@ -712,6 +712,7 @@ myElement.delegate(type, selector, fn)
 2. selector - (*string*) A CSS Selector the element the event is fired on should
 match (see [matches](#method-matches))
 3. fn - (*function*) The function to execute.
+4. useCapture - (*boolean*, optional) Whether to use initiate capture
 
 ### sample
 
@@ -740,7 +741,7 @@ Removes a delegation event listener from an element. Opposite operation of
 ### syntax
 
 ```js
-myElement.undelegate(type, selector, fn)
+myElement.undelegate(type, selector, fn[, useCapture])
 ```
 
 ### parameters
@@ -749,6 +750,7 @@ myElement.undelegate(type, selector, fn)
 2. selector - (*string*) A CSS Selector the element the event is fired on should
 match (see [matches](#method-matches)).
 3. fn   - (*function*) The function to remove.
+4. useCapture - (*boolean*, optional) If the event was registered as a capturing listener or not
 
 ### sample
 
